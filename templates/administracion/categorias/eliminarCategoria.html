@@ -1,0 +1,28 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Eliminar Categoria
+{% endblock %}
+
+{% block content %}
+
+<section class="section-borrar-categoria">
+    <div class="container-borrar-categoria">
+        <h2 class="texto-borrar-categoria">Categoria {{categoria.nombreCategoria}}</h2>
+        <p class="parrafo-borrar-categoria">¿Estas seguro de eliminar la categoria "{{categoria.nombreCategoria}}"?</p>
+        <div class="btns-borrar-categoria">
+            <span class="mensaje-error-eliminar-categoria">{{mensage}}</span>
+            <fieldset class="field-borrar-categoria">
+                <a href="{% url 'listarCategoria' %}">
+                    <button class="btn-volver-eliminar">No, Volver</button>
+                </a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Si, Eliminar" class="btn-eliminar-objeto">
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

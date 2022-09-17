@@ -1,0 +1,476 @@
+/* Estilos del formularios */
+
+/* FORMULARIO DE COMPRAR */
+
+.container-form-comprar{
+    margin-top: 100px;
+}
+
+.div-form-comprar{
+    width: 90%;
+    max-width: 400px;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #04b95f;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: 10px 10px 25px rgb(37, 37, 37);
+}
+
+.form-comprar{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titulo-comprar{
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.label-comprar{
+    margin-bottom: 5px;
+}
+
+.field-comprar{
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.select-comprar{
+    width: 80%;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #0d703e;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+.select-comprar:active{
+    background-color: #2e2e2e;
+}
+
+.titulo-radios{
+    font-size: 18px;
+    margin: 10px 5px 0 0;
+    margin-left: 10px;
+}
+
+.field-radio-comprar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container-input-radio-comprar{
+    display: block;
+    padding: 10px;
+    margin: 0 4px;
+}
+
+.label-form-comprar{
+    font-size: 17px;
+    color: white;
+}
+
+.texto-comprar{
+    margin: 10px 0;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* FORMULARIO DE REGISTRARSE Y INICIAR SESION */
+
+.body-sesion{
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(150deg, #6c3483, #58D63D);
+    background-repeat: no-repeat;
+}
+
+.container-form-registrarse{
+    display: flex;
+    min-height: 100vh;
+}
+
+.form-registrarse{
+    text-align: center;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    margin: auto;
+    width: 85%;
+    max-width: 400px;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.text-form-registrarse{
+    font-size: 40px;
+    margin-bottom: 25px;
+}
+
+.container-inputs-registrarse{
+    display: grid;
+    gap: 20px;
+}
+
+.div-inputs-registrarse{
+    position: relative;
+    color: gray;
+}
+
+.input-registrarse{
+    width: 100%;
+    background: none;
+    color: black;
+    font-size: 15px;
+    padding: 6px 3px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+    font-family: 'arial', sans-serif;
+}
+
+.label-registrarse{
+    color: gray;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transition: transform .5s, color .3s;
+}
+
+.input-registrarse:focus + .label-registrarse,
+.input-registrarse:not(:placeholder-shown) + .label-registrarse{
+    transform: translateY(-15px) scale(.7);
+    transform-origin: left top;
+    color: rgba(57, 57, 211, 0.911);
+}
+
+.p-condiciones{
+    font-size: 17px;
+}
+
+.a-condiciones, .a-tengo-cuenta{
+    color: #3560e0;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.a-tengo-cuenta:hover, .a-condiciones:hover{
+    color: #58D63D;
+}
+
+.a-registrarse, .a-recordar{
+    padding: 13px;
+    font-size: 16px;
+    color: rgb(41, 57, 199);
+    text-decoration: none;
+}
+
+.a-registrarse:hover, .a-recordar:hover{
+    color: rgb(137, 189, 59);
+}
+
+/* FORMULARIO SUBSCRIBIRSE */
+
+.section-form-subscribirse{
+    margin-top: 70px;
+}
+
+.container-form-suscribirse{
+    text-align: center;
+    display: block;
+    padding: 25px;
+    background-color: #04b95f;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    color: whitesmoke;
+    box-shadow: 10px 10px 20px grey;
+    border-radius: 10px;
+}
+
+.titulo-suscribirse{
+    font-size: 40px;
+}
+
+.field-suscribirse{
+    padding: 15px;
+}
+
+.label-form-subscribirse{
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.input-suscribirse{
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px;
+    background-color: whitesmoke;
+}
+
+/* FORMULARIO AGREGAR PRODUCTO */
+
+.section-form-agregar-producto,
+.section-modificar-producto,
+.section-form-agregar-categoria,
+.section-form-modificar-categoria,
+.section-form-agregar-oferta,
+.section-form-modificar-oferta{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.form-agregar-producto,
+.form-modificar-producto,
+.form-agregar-categoria,
+.form-modificar-categoria,
+.form-agregar-oferta,
+.form-modificar-oferta{
+    color: rgb(48, 48, 48);
+    display: flex;
+    flex-direction: column;
+    background-color: #05da6f;
+    width: 90%;
+    margin: auto;
+    max-width: 500px;
+    justify-content: center;
+    text-align: left;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px rgb(27, 27, 27);
+}
+
+.titulo-agregar-producto,
+.titulo-modificar-producto,
+.titulo-form-agregar-categoria,
+.titulo-form-modificar-categoria,
+.titulo-agregar-oferta,
+.titulo-modificar-oferta{
+    text-align: center;
+    padding: 10px;
+}
+
+.label-form-agregar-producto,
+.label-form-modificar-producto,
+.label-form-agregar-categoria,
+.label-form-modificar-categoria,
+.label-agregar-oferta,
+.label-modificar-oferta{
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.field-form-agregar-producto,
+.field-form-modificar-producto,
+.field-form-agregar-categoria,
+.field-form-modificar-categoria,
+.field-form-agregar-oferta,
+.field-form-modificar-oferta{
+    padding: 10px;
+}
+
+.input-form-agregar-producto,
+.input-form-modificar-producto,
+.input-form-agregar-categoria,
+.input-form-modificar-categoria,
+.input-form-agregar-oferta,
+.input-form-modificar-oferta,
+.textarea-form-modificar-categoria,
+.textarea-form-agregar-categoria{
+    padding: 5px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+.textarea-form-agregar-categoria,
+.textarea-form-modificar-categoria{
+    margin-bottom: 20px;
+}
+
+.btn-form-agregar-producto,
+.btn-modificar-producto,
+.btn-agregar-categoria,
+.btn-modificar-categoria,
+.btn-agregar-oferta,
+.btn-modificar-oferta{
+    padding: 10px;
+    width: 95%;
+    margin: auto;
+    font-size: 20px;
+    background-color: #1d54fc;
+    border: none;
+    color: whitesmoke;
+}
+
+.btn-form-agregar-producto:hover,
+.btn-modificar-producto:hover,
+.btn-agregar-categoria:hover,
+.btn-modificar-categoria:hover,
+.btn-agregar-oferta:hover,
+.btn-modificar-oferta:hover{
+    background-color: blue;
+    transition: 0.4s;
+}
+
+.btn-agregar-oferta{
+    margin-top: 20px;
+}
+
+.btn-modificar-oferta{
+    margin-top: 20px;
+}
+
+.select-form-agregar-producto,
+.select-form-modificar-producto,
+.select-form-agregar-oferta{
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+/* Estilos del formulario eliminar objeto */
+
+.section-borrar-categoria,
+.section-eliminar-oferta,
+.section-eliminar-producto{
+    margin-top: 60px;
+}
+
+.container-borrar-categoria,
+.container-eliminar-oferta,
+.container-eliminar-producto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: whitesmoke;
+    width: 90%;
+    max-width: 450px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.field-borrar-categoria,
+.field-eliminar-oferta,
+.field-eliminar-produto{
+    margin-top: 20px;
+    justify-content: center;
+    flex-grow: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input-form-comprar{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.label-form-comprar2{
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.select-form-comprar{
+    width: 100%;
+    padding: 3px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Estilo formulario modificar pedido */
+
+.section-modificar-pedido{
+    margin-top: 60px;
+}
+
+.form-modificar-pedido{
+    background-color: #26DC5A;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 10px 10px 25px #3D3D3D;
+}
+
+.parrafo-modificar-pedido{
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.field-modificar-producto{
+    display: block;
+}
+
+.select-modificar-pedido{
+    cursor: pointer;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: #ECECEC;
+    border: none;
+}
+
+.btn-form-modificar-pedido{
+    margin-top: 20px;
+    width: 90%;
+    margin: 25px 5px auto;
+    padding: 10px;
+    background-color: rgb(49, 69, 255);
+    color: #F5F5F5;
+    font-size: 4.5mm;
+    border: none;
+}
+
+/* Estilos del formulario de contacto */
+
+.form-contacto{
+    background-color: #05da6f;
+    width: 90%;
+    max-width: 600px;
+    margin: 60px auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form-contacto h2{
+    font-size: 40px;
+    padding: 20px;
+}
+
+.form-contacto form{
+    text-align: center;
+}
+
+.form-contacto form table{
+    margin: 20px auto;
+}
+
+.btn-enviar-form-contacto{
+    border: none;
+    padding: 6px 25px;
+    border-radius: 10px;
+    width: 80%;
+    background-color: #1d54fc;
+    color: #ECECEC;
+    font-size: 19px;
+    margin-bottom: 10px;
+}

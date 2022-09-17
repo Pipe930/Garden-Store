@@ -1,0 +1,45 @@
+{% extends 'sesion/iniciarSesion.html' %}
+
+{% block title %}
+Registrarse
+{% endblock %}
+
+{% block content %}
+
+<div class="container-form-registrarse">
+    <form action="" method="POST" class="form-registrarse">
+        <h1 class="text-form-registrarse">Registrate</h1>
+        {% csrf_token %}
+        <span class="mensaje-error-registrarse">{{ mensage }}</span>
+        <div class="container-inputs-registrarse">
+            <div class="div-inputs-registrarse">
+                <input type="text" name="nombreUsuario" id="nombreUsuario" required class="input-registrarse" placeholder=" ">
+                <label for="nombreUsuario" class="label-registrarse">Nombre</label>
+            </div>
+            <div class="div-inputs-registrarse">
+                <input type="text" name="apellidoUsuario" id="apellidoUsuario" required class="input-registrarse" placeholder=" ">
+                <label for="nombreUsuario" class="label-registrarse">Apellido</label>
+            </div>
+            <div class="div-inputs-registrarse">
+                <input type="text" name="usuario" id="usuario" required class="input-registrarse" placeholder=" ">
+                <label for="nombreUsuario" class="label-registrarse">Nombre de suario</label>
+            </div>
+            <div class="div-inputs-registrarse">
+                <input type="email" name="correo" id="correo" required class="input-registrarse" placeholder=" ">
+                <label for="nombreUsuario" class="label-registrarse">Correo</label>
+                <span class="mensaje-error-registrarse">{{mensage2}}</span>
+            </div>
+            <div class="div-inputs-registrarse">
+                <input type="password" name="contrasenia" id="contrasenia" required class="input-registrarse" placeholder=" ">
+                <label for="nombreUsuario" class="label-registrarse">Contraseña</label>
+            </div>
+            <div class="div-links">
+                <p class="p-condiciones">Estoy de acuerdo con <a href="#" class="a-condiciones">Terminos y Condiciones</a></p>
+                <a href="{% url 'iniciarSesion' %}" class="a-tengo-cuenta">Ya tengo una cuenta</a>
+            </div>
+            <input type="submit" value="Registrarse" class="btn-registrarse">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

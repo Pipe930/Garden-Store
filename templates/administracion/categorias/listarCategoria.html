@@ -1,0 +1,73 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Categorias
+{% endblock %}
+
+{% block content %}
+
+<section class="section-tabla-categorias">
+    <div class="container-tabla-categorias">
+        <h1 class="titulo-tabla-categorias">Categorias</h1>
+        <div class="container-btns-tabla-categorias">
+            <a href="{% url 'administracion' %}" class="a-btn-volver">
+                <button class="btn-volver">
+                    Volver
+                </button>
+            </a>
+            <a href="{% url 'agregarCategoria' %}">
+                <button class="btn-agregar-producto-admin">
+                    Agregar Categoria
+                </button>
+            </a>
+        </div>
+        <table class="tabla-categorias">
+            <thead class="thead-tabla-categorias">
+                <tr class="tr-tabla-categorias">
+                    <th class="th-tabla-categorias">Nombre Categoria</th>
+                    <th class="th-tabla-categorias">Detalle Categoria</th>
+                    <th class="th-tabla-categorias">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="tbody-tabla-categorias">
+                {% if categorias %}
+                    {% for c in categorias %}
+                        <tr class="tr-tabla-categorias">
+                            <td class="td-tabla-categorias">
+                                {{ c.nombreCategoria }}
+                            </td>
+                            <td class="td-tabla-categorias">
+                                {{ c.detalleCategoria }}
+                            </td>
+                            <td class="td-tabla-categorias">
+                                <a href="{% url 'eliminarCategoria' c.id %}" class="a-btn-eliminar">
+                                    <button class="btn-eliminar">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <a href="{% url 'modificarCategoria' c.id %}">
+                                    <button class="btn-modificar">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus-fill" viewBox="0 0 16 16">
+                                            <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm4.5 6V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5a.5.5 0 0 1 1 0Z"/>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="tr-tabla-categorias">
+                        <td class="td-tabla-categorias" colspan="3">
+                            <h3>No hay categorias registradas</h3>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

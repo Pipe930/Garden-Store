@@ -1,0 +1,241 @@
+/* ESTILOS DE TABLAS */
+
+/* Estilos de la tabla del carrito */
+
+.titulo-carrito{
+    margin-top: 60px;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.container-carrito{
+    width: 90%;
+    margin: auto;
+    max-width: 1100px;
+    text-align: center;
+}
+
+.tabla-carrito-compras{
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.th-carrito-compras, .td-carrito-compra{
+    padding: 15px;
+}
+
+.th-carrito-compras{
+    font-size: 21px;
+}
+
+.td-carrito-compra{
+    font-size: 18px;
+}
+
+.thead-carrito-compras{
+    background-color: #246355;
+    color: white;
+    border-bottom: solid 5px #0F362D;
+}
+
+.tr-carrito-compra:nth-child(even){
+    background-color: #ddd;
+}
+
+/* Estilo de la tabla historial de compras */
+
+.div-tabla-historia-compras{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.titulo-historial-compras{
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-size: 45px;
+}
+
+.tabla-historial-compras{
+    background: white;
+    border-radius: 3px;
+    border-collapse: collapse;
+    height: 200px;
+    margin: auto;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+}
+
+.th-historial-compras{
+    color: #D5DDE5;
+    background-color: #1b1e24;
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size: 22px;
+    font-weight: 100;
+    padding: 20px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+.th-historial-compras:first-child{
+    border-top-left-radius: 5px;
+}
+
+.th-historial-compras:last-child{
+    border-top-right-radius: 5px;
+    border-right: none;
+}
+
+.tr-historial-compras{
+    border-top: 1px solid #C1c3d1;
+    border-bottom: 1px solid #C1c3d1;
+    color: #666b85;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.tr-historial-compras:first-child{
+    border-top: none;
+}
+
+.tr-historial-compras:last-child{
+    border-bottom: none;
+}
+
+.tr-historial-compras:nth-child(odd) .td-historial-compras{
+    background: #ebebeb;
+}
+
+.td-historial-compras{
+    font-size: 20px;
+    padding: 15px;
+    text-align: left;
+}
+
+/* Estilo tabla listar productos */
+
+.container-tabla-categorias,
+.container-tabla-ofertas,
+.section-tabla-usuarios,
+.section-tabla-pedidos{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+}
+
+.titulo-tabla-categorias,
+.titulo-tabla-ofertas,
+.titulo-tabla-usuarios,
+.titulo-tabla-pedidos{
+    text-align: center;
+    font-size: 45px;
+    margin-top: 60px;
+}
+
+.tabla-productos, 
+.tabla-ofertas,
+.tabla-categorias,
+.tabla-usuarios,
+.tabla-pedidos{
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width: 400px;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 10px 10px 25px rgb(32, 32, 32);
+}
+
+.thead-tabla-productos,
+.thead-tabla-ofertas,
+.thead-tabla-categorias,
+.thead-tabla-usuarios,
+.thead-tabla-pedidos{
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.th-tabla-productos, 
+.td-tabla-productos,
+.th-tabla-ofertas,
+.td-tabla-ofertas,
+.th-tabla-categorias,
+.td-tabla-categorias,
+.th-tabla-usuarios,
+.td-tabla-usuarios,
+.th-tabla-pedidos,
+.td-tabla-pedidos{
+    padding: 14px 16px;
+    font-weight: bold;
+}
+
+.tbody-tabla-productos .tr-tabla-productos,
+.tbody-tabla-ofertas .tr-tabla-ofertas,
+.tbody-tabla-categorias .tr-tabla-categorias,
+.tbody-tabla-usuarios .tr-tabla-usuarios,
+.tbody-tabla-pedidos .tr-tabla-pedidos{
+    background-color: #ffffff;
+}
+
+.tbody-tabla-productos .tr-tabla-productos:nth-of-type(even),
+.tbody-tabla-ofertas .tr-tabla-ofertas:nth-of-type(even),
+.tbody-tabla-categorias .tr-tabla-categorias:nth-of-type(even),
+.tbody-tabla-usuarios .tr-tabla-usuarios:nth-of-type(even),
+.tbody-tabla-pedidos .tr-tabla-pedidos:nth-of-type(even){
+    background-color: #dddddd;
+}
+
+.tbody-tabla-productos .tr-tabla-productos:last-of-type,
+.tbody-tabla-ofertas .tr-tabla-ofertas:last-of-type,
+.tbody-tabla-categorias .tr-tabla-categorias:last-of-type,
+.tbody-tabla-usuarios .tr-tabla-usuarios:last-of-type,
+.tbody-tabla-pedidos .tr-tabla-pedidos:last-of-type{
+    border-bottom: 3px solid #009879;
+}
+
+.a-btn-eliminar{
+    text-decoration: none;
+}
+
+/* Estilos de la tabla productos */
+
+.container-tabla-productos{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    justify-content: center;
+}
+
+.titulo-tabla-productos{
+    font-size: 45px;
+    text-align: center;
+}
+
+.section-tabla-productos{
+    margin-top: 60px;
+}
+
+.icon-tabla-productos-check{
+    color: green;
+}
+
+.icon-tabla-productos{
+    color: red;
+}

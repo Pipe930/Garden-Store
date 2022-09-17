@@ -1,0 +1,31 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %} 
+Carrito | Garden Store
+{% endblock %}
+
+{% block content %}
+<div class="container-carrito">
+    <h2 class="titulo-carrito">Carrito de Compras</h2>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <div class="mensaje-success">{{message}}</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="div-tabla-carrito">
+        {% include 'carrito/widget.html' %}
+    </div>
+    <div class="div-limpiar-carrito">
+        {% if request.session.carrito.items %}
+            <div class="div-btn-comprar">
+                <a href="{% url 'comprar' importar_total_carrito %}">
+                    <button class="btn-comprar">Comprar</button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

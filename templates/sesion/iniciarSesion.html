@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/botones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'boostrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mensajesError.css' %}">
+    <title>
+        {% block title %}
+        Iniciar Sesion
+        {% endblock %}
+    </title>
+</head>
+<body class="body-sesion">
+    <!-- Iniciar Sesion -->
+    <main class="main-sesion">
+            <!-- Contenido Cambiante -->
+        {% block content %}
+            <div class="container-form-registrarse">
+                <!-- Titulo Formulario -->
+                <form action="" method="POST" class="form-registrarse">
+                    <h1 class="text-form-registrarse">Iniciar Sesion</h1>
+                    {% csrf_token %}
+                    <div class="container-mensaje-error">
+                        <span class="mensaje-iniciar-sesion">{{ mensage }}</span>
+                    </div>
+                    <div class="container-inputs-registrarse">
+                        <div class="div-inputs-registrarse">
+                            <input type="text" name="usuario" id="usuario" required class="input-registrarse" placeholder=" ">
+                            <label for="usuario" class="label-registrarse">Nombre de Usuario</label>
+                        </div>
+                        <div class="div-inputs-registrarse">
+                            <input type="password" name="contrasenia" id="contrasenia" class="input-registrarse" placeholder=" ">
+                            <label for="contrasenia" class="label-registrarse">Contraseña</label>
+                        </div>
+                        <div class="container-links-sesion">
+                            <a href="#" class="a-recordar">Olvide mi Contraseña</a>
+                            <a href="{% url 'registrarse' %}" class="a-registrarse">Quiero Registrarme</a>
+                        </div>
+                        <button type="submit" class="btn-registrarse">Iniciar</button>
+                    </div>
+                </form>
+            </div>
+        {% endblock %}
+    </main>
+    <script src="{% static 'js/codigoJava.js' %}"></script>
+    <script src="{% static 'boostrap/js/bootstrap.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% block js %}
+    {% endblock %}
+    {% load sweetify %}
+    {% sweetify %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %} 
+Mi Perfil | Garden Store
+{% endblock %}
+
+{% block content %}
+
+<section class="section-form-editar-perfil">
+    <h2 class="titulo-editar-perfil">Editar Perfil</h2>
+    <div class="container-form-editar-perfil">
+        <form action="" class="form-editar-perfil" method="POST">
+            {% csrf_token %}
+            <div class="container-inputs-editar-perfil">
+                <fieldset class="field-editar-perfil">
+                    <label for="edad" class="label-editar-perfil">Edad</label>
+                    <input type="number" name="edad" id="edad" class="input-editar-perfil" value="{{ perfil.edad }}">
+                    <span>{{mensage}}</span>
+                </fieldset>
+                <fieldset class="field-editar-perfil">
+                    <label for="telefono" class="label-editar-perfil">Telefono</label>
+                    <input type="number" name="telefono" id="telefono" class="input-editar-perfil" value="{{perfil.telefono}}">
+                    <span>{{mensage2}}</span>
+                </fieldset>
+                <fieldsetc class="field-editar-perfil">
+                    <label for="genero" class="label-editar-perfil">Genero</label>
+                    <select name="genero" id="genero" class="select-editar-genero">
+                        <option selected value="Mujer">Mujer</option>
+                        <option selected value="Hombre">Hombre</option>
+                        <option selected value="Otro">Otro</option>
+                    </select>
+                </fieldset>
+            </div>
+            <input type="submit" value="Editar">
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Ya estas subscrito | Garden Store
+{% endblock title %}
+
+{% block content %}
+<section class="section-subscripcion-activa">
+    <div class="container-subscripcion-activa">
+        <h3 class="titulo-subcripcion-activa">Ya eres un usuario subscrito a mi pagina web : )</h3>
+        <div class="div-subcripcion-activa">
+            <p class="parrafo-subscripcion-activa">Si quieres desubscribirte de mi pagina web presiona el boton DESUBSCRIMIRME</p>
+            <a href="{% url 'desuscribirse' user.id %}">
+                <button class="btn-desuscribirme">Desubscribirme</button>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'sesion/iniciarSesion.html' %}
+
+{% block title %}
+Cerrar Sesion
+{% endblock %}
+
+{% block content %}
+
+<section class="section-container-cerrar-sesion">
+    <div class="div-titulo-cerrar-sesion">
+        <h2 class="titulo-cerrar-sesion">Sesion Terminada</h2>
+        <div class="parrafo-cerrar-sesion">
+            <p class="parrafo-cerrar-sesion">Gracias por registrarte en nuestra pagina, vuelve pronto</p>
+            <a href="{% url 'iniciarSesion' %}">
+                <button class="btn-volver-inicio">Volver Inicio</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

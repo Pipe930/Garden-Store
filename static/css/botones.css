@@ -1,0 +1,414 @@
+/* Estilos de botones */
+
+/* BOTON VER PRODUCTO */
+
+.articulo .contenido-articulo .a-btn-ver-producto{
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: green;
+    border: 1px solid green;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+}
+
+.articulo .contenido-articulo .a-btn-ver-producto:hover{
+    background: green;
+    color: white;
+}
+
+/* BOTON NOSOTROS */
+
+.btn-nosotros{
+    margin-top: 20px;
+    border: none;
+    background-color: rgba(83, 83, 247, 0.822);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: rgb(255, 241, 241);
+    box-shadow: 4px 5px 5px black;
+}
+
+.btn-nosotros:hover{
+    background-color: blue;
+}
+
+/* BOTON CERRAR SESION */
+
+.btn-cerrarSesion{
+    border: none;
+    background-color: rgb(236, 111, 111);
+    padding: 5px;
+    border-radius: 4px;
+    color: aquamarine;
+}
+
+.btn-cerrarSesion:hover{
+    background-color: rgb(233, 43, 43);
+    transition: 0.5s;
+}
+
+/* BOTON VER PERFIL */
+
+.btn-perfil{
+    border: none;
+    background-color: rgb(121, 240, 110);
+    padding: 5px 8px;
+    color: #666666;
+    border-radius: 6px;
+}
+
+.btn-perfil:hover{
+    background-color: rgb(30, 230, 30);
+    transition: 0.4s;
+}
+
+/* BOTON REGISTRARSE */
+
+.btn-registrarse{
+    background: #3866f2;
+    color: white;
+    font-family: 'arial', sans-serif;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+}
+
+.btn-registrarse:hover{
+    background: greenyellow;
+    color: black;
+    transition: 0.4s;
+}
+
+/* BOTON EDITAR PERFIL */
+
+.btn-editar-perfil{
+    margin-top: 10px;
+    padding: 5px 30px;
+    font-size: 19px;
+    border: none;
+    background-color: rgb(99, 189, 231);
+    box-shadow: 5px 5px 20px rgb(78, 78, 78);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.btn-editar-perfil:hover{
+    background-color: #3560e0;
+    color: white;
+    transition: 0.4s;
+}
+
+/* BOTON COMPRAR */
+
+.btn-comprar{
+    margin-top: 35px;
+    padding: 7px 27px;
+    font-size: 20px;
+    background-color: #5449e9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-comprar:hover{
+    background-color: blue;
+    transition: 0.4s;
+}
+
+/* BOTON LIMPIAR CARRITO */
+
+.btn-limpiar-carrito{
+    background-color: rgb(253, 98, 98);
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding: 5px 15px;  
+}
+
+.btn-limpiar-carrito:hover{
+    background-color: red;
+    transition: 0.4s;
+}
+
+/* BOTON AGREGAR O QUITAR PRODUCTO EN EL CARRITO */
+
+.a-btn-agregar-producto{
+    text-decoration: none;
+}
+
+.btn-agregar-producto{
+    font-size: 18px;
+    padding: 1px 10px;
+    background-color: #58D63D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.btn-agregar-producto:active{
+    background-color: green;
+}
+
+/* BOTON AGREGAR AL CARRITO */
+
+.btn-agregar-carrito{
+    border: none;
+    font-size: 19px;
+    background-color: #71e058;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.btn-agregar-carrito:hover{
+    background-color: green;
+    color: white;
+    transition: 0.4s;
+}
+
+/* BOTON VOLVER DE LA PLANTILLA CARRITO */
+
+.div-btns-carrito .btn-volver{
+    font-size: 19px;
+    border: none;
+    background-color: orange;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.div-btns-carrito .btn-volver:hover{
+    background-color: orangered;
+    color: white;
+    transition: 0.4s;
+}
+
+/* BOTON COMPRAR CARRITO */
+
+.form-btn-comprar{
+    padding: 10px;
+    font-size: 19px;
+    border: none;
+    background-color: #317FFF;
+    color: white;
+}
+
+.form-btn-comprar:hover{
+    background-color: #58D63D;
+    transition: 0.4s;
+}
+
+/* BOTON DESUBSCRIBIRME */
+
+.btn-desuscribirme{
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(226, 68, 68);
+    padding: 10px 20px;
+    color: white;
+    font-size: 19px;
+}
+
+.btn-desuscribirme:hover{
+    background-color: rgb(238, 25, 25);
+    transition: 0.4s;
+}
+
+/* BOTON SUBSCRIBIRSE */
+
+.btn-suscribirse{
+    margin-top: 20px;
+    font-size: 20px;
+    padding: 10px 40px;
+    border: none;
+    background-color: #04b95f;
+    color: white;
+}
+
+.btn-suscribirse:hover{
+    background-color: #0d703e;
+    transition: 0.4s;
+}
+
+/* BOTON SUBSCRIBIRSE FORMULARIO */
+
+.btn-form-subscribirse{
+    margin-top: 10px;
+    padding: 8px 40px;
+    background-color: rgb(247, 168, 23);
+    color: whitesmoke;
+    border: none;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.btn-form-subscribirse:hover{
+    background-color: rgb(218, 146, 12);
+    transition: 0.4s;
+}
+
+/* BOTON VOLVER INICIO */
+
+.btn-volver-inicio{
+    padding: 6px 20px;
+    font-size: 17px;
+    border: none;
+    background-color: #04b95f;
+    margin-top: 8px;
+    border-radius: 10px;
+    color: whitesmoke;
+}
+
+.btn-volver-inicio:hover{
+    background-color: #109452;
+    transition: 0.4s;
+}
+
+/* BOTON ADMINISTRACION */
+
+.btn-administracion{
+    padding: 6px 6px;
+    border: none;
+    background-color: #1f75ff;
+    color: aquamarine;
+    border-radius: 5px;
+}
+
+.btn-administracion:hover{
+    background-color: blue;
+    transition: 0.4s;
+}
+
+/* BOTON VOLER SITIO */
+
+.btn-volver-sitio{
+    background-color: rgb(255, 201, 101);
+    padding: 5px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    color: rgb(51, 51, 51);
+}
+
+.btn-volver-sitio:hover{
+    background-color: orange;
+    transition: 0.4s;
+}
+
+/* BOTON AGREGAR UN NUEVO OBJETO */
+
+.btn-agregar-producto-admin{
+    padding: 8px 15px;
+    font-size: 18px;
+    margin-left: 30px;
+    border: none;
+    background-color: #26bd53;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-agregar-producto-admin:hover{
+    background-color: #1c8b3d;
+    transition: 0.4s;
+}
+
+/* BOTON VOLVER ADMINISTRACION */
+
+.a-btn-volver{
+    text-decoration: none;
+}
+
+.btn-volver{
+    border: none;
+    background-color: rgb(255, 184, 51);
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 18px;
+}
+
+.btn-volver:hover{
+    background-color: rgb(255, 252, 51);
+    transition: 0.4s;
+}
+
+/* BOTON ADMINISTRACION */
+
+.btns-administracion{
+    width: 90%;
+    padding: 10px;
+    margin: 15px;
+    background-color: #317FFF;
+    border: none;
+    color: whitesmoke;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.btns-administracion:hover{
+    background-color: #2a66c7;
+    transition: 0.4s;
+}
+
+/* BOTON ELIMINAR OBJETO ADMINISTRACION */
+
+.a-btn-eliminar{
+    text-decoration: none;
+}
+
+.btn-eliminar{
+    padding: 5px 10px;
+    border: none;
+    background-color: rgb(255, 44, 44);
+    color: whitesmoke;
+    border-radius: 8px;
+}
+
+.btn-modificar,
+.btn-modificar-pedido{
+    padding: 5px 10px;
+    border: none;
+    background-color: rgb(44, 93, 255);
+    color: whitesmoke;
+    border-radius: 8px;
+}
+
+/* BOTONES DE PLANTILLA ELIMINAR OBJETO */
+
+.btn-volver-eliminar{
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-right: 20px;
+    background-color: rgb(253, 63, 63);
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+}
+
+.btn-volver-eliminar:hover{
+    background-color: rgb(207, 53, 53);
+    transition: 0.4s;
+}
+
+.btn-eliminar-objeto,
+.btn-eliminar-oferta,
+.btn-eliminar-producto{
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: rgb(69, 253, 63);
+    border: none;
+    border-radius: 10px;
+    color: black;
+}
+
+.btn-eliminar-objeto:hover,
+.btn-eliminar-oferta:hover,
+.btn-eliminar-producto:hover{
+    background-color: rgb(55, 199, 50);
+    color: whitesmoke;
+    transition: 0.4s;
+}

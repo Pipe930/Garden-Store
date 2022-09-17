@@ -1,0 +1,31 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Agregar Oferta
+{% endblock %}
+
+{% block content %}
+
+<section class="section-form-agregar-categoria">
+    <form action="" method="POST" class="form-agregar-oferta">
+        <h1 class="titulo-agregar-oferta">Nueva Oferta</h1>
+        {% csrf_token %}
+        <fieldset class="field-form-agregar-oferta">
+            <label for="nombreOferta" class="label-agregar-oferta">Nombre Oferta</label>
+            <input type="text" required name="nombreOferta" id="nombreOferta" class="input-form-agregar-oferta">
+            <span class="mensaje-error-form-agregar-oferta">{{mensage}}</span>
+        </fieldset>
+        <fieldset class="field-form-agregar-oferta">
+            <label for="fechaTermino" class="label-agregar-oferta">Fecha Termino</label>
+            <input type="date" required name="fechaTermino" id="fechaTermino" class="input-form-agregar-oferta">
+        </fieldset>
+        <fieldset class="field-form-agregar-oferta">
+            <label for="descuento" class="label-agregar-oferta">Descuento</label>
+            <input type="number" required name="descuento" id="descuento" class="input-form-agregar-oferta">
+            <span class="mensaje-error-form-agregar-oferta">{{mensage2}}</span>
+        </fieldset>
+        <input type="submit" value="Agregar Oferta" class="btn-agregar-oferta">
+    </form>
+</section>
+
+{% endblock %}

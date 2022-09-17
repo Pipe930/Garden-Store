@@ -1,0 +1,26 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Agregar Categoria
+{% endblock %}
+
+{% block content %}
+
+<section class="section-form-agregar-categoria">
+    <form action="" method="POST" class="form-agregar-categoria">
+        <h1 class="titulo-form-agregar-categoria">Agregar Categoria</h1>
+        {% csrf_token %}
+        <fieldset class="field-form-agregar-categoria">
+            <label for="nombreCategoria" class="label-form-agregar-categoria">Nombre Categoria</label>
+            <input type="text" required name="nombreCategoria" id="nombreCategoria" class="input-form-agregar-categoria">
+        </fieldset>
+        <fieldset class="field-form-agregar-categoria">
+            <label for="detalleCategoria" class="label-form-agregar-categoria">Detalle Categoria</label>
+            <textarea name="detalleCategoria" required id="detalleCategoria" cols="30" rows="3" class="textarea-form-agregar-categoria"></textarea>
+        </fieldset>
+        <span class="mensaje-alerta-form-agregar-categoria">{{mensage}}</span>
+        <input type="submit" value="Agregar Categoria" class="btn-agregar-categoria">
+    </form>
+</section>
+
+{% endblock %}

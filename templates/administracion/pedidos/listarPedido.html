@@ -1,0 +1,61 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Pedidos
+{% endblock %}
+
+{% block content %}
+
+<section class="section-tabla-pedidos">
+    <h1 class="titulo-tabla-pedidos">Pedidos</h1>
+    <div class="div-container btns-tabla-pedidos">
+        <a href="{% url 'administracion' %}" class="a-btn-volver">
+            <button class="btn-volver">
+                Volver
+            </button>
+        </a>
+    </div>
+    <table class="tabla-pedidos">
+        <thead class="thead-tabla-pedidos">
+            <tr class="tr-tabla-pedidos">
+                <th class="th-tabla-pedidos">Usuario</th>
+                <th class="th-tabla-pedidos">Fecha Pedido</th>
+                <th class="th-tabla-pedidos">Tipo de Retiro</th>
+                <th class="th-tabla-pedidos">Direccion</th>
+                <th class="th-tabla-pedidos">Estado Pedido</th>
+                <th class="th-tabla-pedidos">Modificar</th>
+            </tr>
+        </thead>
+        <tbody class="tbody-tabla-pedidos">
+            {% if pedidos %}
+                {% for p in pedidos %}
+                    <tr class="tr-tabla-pedidos">
+                        <td class="td-tabla-pedidos">{{ p.idUsuario.username }}</td>
+                        <td class="td-tabla-pedidos">{{ p.creado }}</td>
+                        <td class="td-tabla-pedidos">{{ p.retiro }}</td>
+                        <td class="td-tabla-pedidos">{{ p.direccion }}</td>
+                        <td class="td-tabla-pedidos">{{ p.estado }}</td>
+                        <td class="td-tabla-pedidos">
+                            <a href="{% url 'modificarPedido' p.id %}">
+                                <button class="btn-modificar-pedido">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus-fill" viewBox="0 0 16 16">
+                                        <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+                                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm4.5 6V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5a.5.5 0 0 1 1 0Z"/>
+                                    </svg>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr class="tr-tabla-pedidos">
+                    <th class="th-tabla-pedidos" colspan="7">
+                        <h3 class="mensaje-tabla-pedidos">No hay pedidos registrados</h3>
+                    </th>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

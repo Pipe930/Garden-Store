@@ -1,0 +1,34 @@
+/* Estilos de los mensajes de avisos */
+
+/* MENSAJE ERROR DEL FORMULARIO INICIAR SESION */
+
+.container-mensaje-error{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mensaje-iniciar-sesion{
+    color: red;
+}
+
+.mensaje-error-registrarse{
+    color: red;
+    font-size: 15px;
+}
+
+/* MENSAJE DE ERROR DEL FORMULARIO DE COMPRAR */
+
+.mensaje-alerta-comprar{
+    font-size: 18px;
+    color: rgb(211, 36, 36);
+}
+
+/* MENSAJE DE ERROR DEL FORMULARIO MODIFICAR OBJETO */
+
+.mensaje-error-form-modificar-producto{
+    color: #FB3333;
+}
+
+.mensaje-success{
+    font-size: 16px;
+}

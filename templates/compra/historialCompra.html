@@ -1,0 +1,60 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Historial de Compras | Garden Store
+{% endblock %}
+
+{% block content %}
+
+<section class="container-tabla-historial-compras">
+    <div class="div-tabla-historia-compras">
+        <h1 class="titulo-historial-compras">Historial de Compras</h1>
+        <span>{{mensage}}</span>
+        <table class="tabla-historial-compras">
+            <thead class="thead-historial-compras">
+                <tr class="tr-historial-compras">
+                    <th class="th-historial-compras">
+                        Producto
+                    </th>
+                    <th class="th-historial-compras">
+                        Cantidad
+                    </th>
+                    <th class="th-historial-compras">
+                        Fecha Boleta
+                    </th>
+                    <th class="th-historial-compras">
+                        Estado
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody-historial-compras">
+                {% if boletas %}
+                    {% for b in boletas %}
+                        <tr class="tr-historial-compras">
+                            <td class="td-historial-compras">
+                                {{b.nombreProducto}}
+                            </td>
+                            <td class="td-historial-compras">
+                                {{b.cantidad}}
+                            </td>
+                            <td class="td-historial-compras">
+                                {{b.fechaBoleta}}
+                            </td>
+                            <td class="td-historial-compras">
+                                {{b.idPedido.estado}}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="tr-historial-compras">
+                        <td class="td-historial-compras" colspan="4">
+                            No tienes compras registradas :(
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Usuarios
+{% endblock %}
+
+{% block content %}
+<section class="section-tabla-usuarios">
+    <h1 class="titulo-tabla-usuarios">Usuarios</h1>
+    <div class="div-container btns-tabla-usuarios">
+        <a href="{% url 'administracion' %}" class="a-btn-volver">
+            <button class="btn-volver">
+                Volver
+            </button>
+        </a>
+    </div>
+    <table class="tabla-usuarios">
+        <thead class="thead-tabla-usuarios">
+            <tr class="tr-tabla-usuarios">
+                <th class="th-tabla-usuarios">Nombre Usuario</th>
+                <th class="th-tabla-usuarios">Nombre</th>
+                <th class="th-tabla-usuarios">Apellido</th>
+                <th class="th-tabla-usuarios">Correo</th>
+                <th class="th-tabla-usuarios">Creado</th>
+                <th class="th-tabla-usuarios">Si es Staff</th>
+            </tr>
+        </thead>
+        <tbody class="tbody-tabla-usuarios">
+            {% if usuarios %}
+                {% for u in usuarios %}
+                    <tr class="tr-tabla-usuarios">
+                        <td class="td-tabla-usuarios">{{ u.username }}</td>
+                        <td class="td-tabla-usuarios">{{ u.first_name }}</td>
+                        <td class="td-tabla-usuarios">{{ u.last_name }}</td>
+                        <td class="td-tabla-usuarios">{{ u.email }}</td>
+                        <td class="td-tabla-usuarios">{{ u.date_joined }}</td>
+                        <td class="td-tabla-usuarios">
+                            {% if u.is_staff == True %}
+                                <i class="icon-tabla-productos-check">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                    </svg>
+                                </i>
+                            {% else %}
+                                <i class="icon-tabla-productos">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                    </svg>
+                                </i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr class="tr-tabla-usuarios">
+                    <th class="th-tabla-usuarios">
+                        <h1 class="mensaje-tabla-usuarios">No hay usuarios registrados</h1>
+                    </th>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

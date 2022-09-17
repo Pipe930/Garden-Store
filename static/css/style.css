@@ -1,0 +1,500 @@
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos de la tienda */
+
+.container-articulos{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+}
+
+.articulo{
+    width: 450px;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    transition: all 0.4s ease;
+}
+
+.articulo:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.articulo .imagen-articulo{
+    width: 100%;
+    height: 250px;
+}
+
+.articulo .contenido-articulo{
+    padding: 15px;
+    text-align: center;
+}
+
+.articulo .contenido-articulo .lista-articulo{
+    list-style: none;
+}
+
+/* Estilo de las redes sociales */
+
+.redes-sociales{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.footer-redes-sociales{
+    background-color: rgb(88, 221, 95);
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+}
+
+/* Estilo de la pagina principal */
+
+.body-principal{
+    background-color: #aeefc2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='autumn' fill='%234dd141' fill-opacity='0.6'%3E%3Cpath d='M10 0l30 15 2 1V2.18A10 10 0 0 0 41.76 0H39.7a8 8 0 0 1 .3 2.18v10.58L14.47 0H10zm31.76 24a10 10 0 0 0-5.29-6.76L4 1 2 0v13.82a10 10 0 0 0 5.53 8.94L10 24h4.47l-6.05-3.02A8 8 0 0 1 4 13.82V3.24l31.58 15.78A8 8 0 0 1 39.7 24h2.06zM78 24l2.47-1.24A10 10 0 0 0 86 13.82V0l-2 1-32.47 16.24A10 10 0 0 0 46.24 24h2.06a8 8 0 0 1 4.12-4.98L84 3.24v10.58a8 8 0 0 1-4.42 7.16L73.53 24H78zm0-24L48 15l-2 1V2.18A10 10 0 0 1 46.24 0h2.06a8 8 0 0 0-.3 2.18v10.58L73.53 0H78z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.div-container-principal{
+    height: 600px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.205);
+    background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1304/green_tree-Plant_Photography_widescreen_wallpapers_1366x768.jpg);
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: darken;
+    box-shadow: 0px 20px 20px rgb(53, 53, 53);
+}
+
+.titulo-pagina{
+    padding-top: 150px;
+    font-size: 70px;
+    color: aliceblue;
+}
+
+.parrafo-pagina{
+    margin-top: 30px;
+    color: aliceblue;
+    font-size: 18px;
+}
+
+
+.container-tarjetas{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+}
+
+.container-tarjetas .tarjeta{
+    width: 330px;
+    height: 430px;
+    border-radius: 8px;
+    box-shadow: 8px 10px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    background-color: white;
+}
+
+.container-tarjetas .tarjeta .imagen-tarjeta{
+    width: 100%;
+    height: 220px;
+}
+
+.container-tarjetas .tarjeta .texto-tarjeta{
+    padding: 15px;
+}
+
+.div-titulo-tarjetas{
+    margin-top: 20px;
+}
+
+.div-titulo-tarjetas .titulo-tarjetas{
+    padding: 20px;
+    text-align: center;
+}
+
+
+.container-tarjetas .tarjeta:hover{
+    background-color: rgb(221, 221, 221);
+}
+
+/* Estilo de la plantilla subscripciones */
+
+.container-subscripcion{
+    background-image: url(https://www.simpledte.cl/wp-content/uploads/2019/11/3-me%CC%81tricas-para-determinar-si-tu-modelo-de-suscripcio%CC%81n-funciona.png);
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.521);
+    background-blend-mode: darken;
+}
+
+.tarjeta-subscripcion{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    width: 90%;
+    margin: auto;
+}
+
+.titulo-suscripcion{
+    margin-top: 50px;
+    font-size: 45px;
+    padding: 20px;
+}
+
+.parrafo-subscripcion{
+    padding: 30px;
+    font-size: 20px;
+}
+
+.texto-suscripcion{
+    padding: 20px;
+    font-size: 25px;
+}
+
+.parrafo-suscripcion-beneficio{
+    font-size: 20px;
+}
+
+/* BARRA DE BUSQUEDA */
+
+.nav-barra-busqueda{
+    width: 100%;
+    background-color: rgba(230, 230, 230, 0.301);
+    padding: 20px;
+    margin: auto;
+    display: flex;
+}
+
+.form-buscar{
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: end;
+}
+
+.container-articulos-tienda{
+    text-align: center;
+}
+
+.btn-buscar-tienda{
+    background-color: rgb(97, 97, 230);
+    border: none;
+    padding: 10px 15px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.barra-busqueda{
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.container-btn-ofertas-tienda{
+    width: 100%;
+}
+
+
+.titulo-articulos{
+    margin-top: 10px;
+    font-size: 50px;
+}
+
+/* Estilos de perfil de ususario */
+
+.section-perfil-usuario{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-perfil-usuario .header-perfil-usuario{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(#B873FF, transparent);
+    margin-bottom: 1.25rem;
+}
+
+.section-perfil-usuario .header-perfil-usuario{
+    display: block;
+    position: relative;
+    width: 80%;
+    height: 17rem;
+    background: linear-gradient(45deg, #BC3CFF, #317FFF);
+    border-radius: 0 0 20px 20px;
+}
+
+.section-perfil-usuario .div-perfil-usuario-avatar{
+    display: flex;
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    align-items: center;
+    justify-content: center;
+    border: 7px solid #FFFFFF;
+    background-color: #DEF5F2;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    bottom: -40px;
+    left: calc(50% - 90px);
+}
+
+.section-perfil-usuario .nav-perfil-usuario{
+    width: 90%;
+}
+
+.nav-perfil-usuario .div-contenido-perfil-usuario .titulo-perfil-usuario{
+    display: block;
+    width: 100%;
+    font-size: 35px;
+    margin-bottom: 0.5rem;
+}
+
+.nav-perfil-usuario .div-contenido-perfil-usuario .parrafo-perfil-usuario{
+    color: gray;
+    font-size: 19px;
+}
+
+.section-perfil-usuario .div-contenido-perfil-usuario,
+.section-perfil-usuario .footer-perfil-usuario{
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.titulo-informacion-usuario{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.section-perfil-usuario .div-contenido-perfil-usuario{
+    margin-bottom: 1.5rem;
+}
+
+.section-perfil-usuario .lista-datos{
+    width: 50%;
+    list-style: none;
+    font-size: 18px;
+}
+
+.section-perfil-usuario .lista-datos li{
+    padding: 10px 0;
+}
+
+.informacion-usuario{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Estilos del template ver producto */
+
+.section-ver-producto{
+    margin-top: 80px;
+}
+
+.container-ver-producto{
+    display: flex;
+    flex-flow: row;
+    flex: 10px;
+    padding: 20px;
+    background-color: #9bc0ff;
+    width: 90%;
+    margin: auto;
+    max-width: 1100px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 25px black;
+}
+
+.imagen-ver-producto{
+    border-radius: 10px;
+    width: 500px;
+    max-width: 600px;
+    height: 100%;
+}
+
+.a-btn-agregar-carrito{
+    text-decoration: none;
+}
+
+.a-btn-volver{
+    text-decoration: none;
+}
+
+.titulo-verproducto{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.container-informacion-producto{
+    text-align: left;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.lista-verproducto{
+    list-style: none;
+}
+
+.div-btns-carrito{
+    text-align: center;
+}
+
+@media (max-width: 1165px) {
+
+    .container-ver-producto{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 80%;
+        max-width: 1000px;
+    }
+
+    .div-verproducto{
+        margin-top: 60px;
+        margin-bottom: 60px;
+        text-align: left;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px rgb(37, 37, 37);
+    }
+
+    .imagen-ver-producto{
+        border-radius: 10px;
+        width: 100%;
+        max-width: 1800px;
+    }
+
+    .container-informacion-producto{
+        padding: 10px;
+    }
+
+    .lista-verproducto{
+        list-style: none;
+    }
+
+    .div-btns-carrito a{
+        text-decoration: none;
+    } 
+
+}
+
+/* Estilos de los iconos de las redes sociales */
+
+.container-redes-sociales{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.icon-redes-sociales{
+    padding: 20px;
+}
+
+/* Estilos de la plantilla que ya estas subscrito */
+
+.container-subscripcion-activa{
+    display: block;
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.section-subscripcion-activa{
+    background-image: url(https://www.simpledte.cl/wp-content/uploads/2019/11/3-me%CC%81tricas-para-determinar-si-tu-modelo-de-suscripcio%CC%81n-funciona.png);
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.521);
+    background-blend-mode: darken;
+}
+
+.titulo-subcripcion-activa{
+    font-size: 40px;
+    margin-top: 100px;
+}
+
+.parrafo-subscripcion-activa{
+    font-size: 20px;
+    padding: 30px;
+}
+
+.section-container-cerrar-sesion{
+    transform: translateY(200px);
+}
+
+.div-titulo-cerrar-sesion{
+    text-align: center;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    margin: auto;
+    width: 85%;
+    max-width: 400px;
+    box-shadow: 7px 13px 37px #000;
+}
+
+/* Estilo de la plantilla administracion */
+
+.header-administracion{
+    width: 100%;
+    display: flex;
+    background-color: #9bc0ff;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+.body-administracion{
+    background-color: #9def99;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%2338a864' fill-opacity='0.71' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.section-form-administracion{
+    margin-top: 100px;
+}
+
+.container-administracion{
+    display: block;
+    text-align: center;
+    background-color: #4af1b1;
+    width: 90%;
+    max-width: 550px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 15px rgb(26, 26, 26);
+}
+
+.titulo-container-administracion{
+    padding: 10px 20px;
+    font-size: 35px;
+}

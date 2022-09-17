@@ -1,0 +1,22 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Nosotros | Garden Store
+{% endblock title %}
+
+{% block content %}
+
+<div class="contianer-nosotros">
+    <h2 class="titulo-nosotors">Nosotros</h2>
+    <div class="container-parrafo-nosotros">
+        <p class="parrafpo-nosotros">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo aliquam saepe dignissimos quos culpa expedita beatae, cupiditate vero hic eveniet iure doloremque veniam consequuntur illo natus rerum quis deserunt fuga.</p>
+        <div class="container-btn-contactanos">
+            <b>Si quieres enviarnos alguna sugerencia o reporte hazlo aqui</b>
+            <a href="{% url 'contactanos' %}">
+                <button class="btn-contactanos">Contactanos</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

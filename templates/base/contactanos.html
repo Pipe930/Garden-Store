@@ -1,0 +1,27 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Contactanos | Garden Store
+{% endblock title %}
+
+{% block content %}
+
+<div class="form-contacto">
+
+    {% if "valido" in request.GET %}
+
+    <p>Gracias por enviarnos tu sugerencia</p>
+
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Contactanos</h2>
+        <table>
+            {{formularioContacto.as_table}}
+        </table>
+        <input type="submit" value="Enviar" class="btn-enviar-form-contacto">
+    </form>
+</div>
+
+{% endblock %}

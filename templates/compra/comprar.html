@@ -1,0 +1,51 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Comprar | Garden Store
+{% endblock %}
+
+{% block content %}
+<section class="container-form-comprar">
+    <div class="div-form-comprar">
+        <h2 class="titulo-comprar">Efectuar Compra</h2>
+        <form action="" method="POST" class="form-comprar">
+            <span class="mensaje-subscripcion-form-comprar">{{mensage3}}</span>
+            {% csrf_token %}
+            <fieldset class="field-comprar">
+                <label for="metodoPago" class="label-comprar">Seleccione metodo de pago</label>
+                <select name="metodoPago" id="metodoPago" class="select-comprar">
+                    <option value="Credito" class="option-comprar">Credito</option>
+                    <option value="Debito" class="option-comprar">Debito</option>
+                </select>
+            </fieldset>
+            <!-- Crear una opcion que sea envio a domicilio o retiro por tienda -->
+            <span class="titulo-radios">Por: </span>
+            <fieldset class="field-radio-comprar">
+                <div class="container-input-radio-comprar">
+                    <input type="radio" name="envio" id="envio" value="Envio a Domicilio" onclick="eventoCheckBoxEnvio()">
+                    <label for="" class="label-form-comprar">
+                        Envio a Domicilio
+                    </label>
+                </div>
+                <div class="container-input-radio-comprar">
+                    <input type="radio" name="envio" id="retirar" value="Retiro por Tienda" onclick="eventoCheckBoxRetiro()"> 
+                    <label for="" class="label-form-comprar">
+                        Retiro por Tienda
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="field-comprar" id="field-modificable">
+            </fieldset>
+            <div class="div-mensaje-alerta-comprar">
+                <span class="mensaje-alerta-comprar">{{mensage}}{{mensage2}}</span>
+            </div>
+            <h5 class="texto-comprar">Total Pagar: ${{nuevoPrecio}} {{precio}}</h5>
+            <input type="submit" value="Comprar" class="form-btn-comprar">
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="../../static/js/comprarScript.js"></script>
+{% endblock %}

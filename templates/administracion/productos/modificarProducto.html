@@ -1,0 +1,75 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Modificar Producto
+{% endblock %}
+
+{% block content %}
+
+<section class="section-modificar-producto">
+    <form method="POST" class="form-modificar-producto" enctype="multipart/form-data">
+        <h1 class="titulo-modificar-producto">Modificar Producto</h1>
+        {% csrf_token %}
+        <fieldset class="field-form-modificar-producto">
+            <label for="nombreProducto" class="label-form-modificar-producto">Nombre Producto</label>
+            <input type="text" required value="{{producto.nombreProducto}}" name="nombreProducto" id="nombreProducto" class="input-form-modificar-producto">
+            <span class="mensaje-error-form-modificar-producto">{{mensage}}</span>
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="precioProducto" class="label-form-modificar-producto">Precio</label>
+            <input type="number" required value="{{producto.precio}}" name="precioProducto" id="precioProducto" class="input-form-modificar-producto">
+            <span class="mensaje-error-form-modificar-producto">{{mensage2}}</span>
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="stockProducto" class="label-form-modificar-producto">Stock</label>
+            <input type="number" required value="{{producto.stock}}" name="stockProducto" id="stockProducto" class="input-form-modificar-producto">
+            <span class="mensaje-error-form-modificar-producto">{{mensage4}}</span>
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="estadoProducto" class="label-form-modificar-producto">Estado</label>
+            {% if producto.estado == True %}
+                <input type="checkbox" checked name="estadoProducto" id="estadoProducto">
+            {% else %}
+                <input type="checkbox" name="estadoProducto" id="estadoProducto">
+            {% endif %}
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="" class="label-form-modificar-producto">Imagen Actual: <a href="{{producto.imagen.url}}" target="_blank">{{producto.imagen}}</a></label>
+            <input type="file" name="imagenProducto" id="imagenProducto">
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="detalleProducto" class="label-form-modificar-producto">Descripcion</label>
+            <textarea name="detalleProducto" required id="detalleProducto" cols="30" rows="3" class="input-form-modificar-producto">{{producto.descripcion}}</textarea>
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="categoria" class="label-form-modificar-producto">Seleccione una categoria</label>
+            <select name="categoria" id="categoria" class="select-form-modificar-producto">
+                <option value="">----</option>
+                {% for c in categorias %}
+                    {% if c.id == producto.idCategoria.id  %}
+                        <option selected value="{{c.id}}">{{c.nombreCategoria}}</option>
+                    {% else %}
+                        <option value="{{c.id}}">{{c.nombreCategoria}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <span class="mensaje-error-form-modificar-producto">{{mensage3}}</span>
+        </fieldset>
+        <fieldset class="field-form-modificar-producto">
+            <label for="oferta" class="label-form-modificar-producto">Seleccione una oferta</label>
+            <select name="oferta" id="oferta" class="select-form-modificar-producto">
+                <option value="">----</option>
+                {% for o in ofertas %}
+                    {% if o.id == producto.idOferta.id  %}
+                        <option selected value="{{o.id}}">{{o.nombreOferta}}</option>
+                    {% else %}
+                        <option value="{{o.id}}">{{o.nombreOferta}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </fieldset>
+        <input type="submit" value="Modificar Producto" class="btn-modificar-producto">
+    </form>
+</section>
+
+{% endblock %}

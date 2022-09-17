@@ -1,0 +1,25 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Eliminar Producto
+{% endblock %}
+
+{% block content %}
+
+<section class="section-eliminar-producto">
+    <div class="container-eliminar-producto">
+        <h1 class="titulo-eliminar-producto">Eliminar {{producto.nombreProducto}}</h1>
+        <p class="parrafo-eliminar-producto">¿Estas seguro de eliminar este producto "{{producto.nombreProducto}}"?</p>
+        <fieldset class="field-eliminar-produto">
+            <a href="{% url 'listarProducto' %}">
+                <button class="btn-volver-eliminar">No, Cancelar</button>
+            </a>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Si, Eliminar" class="btn-eliminar-producto">
+            </form>
+        </fieldset>
+    </div>
+</section>
+
+{% endblock %}

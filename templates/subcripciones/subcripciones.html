@@ -1,0 +1,23 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Subcripciones | Garden Store
+{% endblock %}
+
+{% block content %}
+<section class="container-subscripcion">
+    <div class="tarjeta-subscripcion">
+        <div class="informacion-subscripcion">
+            <h2 class="titulo-suscripcion">SUBSCRIBETE!!!</h2>
+            <p class="parrafo-subscripcion">Una subscripcion es una donacion que haces a nosotros como interes que tienes en nuestro sitio web, a cambio de la donacion que haces recibes un beneficio</p>
+            <div class="detalle-suscripcion">
+                <h4 class="texto-suscripcion">Beneficios del estar subscrito</h4>
+                <p class="parrafo-suscripcion-beneficio">Al subscribirte recibes un 5% de descuento en tu boleta total en todas tus compras que realices en nuestro sitio web</p>
+            </div>
+            <a href="{% url 'subscribirse' %}">
+                <button class="btn-suscribirse">Suscribirse</button>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

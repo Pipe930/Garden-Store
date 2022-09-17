@@ -1,0 +1,43 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %}
+Ofertas | Garden Store
+{% endblock %} 
+
+{% block content %}
+
+<section class="container-articulos-tienda">
+    <h1 class="titulo-articulos">Ofertas</h1>
+    <div class="container-articulos">
+        {% if productosOferta %}
+            {% for po in productosOferta %}
+                <article class="articulo">
+                    <figure class="figure-imagen-articulo">
+                        <img src="{{po.imagen.url}}" alt="Imagen del producto" class="imagen-articulo">
+                    </figure>
+                    <div class="contenido-articulo">
+                        <h3 class="titulo-articulo">{{ po.nombreProducto }}</h3>
+                        <ul class="lista-articulo">
+                            <li class="detalle-articulo">
+                                <h5 class="texto-detalle-articulo">Precio: $ {{ po.precio }}</h5>
+                                <h5 class="texto-detalle-articulo">Descuento: {{ po.idOferta.descuento }}%</h5>
+                            </li>
+                            <li class="detalle-articulo">
+                                <h5 class="texto-detalle-articulo">Cantidad Disponible: {{ po.stock }}</h5>
+                            </li>
+                            <li class="detalle-articulo">
+                                <h5 class="texto-detalle-articulo">Categoria: {{ po.idCategoria.nombreCategoria }} </h5>
+                            </li>
+                        </ul>
+                        <a href="{% url 'verProductoOferta' po.slug %}" class="a-btn-ver-producto">
+                            Ver Producto
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <h2 class="texto-ofertas">No tenemos ofertas : (</h2>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

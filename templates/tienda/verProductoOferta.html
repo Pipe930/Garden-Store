@@ -1,0 +1,47 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %} 
+Producto | {{ producto.nombreProducto }}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-ver-producto">
+    <div class="container-ver-producto">
+        <figure class="figure-imagen-producto">
+            <img src="{{producto.imagen.url}}" alt="Imagen producto" class="imagen-ver-producto">
+        </figure>
+        <div class="container-informacion-producto">
+            <div class="div-lista-verproducto">
+                <h3 class="titulo-verproducto">{{ producto.nombreProducto }}</h3>
+                <span class="mensaje-verproducto">{{mensage}}</span>
+                <ul class="lista-verproducto">
+                    <li class="lista-li-verproducto">
+                        <h5 class="texto-verproducto">Precio: $ {{ producto.precio }}</h5>
+                        <h5 class="texto-verproducto">Descuento: $ {{ producto.idOferta.descuento }}</h5>
+                        <h5 class="texto-verproducto">Precio Descuento: $ {{ descuento }}</h5>
+                    </li>
+                    
+                    <li class="lista-li-verproducto">
+                        <h5 class="texto-verproducto">Cantidad Disponible: {{ producto.stock }}</h5>
+                    </li>
+                    <li class="lista-li-verproducto">
+                        <h5 class="texto-verproducto">Categoria: {{producto.idCategoria.nombreCategoria}}</h5>
+                    </li>
+                </ul>
+                <h5 class="texto-verproducto">Detalle</h5>
+                <p class="parrafo-verproducto">{{producto.descripcion}}</p>
+            </div>
+            <div class="div-btns-carrito">
+                <a href="{% url 'agregarCarrito' producto.id %}">
+                    <button class="btn-agregar-carrito">Agregar al Carrito</button>
+                </a>
+                <a href="{% url 'ofertas' %}">
+                    <button class="btn-volver">Volver</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

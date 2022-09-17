@@ -1,0 +1,46 @@
+{% extends 'base/paginaPrincipal.html' %}
+
+{% block title %} 
+Mi Perfil | Garden Store
+{% endblock %}
+
+{% block content %}
+
+<!-- Perfil de Usuario -->
+<section class="section-perfil-usuario">
+    <header class="header-perfil-usuario">
+        <div class="div-perfil-ususario-portada">
+            <div class="div-perfil-usuario-avatar">
+                <img src="" alt="Imagen de usuario">
+            </div>
+        </div>
+    </header>
+    <nav class="nav-perfil-usuario">
+        <div class="div-contenido-perfil-usuario">
+            <h3 class="titulo-perfil-usuario">
+                {{user.username}}
+            </h3>
+            <p class="parrafo-perfil-usuario">
+                Descripcion: 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo culpa unde aliquam excepturi rem similique ducimus corporis distinctio quaerat dicta, labore in voluptatibus reprehenderit nam nostrum nisi consequuntur debitis?
+            </p>
+        </div>
+        <footer class="footer-perfil-usuario">
+            <div class="div-titulo-perfil-usuario">
+                <h1 class="titulo-informacion-usuario">Informacion del Usuario</h1>
+            </div>
+            <div class="informacion-usuario">
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Nombre: {{user.first_name}}</li>
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Apellido: {{user.last_name}}</li>
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Correo: {{user.email}}</li>
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Edad: {{perfil.edad}} años</li>
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Telefono: {{perfil.telefono}}</li>
+                <li class="lista-datos"><i class="icon-imagen-perfil-usuario"></i>Genero: {{perfil.genero}}</li>
+            </div>
+        </footer>
+    </nav>
+    <a href="{% url 'editarPerfil' %}">
+        <button class="btn-editar-perfil">Editar Perfil</button>
+    </a>
+</section>
+{% endblock %}

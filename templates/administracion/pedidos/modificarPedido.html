@@ -1,0 +1,31 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Modificar Pedido
+{% endblock %}
+
+{% block content %}
+
+<section class="section-modificar-pedido">
+    <form method="POST" class="form-modificar-pedido">
+        {% csrf_token %}
+        <h1 class="titulo-modificar-pedido">Modificar Pedido</h1>
+        <p class="parrafo-modificar-pedido">Usuario: {{pedido.idUsuario.username}}</p>
+        <fieldset class="field-modificar-producto">
+            <label for="estado" class="label-modificar-pedido">Estado del Pedido</label>
+            <select name="estado" id="estado" class="select-modificar-pedido">
+                {% if pedido.retiro == 'Envio a Domicilio' %}
+                    <option selected value="En preparacion">En Preparacion</option>
+                    <option value="En Envio">En Envio</option>
+                    <option value="Entregado">Entregado</option>
+                {% else %}
+                    <option selected value="En Retiro">En Retiro</option>
+                    <option value="Retirado">Retirado</option>
+                {% endif %}
+            </select>
+        </fieldset>
+        <input type="submit" value="Modificar Pedido" class="btn-form-modificar-pedido">
+    </form>
+</section>
+
+{% endblock %}

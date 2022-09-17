@@ -1,0 +1,52 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Nuevo Productos
+{% endblock %}
+
+{% block content %}
+
+<section class="section-form-agregar-producto">
+    <form action="" method="POST" class="form-agregar-producto" enctype="multipart/form-data">
+        <h1 class="titulo-agregar-producto">Nuevo Producto</h1>
+        {% csrf_token %}
+        <fieldset class="field-form-agregar-producto">
+            <label for="nombreProducto" class="label-form-agregar-producto">Nombre Producto</label>
+            <input type="text" required name="nombreProducto" id="nombreProducto" class="input-form-agregar-producto">
+            <span class="mensaje-error-form-agregar-producto">{{mensage}}</span>
+        </fieldset>
+        <fieldset class="field-form-agregar-producto">
+            <label for="precioProducto" class="label-form-agregar-producto">Precio</label>
+            <input type="number" required name="precioProducto" id="precioProducto" class="input-form-agregar-producto">
+        </fieldset>
+        <fieldset class="field-form-agregar-producto">
+            <label for="stockProducto" class="label-form-agregar-producto">Stock</label>
+            <input type="number" required name="stockProducto" id="stockProducto" class="input-form-agregar-producto">
+        </fieldset>
+        <fieldset class="field-form-agregar-producto">
+            <input type="file" name="imagenProducto" id="imagenProducto">
+            <span class="mensaje-error-form-agregar-producto">{{mensage3}}</span>
+        </fieldset>
+        <fieldset class="field-form-agregar-producto">
+            <label for="detalleProducto" class="label-form-agregar-producto">Descripcion</label>
+            <textarea name="detalleProducto" required id="detalleProducto" cols="30" rows="3" class="input-form-agregar-producto"></textarea>
+        </fieldset>
+        <fieldset class="field-form-agregar-producto">
+            <label for="categoria" class="label-form-agregar-producto">Seleccione una categoria</label>
+            <select name="categoria" id="categoria" class="select-form-agregar-producto">
+                <option value="">----</option>
+                {% for c in categorias %}
+                    {% if c.id == idCategoria  %}
+                        <option selected value="{{c.id}}">{{c.nombreCategoria}}</option>
+                    {% else %}
+                        <option value="{{c.id}}">{{c.nombreCategoria}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <span class="mensaje-error-form-agregar-producto">{{mensage4}}</span>
+        </fieldset>
+        <input type="submit" value="Agregar Producto" class="btn-form-agregar-producto">
+    </form>
+</section>
+
+{% endblock %}

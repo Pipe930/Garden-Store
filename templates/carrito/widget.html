@@ -1,0 +1,60 @@
+<table class="tabla-carrito-compras">
+    <thead class="thead-carrito-compras">
+        <tr class="tr-carrito-compras">
+            <th class="th-carrito-compras">
+                Productos
+            </th>
+            <th class="th-carrito-compras">
+                Cantidad
+            </th>
+            <th class="th-carrito-compras">
+                Precio
+            </th>
+        </tr>
+    </thead>
+    <tbody class="tbody-carrito-compras">
+        {% if request.session.carrito.items %}
+            {% for key, value in request.session.carrito.items %}
+                <tr class="tr-carrito-compra">
+                    <td class="td-carrito-compra">
+                        {{value.nombreProducto}}
+                    </td>
+                    <td class="td-carrito-compra">
+                        <a href="{% url 'restarCarrito' value.producto_id %}" class="a-btn-agregar-producto">
+                            <button class="btn-agregar-producto">-</button>
+                        </a>
+                        {{value.cantidad}}
+                        <a href="{% url 'agregarCarrito' value.producto_id %}" class="a-btn-agregar-producto">
+                            <button class="btn-agregar-producto">+</button>
+                        </a>
+                    </td>
+                    <td class="td-carrito-compra">
+                        {{ value.precio }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="tr-carrito-compra">
+                <td class="td-carrito-compra" colspan="3">
+                    <h3 class="advertencia-mensaje-carrito">Sin Productos</h3>
+                </td>
+            </tr>
+        {% endif %}
+    </tbody>
+    <tfoot class="tfoot-carrito-compra">
+        <tr class="tr-carrito-compra">
+            <td class="td-carrito-compra" colspan="2">
+                <h4>
+                    Total: $ {{importar_total_carrito}}
+                </h4>
+            </td>
+            {% if request.session.carrito.items %}
+            <td class="td-carrito-compra">
+                <a href="{% url 'limpiarCarrito' %}">
+                    <button class="btn-limpiar-carrito">Limpiar</button>
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    </tfoot>
+</table>

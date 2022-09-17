@@ -1,0 +1,31 @@
+{% extends 'administracion/administracion.html' %}
+
+{% block title %}
+Administracion | Modificar Oferta
+{% endblock %}
+
+{% block content %}
+
+<section class="section-form-modificar-oferta">
+    <form action="" method="POST" class="form-modificar-oferta">
+        <h1 class="titulo-modificar-oferta">Modificar Oferta</h1>
+        {% csrf_token %}
+        <fieldset class="field-form-modificar-oferta">
+            <label for="nombreOferta" class="label-modificar-oferta">Nombre Oferta</label>
+            <input type="text" value="{{oferta.nombreOferta}}" required name="nombreOferta" id="nombreOferta" class="input-form-modificar-oferta">
+            <span class="mensaje-error-form-modificar-oferta">{{mensage}}</span>
+        </fieldset>
+        <fieldset class="field-form-modificar-oferta">
+            <label for="fechaTermino" class="label-modificar-oferta">Fecha Termino</label>
+            <input type="date" value="{{oferta.fechaTermino}}" required name="fechaTermino" id="fechaTermino" class="input-form-modificar-oferta">
+        </fieldset>
+        <fieldset class="field-form-modificar-oferta">
+            <label for="descuento" class="label-modificar-oferta">Descuento</label>
+            <input type="number" value="{{oferta.descuento}}" required name="descuento" id="descuento" class="input-form-modificar-oferta">
+            <span class="mensaje-error-form-modificar-oferta">{{mensage2}}</span>
+        </fieldset>
+        <input type="submit" value="Modificar Oferta" class="btn-modificar-oferta">
+    </form>
+</section>
+
+{% endblock %}

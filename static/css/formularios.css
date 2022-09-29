@@ -220,7 +220,7 @@
     background-color: whitesmoke;
 }
 
-/* FORMULARIO AGREGAR PRODUCTO */
+/* ESTILOS DEL FORMULARIO AGREGAR Y MODIFICAR OBJETO */
 
 .section-form-agregar-producto,
 .section-modificar-producto,
@@ -342,7 +342,7 @@
     padding: 4px;
 }
 
-/* Estilos del formulario eliminar objeto */
+/* ESTILOS DEL FORMULARIO ELIMINAR OBJETO */
 
 .section-borrar-categoria,
 .section-eliminar-oferta,
@@ -394,7 +394,7 @@
     border-radius: 5px;
 }
 
-/* Estilo formulario modificar pedido */
+/* ESTILOS FORMULARIO MODIFICAR PEDIDO */
 
 .section-modificar-pedido{
     margin-top: 60px;
@@ -440,7 +440,7 @@
     border: none;
 }
 
-/* Estilos del formulario de contacto */
+/* ESTILOS DEL FORMULARIO CONTACTO */
 
 .form-contacto{
     background-color: #05da6f;

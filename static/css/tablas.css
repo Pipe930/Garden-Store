@@ -1,6 +1,6 @@
 /* ESTILOS DE TABLAS */
 
-/* Estilos de la tabla del carrito */
+/* ESTILOS DE LA TABLA CARRITO */
 
 .titulo-carrito{
     margin-top: 60px;
@@ -46,7 +46,7 @@
     background-color: #ddd;
 }
 
-/* Estilo de la tabla historial de compras */
+/* EESTILOS DE LA TABLA HISTORIAL DE COMPRAS */
 
 .div-tabla-historia-compras{
     display: flex;
@@ -125,7 +125,7 @@
     text-align: left;
 }
 
-/* Estilo tabla listar productos */
+/* ESTILOS DE LAS TABLAS LISTAR PRODUCTOS, CATEGORIAS, OFERTAS Y PEDIDOS */
 
 .container-tabla-categorias,
 .container-tabla-ofertas,
@@ -213,7 +213,7 @@
     text-decoration: none;
 }
 
-/* Estilos de la tabla productos */
+/* ESTILOS DE LA TABLA PRODUCTOS */
 
 .container-tabla-productos{
     display: flex;

@@ -5,7 +5,7 @@
     margin: 0;
 }
 
-/* Estilos de la tienda */
+/* ESTILOS DE LA PLANTILLA TIENDA */
 
 .container-articulos{
     width: 100%;
@@ -44,7 +44,7 @@
     list-style: none;
 }
 
-/* Estilo de las redes sociales */
+/* ESTILOS DEL FOOTER DE LAS REDES SOCIALES */
 
 .redes-sociales{
     margin-top: 10px;
@@ -58,7 +58,7 @@
     width: 100%;
 }
 
-/* Estilo de la pagina principal */
+/* ESTILOS DE LA PLANTILLA PAGINA PRINCIPAL */
 
 .body-principal{
     background-color: #aeefc2;
@@ -132,7 +132,7 @@
     background-color: rgb(221, 221, 221);
 }
 
-/* Estilo de la plantilla subscripciones */
+/* ESTILOS DE LA PLANTILLA SUBSCRIPCION */
 
 .container-subscripcion{
     background-image: url(https://www.simpledte.cl/wp-content/uploads/2019/11/3-me%CC%81tricas-para-determinar-si-tu-modelo-de-suscripcio%CC%81n-funciona.png);
@@ -220,7 +220,7 @@
     font-size: 50px;
 }
 
-/* Estilos de perfil de ususario */
+/* ESTILOS DE LA PLANTILLA EDITAR PERFIL */
 
 .section-perfil-usuario{
     display: flex;
@@ -311,7 +311,7 @@
     flex-wrap: wrap;
 }
 
-/* Estilos del template ver producto */
+/* ESTILOS DE LA PLANTILLA VER PRODUCTO */
 
 .section-ver-producto{
     margin-top: 80px;
@@ -404,7 +404,7 @@
 
 }
 
-/* Estilos de los iconos de las redes sociales */
+/* ESTILOS DE LOS ICONOS DE LAS REDES SOCIALES */
 
 .container-redes-sociales{
     display: flex;
@@ -416,7 +416,7 @@
     padding: 20px;
 }
 
-/* Estilos de la plantilla que ya estas subscrito */
+/* ESTILOS DE LA PLANTILLA YA ESTAS SUBSCRITO */
 
 .container-subscripcion-activa{
     display: block;
@@ -461,7 +461,7 @@
     box-shadow: 7px 13px 37px #000;
 }
 
-/* Estilo de la plantilla administracion */
+/* ESTILOS DE LA PLANTILLA ADMINISTRACION */
 
 .header-administracion{
     width: 100%;

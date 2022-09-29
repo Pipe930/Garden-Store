@@ -110,6 +110,7 @@ def contacto(request):
             'formularioContacto': formularioContacto
         }
         return render(request, 'base/contactanos.html', contexto)
+
     if request.method == "POST":
         formularioContacto = FormularioContacto(data=request.POST)
         if formularioContacto.is_valid():
@@ -136,7 +137,7 @@ def perfil(request):
     except Perfil.DoesNotExist:
         return render(request, 'sesion/perfil.html')
     
-    # LO MUESTRA
+    # SE MUESTRA LOS DATOS POR PANTALLA
     contexto = {
         'perfil': perfil
     }
@@ -152,7 +153,7 @@ def editarPerfil(request):
         except Perfil.DoesNotExist:
             return render(request, 'sesion/editarPerfil.html')
 
-        # LO MUESTRA
+        # SE MUESTRA LOS DATOS POR PANTALLA
         contexto = {
             'perfil' : perfil
         }

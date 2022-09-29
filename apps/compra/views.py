@@ -13,6 +13,8 @@ import sweetify
 
 # Create your views here.
 
+# FUNCION DE LA PLANTILLA COMPRAR
+
 @login_required
 def comprar(request, total:int):
     contexto = {}
@@ -21,6 +23,8 @@ def comprar(request, total:int):
             # SE BUSCA SI EL USUARIO ESTA SUBSCRITO
             Subcripcion.objects.get(idUsuario = request.user.id)
         except Subcripcion.DoesNotExist:
+
+            # MOSTRAR LOS DATOS EN PANTALLA
             contexto = {
                 'precio':total
             }
@@ -30,30 +34,40 @@ def comprar(request, total:int):
         porcentaje = total * 0.05
         nuevoPrecio = int(total) - int(porcentaje)
 
+        # SE MUESTRA UN MENSAJE POR PANTALLA
         contexto = {
             'mensage3': 'Recibes un 5% de descuento en tu boleta total por estar subscrito en nuestro sitio web',
             'nuevoPrecio': nuevoPrecio
         }
         return render(request, 'compra/comprar.html', contexto)
+
     elif request.method == 'POST':
 
         # DECLARACION DE VARIABLES
         tipoPago = request.POST['metodoPago']
+
+        # EXCEPCION SI EL USUARIO SELECCIONO UNA DIRECCION
         try:
             direccion = request.POST['direccion']
         except MultiValueDictKeyError:
+
+            # EXCEPCION SI EL USUARIO ESTA SUBSCRITO
             try:
                 Subcripcion.objects.get(idUsuario = request.user.id)
             except Subcripcion.DoesNotExist:
+
+                # SE MUESTRA UN MENSAJE POR PANTALLA
                 contexto = {
                     'precio':total,
                     'mensage': 'Tiene que seleccionar el metodo de retiro'
                 }
                 return render(request, 'compra/comprar.html', contexto)
             
+            # SE REALIZA EL DESCUENTO POR ESTAR SUBSCRITO
             porcentaje = total * 0.05
             nuevoPrecio = int(total) - int(porcentaje)
 
+            # SE MUESTRA UN MENSAJE POR PANTALLA
             contexto = {
                 'nuevoPrecio': nuevoPrecio,
                 'mensage3': 'Recibes un 5% de descuento en tu boleta total por estar subscrito en nuestro sitio web',
@@ -113,14 +127,18 @@ def comprar(request, total:int):
                     # CALCULO DE STOCK
                     stockProducto = productoEncontrado.stock
 
+                    # SE REALIZA LA RESTA DE LA CANTIDAD SOLICITADA DEL PRODUCTO CON EL STOCK DISPONIBLE
                     nuevoStock = int(stockProducto) - int(cantidad)
 
+                    # SE ASIGNA EL NUEVO STOCK
                     productoEncontrado.stock = nuevoStock
-                    productoEncontrado.save()
-                    nuevaBoleta.save()
+                    productoEncontrado.save() # SE GUARDA EL PRODUCTO
+                    nuevaBoleta.save() # SE GUARDA LA BOLETA
 
                 carrito = CarritoCompras(request)
-                carrito.limpiar()
+                carrito.limpiar() # SE LIMPIA EL CARRITO
+
+                # MENSAJE DE FEEDBACK AL USUARIO POR PANTALLA
                 sweetify.success(request, 'Su compra a sido exitosa : )', text='Gracias por realizar una compra en nuestro sitio web', button = 'OK')
                 return HttpResponseRedirect(reverse('paginaPrincipal'))
             
@@ -160,21 +178,27 @@ def comprar(request, total:int):
 
                 stockProducto = productoEncontrado.stock
 
+                # SE REALIZA LA RESTA DE LA CANTIDAD SOLICITADA DEL PRODUCTO CON EL STOCK DISPONIBLE
                 nuevoStock = int(stockProducto) - int(cantidad)
 
+                # SE ASIGNA EL NUEVO STOCK
                 productoEncontrado.stock = nuevoStock
-                productoEncontrado.save()
-                nuevaBoleta.save()
+                productoEncontrado.save() # SE GUARDA EL PRODUCTO
+                nuevaBoleta.save() # SE GUARDA LA BOLETA
 
             carrito = CarritoCompras(request)
-            carrito.limpiar()
+            carrito.limpiar() # SE LIMPIA EL CARRITO
+
+            # MENSAJE DE FEEDBACK AL USUARIO POR PANTALLA
             sweetify.success(request, 'Su compra a sido exitosa : )', text='Gracias por realizar una compra en nuestro sitio web', button = 'OK')
             return HttpResponseRedirect(reverse('paginaPrincipal'))
 
+@login_required
 def historialCompras(request):
     # CONDICION O FILTRO DE LA CLASE BOLETA
     boletaEncontrada = Boleta.objects.filter(idUsuario = request.user.id)
 
+    # SE MUESTRAN LOS DATOS POR PANTALLA
     contexto = {
         'boletas': boletaEncontrada,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }

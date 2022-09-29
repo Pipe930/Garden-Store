@@ -82,14 +82,14 @@ def agregarProducto(request):
             }
             return render(request, 'administracion/productos/agregarProducto.html', contexto)
 
-        if len(nombreProducto) >= 40: # CONDICION SI EL NOMBRE DEL PRODUCTO ES MAYOR A 40 CARACTERES
+        if len(nombreProducto) > 40: # CONDICION SI EL NOMBRE DEL PRODUCTO ES MAYOR A 40 CARACTERES
             contexto = {
                 'mensage': 'El nombre no puede ser mas de 40 caracteres',
                 'categorias': categorias
             }
             return render(request, 'administracion/productos/agregarProducto.html', contexto)
 
-        elif len(str(precioProducto)) >= 5: # CONDICION SI EL PRECIO DEL PRODUCTO ES MAYOR A 5 DIGITOS
+        elif len(str(precioProducto)) > 5: # CONDICION SI EL PRECIO DEL PRODUCTO ES MAYOR A 5 DIGITOS
             contexto = {
                 'mensage2': 'El precio no puede ser mas de 5 caracteres',
                 'categorias': categorias
@@ -197,7 +197,7 @@ def modificarProducto(request, idProducto: int):
         except ValueError:
             ofertaEncontrada = None
 
-        if len(nombreProducto) >= 40: # CONDICION SI EL NOMBRE DEL PRODUCTO ES MENOR O IGUAL A 40 CARACTERES
+        if len(nombreProducto) > 40: # CONDICION SI EL NOMBRE DEL PRODUCTO ES MENOR O IGUAL A 40 CARACTERES
             contexto = {
                 'mensage': 'El nombre no puede ser mas de 40 caracteres',
                 'categorias': categorias,
@@ -205,7 +205,7 @@ def modificarProducto(request, idProducto: int):
                 'ofertas': ofertas
             }
             return render(request, 'administracion/productos/modificarProducto.html', contexto)
-        elif len(str(precioProducto)) >= 5: # CONDICION SI EL PRECIO DEL PRODUCTO ES MENOR O IGUAL A 5 DIGITOS
+        elif len(str(precioProducto)) > 5: # CONDICION SI EL PRECIO DEL PRODUCTO ES MENOR O IGUAL A 5 DIGITOS
             contexto = {
                 'mensage2': 'El precio no puede ser mas de 5 caracteres',
                 'producto': productoEncontrado,
@@ -276,11 +276,11 @@ def agregarCategoria(request):
         nombreCategoria = request.POST['nombreCategoria']
         detalleCategoria = request.POST['detalleCategoria']
 
-        if len(nombreCategoria) >= 40: # CONDICION SI EL NOMBRE DE LA CATEGORIA ES MENOR O IGUAL A 40 CARACTERES
+        if len(nombreCategoria) > 40: # CONDICION SI EL NOMBRE DE LA CATEGORIA ES MENOR O IGUAL A 40 CARACTERES
             contexto['mensage'] = 'El nombre de la categoria no tiene que ser mas de 40 caracteres'
             return render(request, 'administracion/categorias/agregarCategoria.html', contexto)
 
-        elif len(detalleCategoria) >= 200: # CONDICION SI EL DETALLE DE LA CATEGORIA ES MENOR O IGUAL A 200 CARACTERES
+        elif len(detalleCategoria) > 200: # CONDICION SI EL DETALLE DE LA CATEGORIA ES MENOR O IGUAL A 200 CARACTERES
             contexto['mensage'] = 'El detalle de la categoria no tiene que ser mas de 40 caracteres'
             return render(request, 'administracion/categorias/agregarCategoria.html', contexto)
 
@@ -394,7 +394,7 @@ def agregarOferta(request):
         fechaTermino = request.POST['fechaTermino']
         descuento = request.POST['descuento']
 
-        if len(nombreOferta) >= 40: # CONDICION SI EL NOMBRE DE LA OFERTA ES MENOR O IGUAL A 40 CARACTERES
+        if len(nombreOferta) > 40: # CONDICION SI EL NOMBRE DE LA OFERTA ES MENOR O IGUAL A 40 CARACTERES
             contexto = {}
             contexto['mensage'] = 'El nombre no puede ser mas de 40 caracteres'
             return render(request, 'administracion/ofertas/agregarOferta.html', contexto)
@@ -466,7 +466,7 @@ def modificarOferta(request, idOferta: int):
         fechaTermino = request.POST['fechaTermino']
         descuentoOferta = request.POST['descuento']
 
-        if len(nombreOferta) >= 40: # CONDICION SI EL NOMBRE DE LA OFERTA ES MENOR O IGUAL A 40 CARACTERES
+        if len(nombreOferta) > 40: # CONDICION SI EL NOMBRE DE LA OFERTA ES MENOR O IGUAL A 40 CARACTERES
             contexto = {}
             contexto['mensage'] = 'El nombre no puede ser mas de 40 caracteres'
             return render(request, 'administracion/ofertas/agregarOferta.html', contexto)

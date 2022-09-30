@@ -1,5 +1,6 @@
 
 from email.policy import default
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Subcripcion(models.Model):
     usuario = models.CharField(max_length=40, unique=True)
-    correo = models.EmailField()
+    correo = models.EmailField(unique=True)
     monto = models.PositiveSmallIntegerField()
     idUsuario = models.OneToOneField(User, on_delete=models.CASCADE)
 

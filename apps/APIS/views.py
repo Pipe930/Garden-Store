@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views import View
 from apps.producto.models import Producto
 from django.forms.models import model_to_dict
+from django.core import serializers
 
 class ProductosListaView(View):
     def get(self, request):

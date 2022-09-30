@@ -1,5 +1,3 @@
-from cProfile import label
-import email
 from django import forms
 
 class FormularioContacto(forms.Form):

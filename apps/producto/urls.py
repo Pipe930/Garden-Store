@@ -8,7 +8,3 @@ urlsProducto = [
     path('ofertas/<slug:slug>', views.verProductoDescuento, name='verProductoOferta'),
     path('productoSinStock/', views.productoSinStock, name='productoSinStock')
 ]
-
-urlsJSON = [
-    path('productos/', views.listarProductosJSON, name='productosjson')
-]

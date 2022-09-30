@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.compra.apps.CompraConfig',
     'apps.carrito.apps.CarritoConfig',
     'apps.administracion.apps.AdministracionConfig',
+    'apps.APIS.apps.ApisConfig',
     'sweetify',
 ]
 

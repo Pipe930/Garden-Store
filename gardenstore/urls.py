@@ -4,10 +4,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from apps.usuario.urls import urlsUsuario, urlsSubcripciones, urlsPerfil
-from apps.producto.urls import urlsProducto, urlsJSON
+from apps.producto.urls import urlsProducto
 from apps.carrito.urls import urlsCarrito
 from apps.compra.urls import urlsCompra
 from apps.administracion.urls import urlsAdministracion
+from apps.APIS.urls import urlsPatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,7 +19,7 @@ urlpatterns = [
     path('comprar/', include(urlsCompra)),
     path('perfil/', include(urlsPerfil)),
     path('administracion/', include(urlsAdministracion)),
-    path('json/', include(urlsJSON))
+    path('api/', include(urlsPatterns))
 ]
 
 if settings.DEBUG:

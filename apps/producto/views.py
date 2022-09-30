@@ -100,8 +100,3 @@ def verProductoDescuento(request, slug):
 def productoSinStock(request):
     sweetify.error(request, 'Este producto no tiene stock disponible : (', button = 'OK')
     return HttpResponseRedirect(reverse('tienda'))
-
-
-def listarProductosJSON(request):
-    productos = Producto.objects.all()
-    return JsonResponse(list(productos.values()), safe=False)

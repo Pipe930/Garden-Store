@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
-from apps.producto.models import Producto, Categoria
+from apps.producto.models import Producto, Categoria, Oferta
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
@@ -11,7 +11,6 @@ class ProductosListaView(View):
     def get(self, request):
 
         productos = list(Producto.objects.values())
-        datos = {}
 
         if len(productos) > 0:
             datos = {
@@ -27,7 +26,6 @@ class UsuariosListaView(View):
     def get(self, request):
 
         usuarios = list(User.objects.values())
-        datos = {}
 
         if len(usuarios) > 0:
             datos = {
@@ -71,7 +69,7 @@ class CategoriasListaView(View):
 class CategoriaDetalleView(View):
 
     def get(self, request, idCategoria:int):
-        
+
         try:
             categoriaEncontrada = Categoria.objects.get(id = idCategoria)
         except Categoria.DoesNotExist:
@@ -79,3 +77,36 @@ class CategoriaDetalleView(View):
             return JsonResponse(datos, safe=False)
         
         return JsonResponse(model_to_dict(categoriaEncontrada))
+
+class OfertasListaView(View):
+
+    def get(self, request):
+
+        ofertas = list(Oferta.objects.values())
+
+        if len(ofertas) > 0:
+            datos = {
+                'ofertas': ofertas
+            }
+        else:
+            datos = {
+                'mensage': 'Ofertas Not Found'
+            }
+        
+        return JsonResponse(datos, safe=False)
+
+class OfertaDetalleView(View):
+
+    def get(self, request, idOferta:int):
+
+        try:
+
+            ofertaEncontrada = Oferta.objects.get(id = idOferta)
+        except Oferta.DoesNotExist:
+            datos = {
+                'mensage': 'Oferta Not Found'
+            }
+
+            return JsonResponse(datos, safe=False)
+        
+        return JsonResponse(model_to_dict(ofertaEncontrada))

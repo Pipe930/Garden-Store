@@ -7,4 +7,6 @@ urlsPatterns = [
     path('usuarios/<int:idUsuario>', views.UsuarioDetalleView.as_view(), name='detalleUsuarioJson'),
     path('categorias/', views.CategoriasListaView.as_view(), name='listaCategoriasJson'),
     path('categorias/<int:idCategoria>', views.CategoriaDetalleView.as_view(), name='detalleCategoriaJson'),
+    path('ofertas/', views.OfertasListaView.as_view(), name='listaOfertaJson'),
+    path('ofertas/<int:idOferta>', views.OfertaDetalleView.as_view(), name='detalleOfertaJson'),
 ]

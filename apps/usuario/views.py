@@ -92,6 +92,10 @@ def cerrarSesion(request):
         logout(request) # CERRAR SESION
     return render(request, 'sesion/cerrarSesion.html')
 
+# FUNCION DE LA PLANTILLA CAMBIAR CONTRASENIA
+def cambiarContrasenia(request):
+    pass
+
 # FUNCION DE LA PLANTILLA PRINCIPAL
 @login_required
 def paginaPrincipal(request):
@@ -118,7 +122,7 @@ def contacto(request):
             correo = request.POST.get("correo")
             mensaje = request.POST.get("mensaje")
 
-            mail = EmailMessage("Mensaje desde la App Django",
+            email = EmailMessage("Mensaje desde la App Django",
             "El usuario {} con el correo {} te envia: \n\n {}".format(nombre, correo, mensaje),""
             ,["felidiossanchez930@gmail.com"], reply_to=[correo])
 

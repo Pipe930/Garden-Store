@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+
 
 urlsUsuario = [
     path('paginaPrincipal/', views.paginaPrincipal, name='paginaPrincipal'),
@@ -12,7 +14,10 @@ urlsUsuario = [
 
 urlsPerfil = [
     path('', views.perfil, name='perfil'),
-    path('editarPerfil', views.editarPerfil, name='editarPerfil')
+    path('editarPerfil', views.editarPerfil, name='editarPerfil'),
+    path('cambiarContrasenia', 
+    auth_views.PasswordResetView.as_view(template_name='sesion/cambiarContrseniaEmail.html'), 
+    name='resetarConstrasenia')
 ]
 
 urlsSubcripciones = [

@@ -1,0 +1,25 @@
+{% extends 'sesion/iniciarSesion.html' %}
+
+{% block title %}
+Cambiar Contraseña | Garden Store
+{% endblock %}
+
+{% block content %}
+
+<section class="container-form-recuperarContrasenia">
+    <h2>Resetear Contraseña</h2>
+
+    <p>Para poder cambiar su contraseña ingrese un email valido para recibir un correo de validacion y cambio de contraseña</p>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            {{form}}
+        </fieldset>
+        <button type="submit">Enviar</button>
+    </form>
+    <a href="{% url 'iniciarSesion' %}">Volver</a>
+
+</section>
+
+{% endblock %}

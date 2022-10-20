@@ -39,7 +39,7 @@
                             <label for="contrasenia" class="label-registrarse">Contraseña</label>
                         </div>
                         <div class="container-links-sesion">
-                            <a href="#" class="a-recordar">Olvide mi Contraseña</a>
+                            <a href="{% url 'resetarConstrasenia' %}" class="a-recordar">Olvide mi Contraseña</a>
                             <a href="{% url 'registrarse' %}" class="a-registrarse">Quiero Registrarme</a>
                         </div>
                         <button type="submit" class="btn-registrarse">Iniciar</button>
@@ -48,7 +48,6 @@
             </div>
         {% endblock %}
     </main>
-    <script src="{% static 'js/codigoJava.js' %}"></script>
     <script src="{% static 'boostrap/js/bootstrap.js' %}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% block js %}

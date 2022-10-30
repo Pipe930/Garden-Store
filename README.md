@@ -1,9 +1,9 @@
 # Garden-Store
 Repositorio de un proyecto de django llamado garden store
 
-Este repositoria tiene almacenado un proyecto de django, que es una pagina web funcional con algunas mejores, que aun esta en desarrollo y mejoras a hacerle
+Este repositorio tiene almacenado un proyecto de django, que es una pagina web de venta de productos de jardineria funcional, que aun esta en desarrollo y mejoras a hacerle
 
-Este proyecto esta hecho con el lenguaje de programacion de Python en su version 3.10.4, con una base de datos mysql y con un entorno virtual de desarrollo
+Este proyecto esta hecho con el lenguaje de programacion de Python en su version 3.10.4, HTML5, CSS3 y algo de JavaScript, con una base de datos mysql y con un entorno virtual de desarrollo
 
 Aqui estan los paquetes necesarios para correr correctamente el proyecto:
 

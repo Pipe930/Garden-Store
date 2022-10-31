@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from apps.usuario.urls import urlsUsuario, urlsSubcripciones, urlsPerfil
+from apps.usuario.urls import urlsUsuario, urlsSubcripciones, urlsPerfil, urlsCambiarContrasenia
 from apps.producto.urls import urlsProducto
 from apps.carrito.urls import urlsCarrito
 from apps.compra.urls import urlsCompra
@@ -19,7 +19,8 @@ urlpatterns = [
     path('comprar/', include(urlsCompra)),
     path('perfil/', include(urlsPerfil)),
     path('administracion/', include(urlsAdministracion)),
-    path('api/', include(urlsPatterns))
+    path('api/', include(urlsPatterns)),
+    path('reset/', include(urlsCambiarContrasenia))
 ]
 
 if settings.DEBUG:

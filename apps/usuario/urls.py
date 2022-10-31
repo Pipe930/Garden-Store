@@ -14,10 +14,22 @@ urlsUsuario = [
 
 urlsPerfil = [
     path('', views.perfil, name='perfil'),
-    path('editarPerfil', views.editarPerfil, name='editarPerfil'),
+    path('editarPerfil', views.editarPerfil, name='editarPerfil')
+]
+
+urlsCambiarContrasenia = [
     path('cambiarContrasenia', 
     auth_views.PasswordResetView.as_view(template_name='sesion/cambiarContrseniaEmail.html'), 
-    name='resetarConstrasenia')
+    name='cambiarConstrasenia'),
+    path('correoEnviado', 
+    auth_views.PasswordResetDoneView.as_view(template_name='sesion/envioCorreo.html'), 
+    name='password_reset_done'),
+    path('resetearContrasnia/<uidb64>/<token>', 
+    auth_views.PasswordResetConfirmView.as_view(template_name='sesion/confirmarReset.html'), 
+    name='password_reset_confirm'),
+    path('reseteoCompletado', 
+    auth_views.PasswordResetCompleteView.as_view(template_name='sesion/cambioContraseniaExito.html'), 
+    name='password_reset_complete')
 ]
 
 urlsSubcripciones = [

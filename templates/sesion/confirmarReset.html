@@ -1,0 +1,35 @@
+{% extends 'sesion/iniciarSesion.html' %}
+
+{% block title %}
+Cambiar Contraseña | Garden Store
+{% endblock %}
+
+{% block content %}
+
+{% if validlink %}
+
+<div class="container">
+    <h2>Nueva Contraseña</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            {{ form.new_password1.erros }}
+            <label for="id_new_password1">Nueva Contraseña:</label>
+            {{ form.new_password1 }}
+        </fieldset>
+        <fieldset>
+            {{ form.new_password2.erros }}
+            <label for="id_new_password1">Repita la contraseña:</label>
+            {{ form.new_password2 }}
+        </fieldset>
+        <button type="submit">Cambiar Contraseña</button>
+
+    </form>
+</div>
+{% else %}
+
+<h2 class="mensaje-error">ENCALE INVALIDO: ESTE ENLACE YA A SIDO UTILIZADO</h2>
+
+{% endif %}
+
+{% endblock %}

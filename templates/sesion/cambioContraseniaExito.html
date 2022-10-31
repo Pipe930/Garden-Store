@@ -1,0 +1,18 @@
+{% extends 'sesion/iniciarSesion.html' %}
+
+{% block title %}
+Cambiar Contraseña | Garden Store
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Su contraseña se reestablecio correctamente</h2>
+
+    <p class="texto">Volver al inicio de sesion</p>
+    <button type="button">
+        <a href="{% url 'iniciarSesion' %}">Iniciar Sesion</a>
+    </button>
+</div>
+
+{% endblock %}

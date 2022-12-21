@@ -30,6 +30,7 @@ BASE_APPS = [
 
 LOCAL_APPS = [
     'apps.index.apps.IndexConfig',
+    'apps.users.apps.UsersConfig',
 ]
 
 THIRD_APPS = [

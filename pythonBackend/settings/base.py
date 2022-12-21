@@ -29,7 +29,7 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
-
+    'apps.index.apps.IndexConfig',
 ]
 
 THIRD_APPS = [

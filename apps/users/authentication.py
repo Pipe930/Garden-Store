@@ -3,7 +3,7 @@ from rest_framework.authentication import get_authorization_header
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
-from .authenticationToken import ExpiringTokenAuthentication
+from .authenticationToken import ValidateTokenAuthentication
 
 class Authentication(object):
 
@@ -15,7 +15,7 @@ class Authentication(object):
                 token = token[1].decode()
             except:
                 return None
-            token_expire = ExpiringTokenAuthentication()
+            token_expire = ValidateTokenAuthentication()
             user,token,message = token_expire.authenticate_credentials(token)
 
             if user != None and token != None:

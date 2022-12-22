@@ -87,12 +87,12 @@ class LoginView(ObtainAuthToken):
                     token = Token.objects.create(user= user)
                     return Response(userJson, status=status.HTTP_200_OK)
             else:
-                return Response({'message': 'El usuario no esta activo'}, status= status.HTTP_401_UNAUTHORIZED)
+                return Response({'message': 'El usuario no esta activo'}, status= status.HTTP_403_FORBIDDEN)
                 
         message = {
             'message': 'Credenciales no validas'
         }
-        return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        return Response(message, status=status.HTTP_401_UNAUTHORIZED)
         
 # Vista para cerrar la sesion del usuario
 class LogoutView(APIView):

@@ -1,5 +1,6 @@
 
 from pathlib import Path
+from os.path import join
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,9 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.index.apps.IndexConfig',
     'apps.users.apps.UsersConfig',
+    'apps.products.apps.ProductsConfig',
+    'apps.purchase.apps.PurchaseConfig',
+    'apps.cart.apps.CartConfig',
 ]
 
 THIRD_APPS = [
@@ -110,6 +114,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = join(BASE_DIR, 'media/')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

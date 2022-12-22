@@ -10,7 +10,6 @@ from .models import User
 from .serializers import UserSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
-from .authentication import Authentication
 
 # Vista que lista los usuarios registrados
 class UsersListView(APIView):
@@ -19,10 +18,10 @@ class UsersListView(APIView):
 
     def get(self, request, format=None):
 
-        usuarios = User.objects.all()
-        serializer = UserSerializer(usuarios, many=True)
+        queryset = User.objects.all()
+        serializer = UserSerializer(queryset, many=True)
 
-        if len(usuarios):
+        if len(queryset):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             contenido = {'message': 'Usuarios Not Found'}
@@ -33,11 +32,13 @@ class RegisterUserView(APIView):
     
     def post(self, request, *args, **kwargs):
 
+        # Serializa la data
         serializer = UserSerializer(data = request.data)
 
+        # ¿Es valida la data?
         if serializer.is_valid():
 
-            serializer.save()
+            serializer.save() # Guarda los datos
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -61,9 +62,11 @@ class LoginView(ObtainAuthToken):
         if usuarioEncontrado is not None:
 
             serializer.is_valid(raise_exception=True)
-            user = serializer.validated_data['user']
+            user = serializer.validated_data['user'] # Se obtiene el usuario
             if user.is_active:
                 token, created = Token.objects.get_or_create(user=user) # Se crea un token
+
+                # Informacion en un diccionario de python
                 userJson = {
                     'token': token.key,
                     'username': user.username,
@@ -73,15 +76,14 @@ class LoginView(ObtainAuthToken):
                     'email': user.email,
                     'activate': user.is_active,
                     'staff': user.is_staff,
-                    'superUser': user.is_superuser,
-                    'dateJoined': user.date_joined,
-                    'lastLogin': user.last_login
                 }
 
-                if created:
-
+                if created: 
+                    # Si no existe un token
                     return Response(userJson, status=status.HTTP_200_OK)
+
                 else:
+                    # Si existe un token
                     token.delete()
                     token = Token.objects.create(user= user)
                     return Response(userJson, status=status.HTTP_200_OK)
@@ -116,6 +118,7 @@ class LogoutView(APIView):
 
             token.delete() # Elimina el token
 
+            # Mensajes
             session_message = 'Sesion del usuario terminada'
             token_message = 'Token eliminado'
 

@@ -7,6 +7,7 @@ from .authenticationToken import ValidateTokenAuthentication
 
 class Authentication(object):
 
+    # Metodo para obtener el token del usuario por el autorization header
     def get_user(self, request):
         token = get_authorization_header(request).split()
 
@@ -18,6 +19,7 @@ class Authentication(object):
             token_expire = ValidateTokenAuthentication()
             user,token,message = token_expire.authenticate_credentials(token)
 
+            # Condicion que valida si existe un token
             if user != None and token != None:
                 return user
 
@@ -25,6 +27,7 @@ class Authentication(object):
         
         return None
 
+    # Funcion que obtiene la informacion del authorization header
     def dispatch(self, request, *args, **kwargs):
         user = self.get_user(request)
 
@@ -37,6 +40,8 @@ class Authentication(object):
                 response.renderer_context = {}
                 return response
             return super().dispatch(request, *args, **kwargs)
+
+        # SI las credenciales no son correctas
         response = Response({'error': 'no se han retornado las credenciales'}, status=status.HTTP_403_FORBIDDEN)
         response.accepted_renderer = JSONRenderer()
         response.accepted_media_type = 'application/json'

@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from simple_history.models import HistoricalRecords
 
-# Create your models here.
-
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, first_name, last_name, password, is_staff, is_superuser, **extra_fields):
         user = self.model(
@@ -27,6 +25,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, username, email, first_name, last_name, password=None, **extra_fields):
         return self._create_user(username, email, first_name, last_name, password, True, True, **extra_fields)
 
+# Modelo Usuario
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=60, unique=True)
     email = models.EmailField('Correo Electronico', max_length=255, unique=True)

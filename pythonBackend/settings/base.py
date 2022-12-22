@@ -37,6 +37,7 @@ THIRD_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
+    'simple_history',
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'pythonBackend.urls'
@@ -113,13 +115,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+AUTH_USER_MODEL = 'users.User'
 
 # LOGIN_REDIRECT_URL = '/'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8100",
-    "http://127.0.0.1:8100"
+    "http://127.0.0.1:8100",
 ]

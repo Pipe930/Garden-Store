@@ -4,14 +4,16 @@ from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
+from .authentication import Authentication
 
 # Vista que lista los usuarios registrados
-class UsersListView(APIView):
+class UsersListView(Authentication,APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
 
     def get(self, request, format=None):
@@ -22,10 +24,10 @@ class UsersListView(APIView):
             contenido = {
                 'usuarios': usuarios
             }
+            return Response(contenido, status=status.HTTP_200_OK)
         else:
             contenido = {'message': 'Usuarios Not Found'}
-
-        return Response(contenido)
+            return Response(contenido, status=status.HTTP_204_NO_CONTENT)
 
 # Vista que registra el usuario en el sistema
 class RegisterUserView(APIView):

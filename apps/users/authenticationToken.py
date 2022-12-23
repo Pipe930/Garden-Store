@@ -20,4 +20,3 @@ class ValidateTokenAuthentication(TokenAuthentication):
                 message = 'Usuario no esta activo'
         
         return (user,token,message)
-        

@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.http import Http404
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -26,6 +27,23 @@ class UsersListView(APIView):
         else:
             contenido = {'message': 'Usuarios Not Found'}
             return Response(contenido, status=status.HTTP_204_NO_CONTENT)
+
+class UserView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get_object(self, id:int):
+        try:
+            user = User.objects.get(id=id)
+        except User.DoesNotExist:
+            raise Http404
+        
+        return user
+
+    def get(self, request, id:int, format=None):
+        user = self.get_object(id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 # Vista que registra el usuario en el sistema
 class RegisterUserView(APIView):

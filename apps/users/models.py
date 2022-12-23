@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Correo Electronico', max_length=255, unique=True)
     first_name = models.CharField('Nombre', max_length=40, blank=True, null=True)
     last_name = models.CharField('Apellido', max_length=40, blank=True, null=True)
+    date_joined = models.DateTimeField(blank=True,null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     historical = HistoricalRecords()

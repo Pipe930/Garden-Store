@@ -1,0 +1,69 @@
+from rest_framework import serializers
+from .models import Category, Product, Offer
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name_product', 
+            'price', 
+            'stock', 
+            'image', 
+            'description', 
+            'slug',
+            'condition',
+            'create',
+            'idCategory',
+            'idOffer')
+    
+    def create(self, validated_data):
+        product = Product.objects.create(**validated_data)
+        return product
+    
+    def update(self, instance, validated_data):
+        instance.name_product = validated_data.get('name_product', instance.name_product)
+        instance.price = validated_data.get('price', instance.price)
+        instance.stock = validated_data.get('stock', instance.stock)
+        instance.image = validated_data.get('image', instance.image)
+        instance.condition = validated_data.get('condition', instance.condition)
+        instance.description = validated_data.get('description', instance.description)
+        instance.idCategory = validated_data.get('idCategory', instance.idCategory)
+        instance.idOffer = validated_data.get('idOffer', instance.idOffer)
+
+        instance.save()
+        return instance
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name_category', 'description_category')
+
+    def create(self, validated_data):
+        category = Category.objects.create(**validated_data)
+        return category
+
+    def update(self, instance, validated_data):
+        instance.name_category = validated_data.get('name_category', instance.name_category)
+        instance.description_category = validated_data.get('description_category', instance.description_category)
+
+        instance.save()
+        return instance
+    
+class OfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Offer
+        fields = ('id', 'name_offer', 'start_date', 'end_date', 'discount')
+    
+    def create(self, validated_data):
+        offer = Offer.objects.create(**validated_data)
+        return offer
+    
+    def update(self, instance, validated_data):
+        instance.name_offer = validated_data.get('name_offer', instance.name_offer)
+        instance.start_date = validated_data.get('start_date', instance.start_date)
+        instance.end_date = validated_data.get('end_date', instance.end_date)
+        instance.discount = validated_data.get('discount', instance.discount)
+
+        instance.save()
+        return instance

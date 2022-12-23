@@ -6,7 +6,7 @@ class UserManager(BaseUserManager):
     def _create_user(self, username, email, first_name, last_name, password, is_staff, is_superuser, **extra_fields):
         user = self.model(
             username = username,
-            email = email,
+            email = self.normalize_email(email),
             first_name = first_name,
             last_name = last_name,
             is_staff = is_staff,

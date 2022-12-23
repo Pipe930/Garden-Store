@@ -2,7 +2,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
-from apps.users.authentication import Authentication
 from .models import Category, Product, Offer
 from .serializers import CategorySerializer, ProductSerializer, OfferSerializer
 
@@ -60,4 +59,58 @@ class CategoryDetailView(APIView):
         
         category = self.get_object(id)
         category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class OfferListView(APIView):
+    
+    def get(self, request, format=None):
+        queryset = Offer.objects.all()
+
+        if len(queryset):
+            serializer = OfferSerializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'detail': 'Offers Not Found'}, status=status.HTTP_204_NO_CONTENT)
+    
+    def post(self, request, format=None):
+
+        serializer = OfferSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OfferDetailView(APIView):
+
+    def get_object(self, id:int):
+        try:
+            offer = Offer.objects.get(id=id)
+        except Offer.DoesNotExist:
+            return Http404
+        
+        return offer
+    
+    def get(self, request, id:int, format=None):
+
+        offer = self.get_object(id)
+        serializer = OfferSerializer(offer)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, id:int, format=None):
+
+        offer = self.get_object(id)
+        serializer = OfferSerializer(offer, data=request.data)
+
+        if serializer.is_valid():
+
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, id:int, format=None):
+        offer = self.get_object(id)
+        offer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

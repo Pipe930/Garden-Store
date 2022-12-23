@@ -7,5 +7,11 @@ urlsCategory = [
     path('category/<int:id>', views.CategoryDetailView.as_view(), name='category'),
 ]
 
+urlsOffer = [
+    path('', views.OfferListView.as_view(), name='offers'),
+    path('offer/<int:id>', views.OfferDetailView.as_view(), name='offer')
+]
+
 urlsCategory = format_suffix_patterns(urlsCategory)
+urlsOffer = format_suffix_patterns(urlsOffer)
 

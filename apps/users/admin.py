@@ -7,5 +7,6 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['username', 'email']
+    list_per_page = 10
 
 admin.site.register(User, UserAdmin)

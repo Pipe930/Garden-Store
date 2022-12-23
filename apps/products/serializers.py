@@ -61,7 +61,6 @@ class OfferSerializer(serializers.ModelSerializer):
     
     def update(self, instance, validated_data):
         instance.name_offer = validated_data.get('name_offer', instance.name_offer)
-        instance.start_date = validated_data.get('start_date', instance.start_date)
         instance.end_date = validated_data.get('end_date', instance.end_date)
         instance.discount = validated_data.get('discount', instance.discount)
 

@@ -45,7 +45,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField()
     stock = models.PositiveSmallIntegerField()
     image = models.ImageField(upload_to=nameImage)
-    description = models.TextField(max_length=255)
+    description = models.TextField(max_length=255, blank=True)
     slug = models.SlugField(unique=True)
     condition = models.BooleanField(default=True)
     create = models.DateTimeField(auto_now_add=True)

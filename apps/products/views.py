@@ -114,3 +114,80 @@ class OfferDetailView(APIView):
         offer = self.get_object(id)
         offer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProductListView(APIView):
+
+    def get(self, request, format=None):
+
+        queryset = Product.objects.all()
+
+        if len(queryset):
+
+            serializer = ProductSerializer(queryset, many=True)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response({'message': 'Products Not Found'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def post(self, request, format=None):
+
+        serializer = ProductSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductDetailView(APIView):
+
+    def get_object(self, id:int):
+
+        try:
+            product = Product.objects.get(id=id)
+        except Product.DoesNotExist:
+
+            return Http404
+        
+        return product
+    
+    def get(self, request, id:int, format=None):
+
+        product = self.get_object(id)
+        serializer = ProductSerializer(product)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, id:int, format=None):
+
+        product = self.get_object(id)
+        serializer = ProductSerializer(product, data=request.data)
+
+        if serializer.is_valid():
+
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(serializer.erros, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, id:int, format=None):
+
+        product = self.get_object(id)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductSearchView(APIView):
+
+    def get(self, request, name:str, format=None):
+
+        products= Product.objects.filter(name_product=name)
+
+        if len(products):
+
+            serializer = ProductSerializer(products, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response({'message': 'Product or Products Not found'}, status=status.HTTP_400_BAD_REQUEST)
+

@@ -12,6 +12,12 @@ urlsOffer = [
     path('offer/<int:id>', views.OfferDetailView.as_view(), name='offer')
 ]
 
+urlsProduct = [
+    path('', views.ProductListView.as_view(), name='products'),
+    path('product/<int:id>', views.ProductDetailView.as_view(), name='product')
+]
+
 urlsCategory = format_suffix_patterns(urlsCategory)
 urlsOffer = format_suffix_patterns(urlsOffer)
+urlsOffer = format_suffix_patterns(urlsProduct)
 

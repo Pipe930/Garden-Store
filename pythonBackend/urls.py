@@ -4,6 +4,7 @@ from django.urls import path, include
 from apps.index.urls import urlsIndex
 from apps.users.urls import urlsUsers
 from apps.products.urls import urlsCategory, urlsOffer, urlsProduct
+from apps.cart.urls import urlsCart
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path('categories/', include(urlsCategory)),
     path('offers/', include(urlsOffer)),
     path('products/', include(urlsProduct)),
+    path('carts/', include(urlsCart)),
 ]
 
 if settings.DEBUG:

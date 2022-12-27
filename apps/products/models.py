@@ -56,6 +56,9 @@ class Product(models.Model):
         verbose_name = 'product'
         verbose_name_plural = 'products'
         ordering = ('name_product', 'create', 'price', 'stock')
+    
+    def __str__(self) -> str:
+        return self.name_product
 
 
 def set_slug(sender, instance, *args, **kwargs):

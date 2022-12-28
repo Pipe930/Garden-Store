@@ -12,7 +12,7 @@ class Cart(models.Model):
         verbose_name_plural = 'carts'
     
     def __str__(self) -> str:
-        return str(self.idUser)
+        return str(self.idUser.first_name)
 
 class CartItems(models.Model):
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True, blank=True, related_name='items')

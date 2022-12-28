@@ -21,9 +21,23 @@ class CartItemsSerializer(serializers.ModelSerializer):
         result = cartItem.quantity * cartItem.product.price
         return result
 
+    def create(self, validated_data):
+        cartItem = CartItems.objects.create(**validated_data)
+        return cartItem
+
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemsSerializer(many=True)
+    total = serializers.SerializerMethodField(method_name='main_total')
     class Meta:
 
         model = Cart
         fields = ('id', 'items', 'total', 'idUser')
+    
+    def main_total(self, cart: Cart):
+        items = cart.items.all()
+        total = sum([item.quantity * item.product.price for item in items])
+        return total
+    
+    def create(self, validated_data):
+        cart = Cart.objects.create(**validated_data)
+        return cart

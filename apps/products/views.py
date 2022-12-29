@@ -32,7 +32,7 @@ class CategoryDetailView(APIView):
         try:
             category = Category.objects.get(id=id)
         except Category.DoesNotExist:
-            return Http404
+            raise Http404
         
         return category
     
@@ -89,7 +89,7 @@ class OfferDetailView(APIView):
         try:
             offer = Offer.objects.get(id=id)
         except Offer.DoesNotExist:
-            return Http404
+            raise Http404
         
         return offer
     
@@ -147,8 +147,7 @@ class ProductDetailView(APIView):
         try:
             product = Product.objects.get(id=id)
         except Product.DoesNotExist:
-
-            return Http404
+            raise Http404
         
         return product
     

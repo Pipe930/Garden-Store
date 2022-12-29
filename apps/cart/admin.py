@@ -9,6 +9,7 @@ class CartAdmin(admin.ModelAdmin):
 
     list_display = ['created', 'total', 'idUser']
     list_filter = ['created', 'idUser']
+    exclude = ('total',)
 
 @admin.register(CartItems)
 

@@ -7,8 +7,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from django.contrib.auth import authenticate
-from .models import User
-from .serializers import UserSerializer
+from .models import User, Subscription
+from .serializers import UserSerializer, SubscripcionSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
 
@@ -149,3 +149,46 @@ class LogoutView(APIView):
         
         return Response({'error': 'No se a encontrado un usuario con esas credenciales'},
         status=status.HTTP_400_BAD_REQUEST)
+
+class SubscripcionListView(APIView):
+
+    def get(self, request, format=None):
+
+        queryset = Subscription.objects.all()
+
+        serializer = SubscripcionSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+
+        serializer = SubscripcionSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SubscriptionDetailView(APIView):
+
+    def get_object(self, id:int):
+        try:
+            subscription = Subscription.objects.get(id=id)
+        except Subscription.DoesNotExist:
+            raise Http404
+        
+        return subscription
+
+    def get(self, request, id:int, format=None):
+
+        subcription = self.get_object(id)
+        serializer = SubscripcionSerializer(subcription)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, id:int, format=None):
+
+        subscription = self.get_object(id)
+        subscription.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -7,7 +7,9 @@ urlsUsers = [
     path('user/<int:id>', views.UserView.as_view(), name='user'),
     path('register', views.RegisterUserView.as_view(), name='register'),
     path('auth/login', views.LoginView.as_view(), name='login'),
-    path('auth/logout', views.LogoutView.as_view(), name='logout')
+    path('auth/logout', views.LogoutView.as_view(), name='logout'),
+    path('subscriptions/', views.SubscripcionListView.as_view(), name='subscriptions'),
+    path('subscriptions/user/<int:id>', views.SubscriptionDetailView.as_view(), name='subscription')
 ]
 
 urlsUsers = format_suffix_patterns(urlsUsers)

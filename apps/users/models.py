@@ -49,3 +49,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
+
+class Subscription(models.Model):
+    username = models.CharField(max_length=40, unique=True)
+    email = models.EmailField(unique=True)
+    amount = models.PositiveSmallIntegerField()
+    idUser = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+
+        verbose_name = 'subscription'
+        verbose_name_plural = 'subscriptions'
+    
+    def __str__(self) -> str:
+        return self.username

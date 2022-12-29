@@ -5,8 +5,6 @@ from datetime import datetime
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
-# Create your models here.
-
 class Category(models.Model):
     name_category = models.CharField(max_length=60, unique=True)
     description_category = models.TextField(max_length=255)
@@ -14,7 +12,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
-        ordering = ('name_category',)
+        ordering = ['name_category',]
 
     
     def __str__(self) -> str:
@@ -29,7 +27,7 @@ class Offer(models.Model):
     class Meta:
         verbose_name = 'offer'
         verbose_name_plural = 'offers'
-        ordering = ('start_date',)
+        ordering = ['start_date',]
     
     def __str__(self) -> str:
         return self.name_offer
@@ -55,7 +53,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'product'
         verbose_name_plural = 'products'
-        ordering = ('name_product', 'create', 'price', 'stock')
+        ordering = ['name_product', 'create', 'price', 'stock']
     
     def __str__(self) -> str:
         return self.name_product

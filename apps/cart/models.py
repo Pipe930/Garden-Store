@@ -4,7 +4,7 @@ from apps.products.models import Product
 
 class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    total = models.PositiveIntegerField()
+    total = models.PositiveIntegerField(default=0)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

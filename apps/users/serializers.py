@@ -32,3 +32,8 @@ class SubscripcionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         subscription = Subscription.objects.create(validated_data)
         return subscription
+
+class MessageSerializer(serializers.Serializer):
+    full_name = serializers.CharField(max_length=60)
+    email = serializers.EmailField()
+    message = serializers.CharField(max_length=255)

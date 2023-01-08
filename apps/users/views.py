@@ -8,9 +8,10 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from django.contrib.auth import authenticate
 from .models import User, Subscription
-from .serializers import UserSerializer, SubscripcionSerializer
+from .serializers import UserSerializer, SubscripcionSerializer, MessageSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
+from .util import Util
 
 # Vista que lista los usuarios registrados
 class UsersListView(APIView):
@@ -192,3 +193,14 @@ class SubscriptionDetailView(APIView):
         subscription.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class SendEmailView(APIView):
+
+    def post(self, request, format=None):
+        datos = MessageSerializer(data=request.data)
+        if datos.is_valid():
+            print(datos.data)
+            Util.send_email(data=datos.data)
+            return Response(datos.data, status=status.HTTP_200_OK)
+        
+        return Response(datos.errors, status=status.HTTP_400_BAD_REQUEST)

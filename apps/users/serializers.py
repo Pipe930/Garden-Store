@@ -30,7 +30,7 @@ class SubscripcionSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'amount', 'idUser')
     
     def create(self, validated_data):
-        subscription = Subscription.objects.create(validated_data)
+        subscription = Subscription.objects.create(**validated_data)
         return subscription
 
 class MessageSerializer(serializers.Serializer):

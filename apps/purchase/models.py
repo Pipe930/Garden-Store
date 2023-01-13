@@ -6,7 +6,7 @@ from apps.cart.models import Cart
 class Voucher(models.Model):
     code = models.UUIDField(default=uuid4, unique=True) # Codigo
     created = models.DateTimeField(auto_now_add=True) # Creado
-    total_price = models.PositiveIntegerField(default=0) # Precio Toral
+    total_price = models.PositiveIntegerField(default=0) # Precio Total
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 

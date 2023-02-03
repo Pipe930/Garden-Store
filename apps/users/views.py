@@ -86,25 +86,35 @@ class LoginView(ObtainAuthToken):
                 token, created = Token.objects.get_or_create(user=user) # Se crea un token
 
                 # Informacion en un diccionario de python
-                userJson = {
-                    'token': token.key,
-                    'username': user.username,
-                    'firstName': user.first_name,
-                    'lastName': user.last_name,
-                    'user_id': user.id,
-                    'email': user.email,
-                    'activate': user.is_active,
-                    'staff': user.is_staff,
-                }
 
                 if created: 
+                    userJson = {
+                        'token': token.key,
+                        'username': user.username,
+                        'firstName': user.first_name,
+                        'lastName': user.last_name,
+                        'user_id': user.id,
+                        'email': user.email,
+                        'activate': user.is_active,
+                        'staff': user.is_staff,
+                    }
                     # Si no existe un token
                     return Response(userJson, status=status.HTTP_200_OK)
 
                 else:
                     # Si existe un token
                     token.delete()
-                    token = Token.objects.create(user= user)
+                    token = Token.objects.create(user=user)
+                    userJson = {
+                        'token': token.key,
+                        'username': user.username,
+                        'firstName': user.first_name,
+                        'lastName': user.last_name,
+                        'user_id': user.id,
+                        'email': user.email,
+                        'activate': user.is_active,
+                        'staff': user.is_staff,
+                    }
                     return Response(userJson, status=status.HTTP_200_OK)
             else:
                 return Response({'message': 'El usuario no esta activo'}, status= status.HTTP_403_FORBIDDEN)
@@ -118,14 +128,12 @@ class LoginView(ObtainAuthToken):
 class LogoutView(APIView):
 
     def get(self, request, *args, **kwargs):
-
         token = request.GET.get('token')
         print(token)
         token = Token.objects.filter(key=token).first()
 
         if token:
             user = token.user
-
             # Obtener todas las sessiones
             all_session = Session.objects.filter(expire_date__gte = datetime.now())
             # Si existe una sesion activa

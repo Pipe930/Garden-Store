@@ -4,6 +4,7 @@ from rest_framework import status
 from django.http import Http404
 from .models import Category, Product, Offer
 from .serializers import CategorySerializer, ProductSerializer, OfferSerializer
+from rest_framework.pagination import PageNumberPagination
 
 class CategoryListView(APIView):
 
@@ -116,6 +117,7 @@ class OfferDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ProductListView(APIView):
+    pagination_class = PageNumberPagination
 
     def get(self, request, format=None):
 

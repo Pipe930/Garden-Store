@@ -125,39 +125,39 @@ class LoginView(ObtainAuthToken):
         return Response(message, status=status.HTTP_401_UNAUTHORIZED)
         
 # Vista para cerrar la sesion del usuario
-class LogoutView(APIView):
+# class LogoutView(APIView):
 
-    def get(self, request, *args, **kwargs):
-        token = request.GET.get('token')
-        print(token)
-        token = Token.objects.filter(key=token).first()
+#     def get(self, request, *args, **kwargs):
+#         token = request.data
+#         print(token)
+#         token = Token.objects.filter(key=token).first()
 
-        if token:
-            user = token.user
-            # Obtener todas las sessiones
-            all_session = Session.objects.filter(expire_date__gte = datetime.now())
-            # Si existe una sesion activa
-            if all_session.exists():
-                for session in all_session:
-                    session_data = session.get_decoded() # Decodifica la sesion
-                    if user.id == int(session_data.get('_auth_user_id')): # ¿Existe una sesion activa con este usuario?
-                        session.delete() # Elimina la session
+#         if token:
+#             user = token.user
+#             # Obtener todas las sessiones
+#             all_session = Session.objects.filter(expire_date__gte = datetime.now())
+#             # Si existe una sesion activa
+#             if all_session.exists():
+#                 for session in all_session:
+#                     session_data = session.get_decoded() # Decodifica la sesion
+#                     if user.id == int(session_data.get('_auth_user_id')): # ¿Existe una sesion activa con este usuario?
+#                         session.delete() # Elimina la session
 
-            token.delete() # Elimina el token
+#             token.delete() # Elimina el token
 
-            # Mensajes
-            session_message = 'Sesion del usuario terminada'
-            token_message = 'Token eliminado'
+#             # Mensajes
+#             session_message = 'Sesion del usuario terminada'
+#             token_message = 'Token eliminado'
 
-            message = {
-                'sesion_message': session_message,
-                'token_message': token_message
-            }
+#             message = {
+#                 'sesion_message': session_message,
+#                 'token_message': token_message
+#             }
 
-            return Response(message, status=status.HTTP_200_OK)
+#             return Response(message, status=status.HTTP_200_OK)
         
-        return Response({'error': 'No se a encontrado un usuario con esas credenciales'},
-        status=status.HTTP_400_BAD_REQUEST)
+#         return Response({'error': 'No se a encontrado un usuario con esas credenciales'},
+#         status=status.HTTP_400_BAD_REQUEST)
 
 class SubscripcionListView(APIView):
 

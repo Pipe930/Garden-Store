@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework import status
 from django.http import Http404
 from .models import Category, Product, Offer
@@ -117,7 +118,6 @@ class OfferDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ProductListView(APIView):
-    pagination_class = PageNumberPagination
 
     def get(self, request, format=None):
 
@@ -133,6 +133,36 @@ class ProductListView(APIView):
     
     def post(self, request, format=None):
 
+        serializer = ProductSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductsGenericView(generics.ListCreateAPIView):
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = PageNumberPagination
+
+    def listProducts(self, request, format=None):
+
+        queryset = self.get_queryset()
+        serializer = ProductSerializer(queryset, many=True)
+
+        if len(queryset):
+
+            serializer = ProductSerializer(queryset, many=True)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def createProduct(self, request, format=None):
+        
         serializer = ProductSerializer(data=request.data)
 
         if serializer.is_valid():

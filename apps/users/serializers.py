@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     # Funcion de crear un nuevo usuario
     def create(self, validated_data):
+
         user = User.objects.create_user(**validated_data)
         return user
 

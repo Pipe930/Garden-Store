@@ -13,7 +13,7 @@ urlsOffer = [
 ]
 
 urlsProduct = [
-    path('', views.ProductListView.as_view(), name='products'),
+    path('', views.ProductsGenericView.as_view(), name='products'),
     path('product/<int:id>', views.ProductDetailView.as_view(), name='product')
 ]
 

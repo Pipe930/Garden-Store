@@ -4,21 +4,9 @@ from .models import Category, Product, Offer
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = (
-            'id',
-            'name_product', 
-            'price', 
-            'stock', 
-            'image', 
-            'description', 
-            'slug',
-            'condition',
-            'create',
-            'idCategory',
-            'idOffer')
-
-    idCategory = serializers.StringRelatedField()
-    idOffer = serializers.StringRelatedField()
+        fields = '__all__'
+    
+    slug = serializers.StringRelatedField()
     
     def create(self, validated_data):
         product = Product.objects.create(**validated_data)
@@ -40,7 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name_category', 'description_category')
+        fields = '__all__'
 
     def create(self, validated_data):
         category = Category.objects.create(**validated_data)
@@ -56,7 +44,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
-        fields = ('id', 'name_offer', 'start_date', 'end_date', 'discount')
+        fields = '__all__'
     
     def create(self, validated_data):
         offer = Offer.objects.create(**validated_data)

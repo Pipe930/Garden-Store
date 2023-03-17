@@ -6,7 +6,8 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
     
-    slug = serializers.StringRelatedField()
+    idCategory = serializers.StringRelatedField()
+    idOffer = serializers.StringRelatedField()
     
     def create(self, validated_data):
         product = Product.objects.create(**validated_data)

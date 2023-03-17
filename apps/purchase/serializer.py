@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Order, Voucher
 
+# Serializer Voucher
+
 class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
@@ -9,6 +11,8 @@ class VoucherSerializer(serializers.ModelSerializer):
     def create(self, **validated_data):
         voucher = Voucher.objects.create(**validated_data)
         return voucher
+
+# Serializer Order
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

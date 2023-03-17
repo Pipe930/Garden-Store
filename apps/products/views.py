@@ -120,7 +120,7 @@ class OfferDetailView(APIView):
 
 class ProductsGenericView(generics.ListCreateAPIView):
 
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(condition=True, idOffer__isnull= True)
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
 
@@ -131,11 +131,9 @@ class ProductsGenericView(generics.ListCreateAPIView):
 
         if len(queryset):
 
-            serializer = ProductSerializer(queryset, many=True)
-
             return Response(serializer.data, status=status.HTTP_200_OK)
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'detail': 'Products Not Found'}, status=status.HTTP_400_BAD_REQUEST)
     
     def createProduct(self, request, format=None):
         
@@ -200,10 +198,23 @@ class ProductDetailView(APIView):
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
 class ProductSearchView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name_product']
+
+class ProductOfferView(generics.ListAPIView):
+    queryset = Product.objects.filter(condition=True, idOffer__isnull=False)
+    serializer_class = ProductSerializer
+    pagination_class = PageNumberPagination
+
+    def listProducts(self, request, *args, **kwargs):
+        product = self.get_queryset()
+        serializer = ProductSerializer(product, many=True)
+
+        if len(product):
+            
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response({'detail': 'Products Offers Not Found'}, status=status.HTTP_400_BAD_REQUEST)

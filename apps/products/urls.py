@@ -16,7 +16,8 @@ urlsProduct = [
     path('', views.ProductsGenericView.as_view(), name='products'),
     path('product/<int:id>', views.ProductDetailView.as_view(), name='product'),
     path('product/<str:slug>', views.ProductView.as_view(), name='productslug'),
-    path('product', views.ProductSearchView.as_view(), name='searchproduct')
+    path('product', views.ProductSearchView.as_view(), name='searchproduct'),
+    path('offer/', views.ProductOfferView.as_view(), name='productoffer')
 ]
 
 urlsCategory = format_suffix_patterns(urlsCategory)

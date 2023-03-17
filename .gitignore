@@ -1,3 +1,5 @@
+# Ignore Files
+
 __pycache__
 migrations
 media

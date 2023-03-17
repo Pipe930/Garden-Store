@@ -3,10 +3,12 @@ from uuid import uuid4
 from apps.users.models import User
 from apps.cart.models import Cart
 
+# Model Voucher
+
 class Voucher(models.Model):
-    code = models.UUIDField(default=uuid4, unique=True) # Codigo
-    created = models.DateTimeField(auto_now_add=True) # Creado
-    total_price = models.PositiveIntegerField(default=0) # Precio Total
+    code = models.UUIDField(default=uuid4, unique=True) # Code
+    created = models.DateTimeField(auto_now_add=True) # Create
+    total_price = models.PositiveIntegerField(default=0) # Total Price
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
@@ -17,14 +19,15 @@ class Voucher(models.Model):
     def __str__(self) -> str:
         return '{} {}'.format(self.idUser.first_name, self.idUser.last_name)
 
+# Model Order
 
 class Order(models.Model):
-    code = models.UUIDField(default=uuid4, unique=True) # Codigo
-    created = models.DateTimeField(auto_now_add=True) # Creado
-    condition = models.CharField(max_length=20) # Estado
-    withdrawal = models.CharField(max_length=20) # Retiro
-    type_of_pay = models.CharField(max_length=20) # Tipo de pago
-    direction = models.CharField(max_length=100) # Direccion
+    code = models.UUIDField(default=uuid4, unique=True) # Code
+    created = models.DateTimeField(auto_now_add=True) # Create
+    condition = models.CharField(max_length=20) # State
+    withdrawal = models.CharField(max_length=20) # Withdrawal
+    type_of_pay = models.CharField(max_length=20) # Payment Type
+    direction = models.CharField(max_length=100) # Direction
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

@@ -49,6 +49,7 @@ THIRD_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'simple_history',
+    'django_filters',
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -132,7 +133,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 AUTH_USER_MODEL = 'users.User'

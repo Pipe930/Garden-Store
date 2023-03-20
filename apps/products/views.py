@@ -11,7 +11,7 @@ from rest_framework import filters
 class CategoryListView(APIView):
 
     def get(self, request, format=None):
-        queryset = Category.objects.all()
+        queryset = Category.objects.all().order_by('name_category')
 
         if len(queryset):
             serializer = CategorySerializer(queryset, many=True)
@@ -120,7 +120,7 @@ class OfferDetailView(APIView):
 
 class ProductsGenericView(generics.ListCreateAPIView):
 
-    queryset = Product.objects.filter(condition=True, idOffer__isnull= True)
+    queryset = Product.objects.filter(condition=True, idOffer__isnull= True).order_by('name_product')
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
 
@@ -199,17 +199,20 @@ class ProductDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ProductSearchView(generics.ListAPIView):
-    queryset = Product.objects.all()
+
+    queryset = Product.objects.filter(condition=True, idOffer__isnull= True).order_by('name_product')
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name_product']
 
 class ProductOfferView(generics.ListAPIView):
-    queryset = Product.objects.filter(condition=True, idOffer__isnull=False)
+
+    queryset = Product.objects.filter(condition=True, idOffer__isnull=False).order_by('name_product')
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
 
     def listProducts(self, request, *args, **kwargs):
+
         product = self.get_queryset()
         serializer = ProductSerializer(product, many=True)
 
@@ -218,3 +221,15 @@ class ProductOfferView(generics.ListAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response({'detail': 'Products Offers Not Found'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class ProductFilterView(APIView):
+
+    def get(self, request, id:int):
+
+        query = Product.objects.filter(
+            condition = True, idOffer__isnull = True, idCategory = id
+            ).order_by('name_product')
+        
+        serializer = ProductSerializer(query, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

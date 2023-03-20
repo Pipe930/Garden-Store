@@ -114,7 +114,7 @@ class CreateCartView(generics.CreateAPIView):
     serializer_class = CartSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = CartSerializer(data= request.data)
+        serializer = CartSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()

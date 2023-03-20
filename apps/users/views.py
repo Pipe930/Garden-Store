@@ -12,6 +12,7 @@ from .serializers import UserSerializer, SubscripcionSerializer, MessageSerializ
 from django.contrib.sessions.models import Session
 from datetime import datetime
 from .util import Util
+from apps.cart.models import Cart
 
 # Vista que lista los usuarios registrados
 class UsersListView(APIView):
@@ -88,6 +89,8 @@ class LoginView(ObtainAuthToken):
                 # Informacion en un diccionario de python
 
                 if created: # Si no existe un token
+                    newCart = Cart.objects.get_or_create(idUser=user)
+                    print(newCart)
                     userJson = {
                         'token': token.key,
                         'username': user.username,
@@ -131,7 +134,6 @@ class LogoutView(APIView):
     def get(self, request, *args, **kwargs):
         try:
             token = request.GET.get('token')
-            print(token)
             token = Token.objects.filter(key=token).first()
 
             if token:

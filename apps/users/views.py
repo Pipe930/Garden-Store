@@ -90,7 +90,6 @@ class LoginView(ObtainAuthToken):
 
                 if created: # Si no existe un token
                     newCart = Cart.objects.get_or_create(idUser=user)
-                    print(newCart)
                     userJson = {
                         'token': token.key,
                         'username': user.username,

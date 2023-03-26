@@ -22,7 +22,7 @@ MYSQL = {
         'USER': 'root',
         'PASSWORD': '+S86509135+',
         'HOST': 'localhost',
-        'PORT': 3307
+        'PORT': 3306
     }
 }
 

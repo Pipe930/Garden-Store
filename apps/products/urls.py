@@ -24,4 +24,3 @@ urlsProduct = [
 urlsCategory = format_suffix_patterns(urlsCategory)
 urlsOffer = format_suffix_patterns(urlsOffer)
 urlsOffer = format_suffix_patterns(urlsProduct)
-

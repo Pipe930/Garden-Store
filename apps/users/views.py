@@ -13,6 +13,10 @@ from django.contrib.sessions.models import Session
 from datetime import datetime
 from .util import Util
 from apps.cart.models import Cart
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail  
 
 # Vista que lista los usuarios registrados
 class UsersListView(APIView):
@@ -139,9 +143,11 @@ class LogoutView(APIView):
 
     def get(self, request, *args, **kwargs):
         try:
+            # Se obtiene el token en los parametros de la url
             token = request.GET.get('token')
             token = Token.objects.filter(key=token).first()
 
+            # ¿Existe un token?
             if token:
                 user = token.user
                 # Obtener todas las sessiones
@@ -173,35 +179,42 @@ class LogoutView(APIView):
         except:
             return Response({"errors": "No se a encontrado el token en la peticion"}, status=status.HTTP_409_CONFLICT)
 
+# Clase de lista de subscripciones
 class SubscripcionListView(APIView):
 
+    # Peticion GET
     def get(self, request, format=None):
 
-        queryset = Subscription.objects.all()
+        queryset = Subscription.objects.all() # Queryset
 
         serializer = SubscripcionSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK) 
 
+    # Peticion POST
     def post(self, request, format=None):
 
-        serializer = SubscripcionSerializer(data=request.data)
+        serializer = SubscripcionSerializer(data=request.data) 
 
-        if serializer.is_valid():
-            serializer.save()
+        if serializer.is_valid(): # Validacion de los datos recibidos
+            serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Clase que optiene una subscripcion por id
 class SubscriptionDetailView(APIView):
 
+    # Se obtiene el objeto por la id
     def get_object(self, id:int):
         try:
-            subscription = Subscription.objects.get(id=id)
+            subscription = Subscription.objects.get(id=id) # Queryset
         except Subscription.DoesNotExist:
+            # Si no existe retorna un mensaje 404
             raise Http404
         
         return subscription
-
+    
+    # Peticion GET
     def get(self, request, id:int, format=None):
 
         subcription = self.get_object(id)
@@ -209,6 +222,7 @@ class SubscriptionDetailView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+    # Peticion DELETE
     def delete(self, request, id:int, format=None):
 
         subscription = self.get_object(id)
@@ -216,11 +230,12 @@ class SubscriptionDetailView(APIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# Clase para el envio de correos
 class SendEmailView(APIView):
 
     def post(self, request, format=None):
 
-        information = MessageSerializer(data=request.data)
+        information = MessageSerializer(data=request.data) 
 
         if information.is_valid():
 
@@ -233,17 +248,19 @@ class SendEmailView(APIView):
 
 class ChangePasswordView(generics.UpdateAPIView):
     """
-    An endpoint for changing password.
+    Un punto final para cambiar la contraseña.
     """
     serializer_class = ChangePasswordSerializer
     model = User
     permission_classes = (IsAuthenticated,)
 
+    # Se optiene el objeto usuario
     def get_object(self, queryset=None):
 
         object = self.request.user
         return object
-
+    
+    # Peticion PUT
     def update(self, request, *args, **kwargs):
 
         self.object = self.get_object()
@@ -251,14 +268,15 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         if serializer.is_valid():
 
-            # Check old password
+            # Se comrueba si la constraseña es la correcta
             if not self.object.check_password(serializer.data.get("old_password")):
                 return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
             
-            # set_password also hashes the password that the user will get
+            # set_password se codifica la contraseña que obtendra el usuario
             self.object.set_password(serializer.data.get("new_password"))
             self.object.save()
 
+            # Respuesta
             response = {
                 'status': 'success',
                 'code': status.HTTP_200_OK,
@@ -269,3 +287,19 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+
+    email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
+
+    send_mail(
+        # title:
+        "Password Reset for {title}".format(title="Some website title"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "noreply@somehost.local",
+        # to:
+        [reset_password_token.user.email]
+    )

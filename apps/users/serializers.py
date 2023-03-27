@@ -38,3 +38,12 @@ class MessageSerializer(serializers.Serializer):
     full_name = serializers.CharField(max_length=60)
     email = serializers.EmailField()
     message = serializers.CharField(max_length=255)
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from django.http import Http404
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from django.contrib.auth import authenticate
 from .models import User, Subscription
-from .serializers import UserSerializer, SubscripcionSerializer, MessageSerializer
+from .serializers import UserSerializer, SubscripcionSerializer, MessageSerializer, ChangePasswordSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
 from .util import Util
@@ -75,9 +75,15 @@ class LoginView(ObtainAuthToken):
             context = {'request': request})
         
         # Se comprueba si el usuario y contraseña enviados existe
-        usuarioEncontrado = authenticate(
-            username = request.data['username'], 
-            password = request.data['password'])
+        try:
+            usuarioEncontrado = authenticate(
+                username = request.data['username'], 
+                password = request.data['password'])
+        except KeyError:
+            message = {
+                'message': 'No se proporcionaron las credenciales'
+            }
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
         
         if usuarioEncontrado is not None:
 
@@ -121,11 +127,12 @@ class LoginView(ObtainAuthToken):
                     return Response(userJson, status=status.HTTP_200_OK)
             else:
                 return Response({'message': 'El usuario no esta activo'}, status= status.HTTP_403_FORBIDDEN)
-                
-        message = {
-            'message': 'Credenciales no validas'
-        }
-        return Response(message, status=status.HTTP_401_UNAUTHORIZED)
+        
+        else:
+            message = {
+                'message': 'Credenciales no validas'
+            }
+            return Response(message, status=status.HTTP_401_UNAUTHORIZED)
         
 # Vista para cerrar la sesion del usuario
 class LogoutView(APIView):
@@ -212,10 +219,53 @@ class SubscriptionDetailView(APIView):
 class SendEmailView(APIView):
 
     def post(self, request, format=None):
-        datos = MessageSerializer(data=request.data)
-        if datos.is_valid():
-            print(datos.data)
-            Util.send_email(data=datos.data)
-            return Response(datos.data, status=status.HTTP_200_OK)
+
+        information = MessageSerializer(data=request.data)
+
+        if information.is_valid():
+
+            print(information.data)
+            Util.send_email(data=information.data)
+
+            return Response(information.data, status=status.HTTP_200_OK)
         
-        return Response(datos.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(information.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    An endpoint for changing password.
+    """
+    serializer_class = ChangePasswordSerializer
+    model = User
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self, queryset=None):
+
+        object = self.request.user
+        return object
+
+    def update(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -133,7 +133,7 @@ class ProductsGenericView(generics.ListCreateAPIView):
 
             return Response(serializer.data, status=status.HTTP_200_OK)
         
-        return Response({'detail': 'Products Not Found'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Products Not Found'}, status=status.HTTP_400_BAD_REQUEST)
     
     def createProduct(self, request, format=None):
         

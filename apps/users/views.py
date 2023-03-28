@@ -6,7 +6,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from .models import User, Subscription
 from .serializers import UserSerializer, SubscripcionSerializer, MessageSerializer, ChangePasswordSerializer
 from django.contrib.sessions.models import Session
@@ -100,6 +100,7 @@ class LoginView(ObtainAuthToken):
 
                 if created: # Si no existe un token
                     newCart = Cart.objects.get_or_create(idUser=user)
+                    login(request=request, user=user)
                     userJson = {
                         'token': token.key,
                         'username': user.username,
@@ -160,6 +161,7 @@ class LogoutView(APIView):
                             session.delete() # Elimina la session
 
                 token.delete() # Elimina el token
+                logout(request=request)
 
                 # Mensajes
                 session_message = 'Sesion del usuario terminada'

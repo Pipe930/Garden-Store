@@ -8,6 +8,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     idCategory = serializers.StringRelatedField()
     idOffer = serializers.StringRelatedField()
+    price = serializers.SerializerMethodField(method_name='discount')
     
     def create(self, validated_data):
         product = Product.objects.create(**validated_data)
@@ -25,6 +26,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+    
+    def discount(self, product: Product):
+
+        if product.idOffer is not None:
+            
+            discount = product.idOffer.discount
+            priceProduct = product.price
+
+            discountDecimal = discount / 100
+            priceDiscount = priceProduct * discountDecimal
+
+            result = priceProduct - priceDiscount
+
+            return result
+        
+        return product.price
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

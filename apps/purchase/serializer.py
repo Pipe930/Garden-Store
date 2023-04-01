@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Order, Voucher, Region, City, Commune, PaymentType
+from .models import Order, Voucher, Region, Province, Commune, PaymentType
 
 # Serializer Voucher
 
 class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
-        fields = ('total_price', 'idUser', 'idCart')
+        fields = ('total_price', 'created', 'idUser', 'idCart', 'idPayment')
     
     def create(self, **validated_data):
         voucher = Voucher.objects.create(**validated_data)
@@ -17,7 +17,7 @@ class VoucherSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('condition', 'withdrawal', 'type_of_pay', 'direction', 'idUser')
+        fields = ('condition', 'withdrawal', 'direction', 'num_department', 'idCommune', 'idVoucher')
     
     def create(self, validated_data):
         order = Order.objects.create(**validated_data)
@@ -35,6 +35,30 @@ class PaymentTypeSerializer(serializers.ModelSerializer):
         payment = PaymentType.objects.create(**validated_data)
         return payment
 
+# Region Serializer
+
+class RegionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Region
+        fields = '__all__'
+    
+    def create(self, validated_data):
+        region = Region.objects.create(**validated_data)
+        return region
+    
+# Province Serializer
+
+class ProvinceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Province
+        fields = '__all__'
+    
+    def create(self, validated_data):
+        city = Province.objects.create(**validated_data)
+        return city
+    
 # Commune Serializer
 
 class CommuneSerializer(serializers.ModelSerializer):
@@ -47,26 +71,3 @@ class CommuneSerializer(serializers.ModelSerializer):
         commune = Commune.objects.create(**validated_data)
         return commune
 
-# City Serializer
-
-class CitySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = City
-        fields = '__all__'
-    
-    def create(self, validated_data):
-        city = City.objects.create(**validated_data)
-        return city
-
-# Region Serializer
-
-class RegionSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Region
-        fields = '__all__'
-    
-    def create(self, validated_data):
-        region = Region.objects.create(**validated_data)
-        return region

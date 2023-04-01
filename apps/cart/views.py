@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 from .models import Cart, CartItems
 from django.http import Http404
-from .serializer import CartSerializer, CartItemsSerializer
+from .serializer import CartSerializer, AddCartItemSerializer, CartItemsSerializer
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
 from apps.users.authentication import Authentication
@@ -76,39 +76,6 @@ class CartUserView(Authentication, APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class AddCartItemView(Authentication, APIView):
-
-    def post(self, request, format=None):
-
-        serializer = CartItemsSerializer(data=request.data)
-
-        if serializer.is_valid():
-
-            serializer.save()
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class DeleteCartItemView(Authentication, APIView):
-
-    def get_object(self, id:int):
-
-        try:
-            item = CartItems.objects.get(id=id)
-        except CartItems.DoesNotExist:
-            return Http404
-
-        return item
-    
-    def delete(self, request, id:int, format=None):
-
-        item = self.get_object(id)
-
-        item.delete()
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 class CreateCartView(generics.CreateAPIView):
 
     serializer_class = CartSerializer
@@ -122,3 +89,17 @@ class CreateCartView(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AddCartItemView(generics.CreateAPIView):
+
+    serializer_class = AddCartItemSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = AddCartItemSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -6,7 +6,7 @@ class SimpleProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name_product', 'price']
+        fields = ['id', 'name_product', 'price', 'stock']
 
 class CartItemsSerializer(serializers.ModelSerializer):
 
@@ -20,10 +20,6 @@ class CartItemsSerializer(serializers.ModelSerializer):
     def total(self, cartItem: CartItems):
         result = cartItem.quantity * cartItem.product.price
         return result
-
-    def create(self, validated_data):
-        cartItem = CartItems.objects.create(**validated_data)
-        return cartItem
 
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemsSerializer(many=True, read_only=True)
@@ -41,3 +37,33 @@ class CartSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         cart = Cart.objects.create(**validated_data)
         return cart
+
+class AddCartItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CartItems
+        fields = ["id", "product", "quantity", "idCart"]
+    
+    def save(self, **kwargs):
+        product = self.validated_data['product']
+        quantity = self.validated_data['quantity']
+        idCart = self.validated_data["idCart"]
+
+        try:
+            cartitem = CartItems.objects.get(product=product, idCart=idCart)
+            if cartitem.product.stock >= quantity:
+                cartitem.quantity += quantity
+                cartitem.save()
+
+                self.instance = cartitem
+
+        except CartItems.DoesNotExist:
+
+            if self.instance.product.stock >= quantity:
+                self.instance = CartItems.objects.create(
+                    product=product,
+                    idCart=idCart,
+                    quantity=quantity
+                    )
+        
+        return self.instance

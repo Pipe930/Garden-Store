@@ -1,10 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
-from .models import Cart, CartItems
+from .models import Cart
 from django.http import Http404
-from .serializer import CartSerializer, AddCartItemSerializer, CartItemsSerializer
+from .serializer import CartSerializer, AddCartItemSerializer, SubtractCartItemSerializer
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
 from apps.users.authentication import Authentication
@@ -90,11 +89,11 @@ class CreateCartView(generics.CreateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AddCartItemView(generics.CreateAPIView):
+class AddCartItemView(generics.CreateAPIView, Authentication):
 
     serializer_class = AddCartItemSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = AddCartItemSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -103,3 +102,19 @@ class AddCartItemView(generics.CreateAPIView):
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class DeleteCartItemView(generics.CreateAPIView, Authentication):
+
+    serializer_class = SubtractCartItemSerializer
+
+    def create(self, request, *args, **kwargs):
+
+        serializer = SubtractCartItemSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response({'message': 'Se resto el producto'}, status=status.HTTP_200_OK)
+
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

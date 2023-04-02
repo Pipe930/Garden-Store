@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Cart, CartItems
 from apps.products.models import Product
+from django.http import Http404
 
 class SimpleProductSerializer(serializers.ModelSerializer):
 
@@ -42,7 +43,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartItems
-        fields = ["id", "product", "quantity", "idCart"]
+        fields = ["product", "quantity", "idCart"]
     
     def save(self, **kwargs):
         product = self.validated_data['product']
@@ -59,11 +60,38 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 
         except CartItems.DoesNotExist:
 
-            if self.instance.product.stock >= quantity:
-                self.instance = CartItems.objects.create(
-                    product=product,
-                    idCart=idCart,
-                    quantity=quantity
-                    )
+            self.instance = CartItems.objects.create(
+                product=product,
+                idCart=idCart,
+                quantity=quantity
+                )
         
+        return self.instance
+
+class SubtractCartItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CartItems
+        fields = ["product", "idCart"]
+    
+    def save(self, **kwargs):
+        try:
+            product = self.validated_data['product']
+            idCart = self.validated_data["idCart"]
+        
+        except KeyError:
+            raise Http404
+
+        try:
+            cartitem = CartItems.objects.get(product=product, idCart=idCart)
+        except CartItems.DoesNotExist:
+            raise Http404
+
+        if cartitem.quantity == 1:
+            cartitem.delete()
+        
+        else:
+            cartitem.quantity -= 1
+            cartitem.save()
+
         return self.instance

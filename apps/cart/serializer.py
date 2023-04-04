@@ -46,24 +46,35 @@ class AddCartItemSerializer(serializers.ModelSerializer):
         fields = ["product", "quantity", "idCart"]
     
     def save(self, **kwargs):
-        product = self.validated_data['product']
-        quantity = self.validated_data['quantity']
+        product = self.validated_data["product"]
+        quantity = self.validated_data["quantity"]
         idCart = self.validated_data["idCart"]
 
         try:
             cartitem = CartItems.objects.get(product=product, idCart=idCart)
             if cartitem.product.stock >= quantity:
                 cartitem.quantity += quantity
+                cartitem.price = cartitem.quantity * cartitem.product.price
+
+                cartTotal(idCart, cartitem)
+
                 cartitem.save()
 
                 self.instance = cartitem
 
         except CartItems.DoesNotExist:
 
+            product2 = Product.objects.get(id=int(product.id))
+
+            newPrice = product2.price * quantity
+
+            cartTotal(idCart, cartitem)
+
             self.instance = CartItems.objects.create(
                 product=product,
                 idCart=idCart,
-                quantity=quantity
+                quantity=quantity,
+                price=newPrice
                 )
         
         return self.instance
@@ -92,6 +103,18 @@ class SubtractCartItemSerializer(serializers.ModelSerializer):
         
         else:
             cartitem.quantity -= 1
+            cartitem.price = cartitem.quantity * cartitem.product.price
+
+            cartTotal(cartitem.idCart, cartitem)
             cartitem.save()
 
         return self.instance
+
+def cartTotal(idCart, cartitem):
+    cart = Cart.objects.get(id=int(idCart.id))
+
+    items = cart.items.all()
+    total = sum([cartitem.quantity * item.product.price for item in items])
+
+    cart.total = total
+    cart.save()

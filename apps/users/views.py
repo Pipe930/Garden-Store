@@ -101,15 +101,18 @@ class LoginView(ObtainAuthToken):
                 if created: # Si no existe un token
                     newCart = Cart.objects.get_or_create(idUser=user)
                     login(request=request, user=user)
+                    try:
+                        cart = Cart.objects.get(idUser = user.id)
+                    except Cart.DoesNotExist:
+                        pass
+
                     userJson = {
                         'token': token.key,
                         'username': user.username,
-                        'firstName': user.first_name,
-                        'lastName': user.last_name,
                         'user_id': user.id,
-                        'email': user.email,
                         'activate': user.is_active,
-                        'staff': user.is_staff
+                        'staff': user.is_staff,
+                        'idCart': cart.id
                     }
 
                     return Response(userJson, status=status.HTTP_200_OK)
@@ -119,15 +122,18 @@ class LoginView(ObtainAuthToken):
                     token.delete()
                     token = Token.objects.create(user=user)
 
+                    try:
+                        cart = Cart.objects.get(idUser = user.id)
+                    except Cart.DoesNotExist:
+                        pass
+
                     userJson = {
                         'token': token.key,
                         'username': user.username,
-                        'firstName': user.first_name,
-                        'lastName': user.last_name,
                         'user_id': user.id,
-                        'email': user.email,
                         'activate': user.is_active,
-                        'staff': user.is_staff
+                        'staff': user.is_staff,
+                        'idCart': cart.id
                     }
                     return Response(userJson, status=status.HTTP_200_OK)
             else:
@@ -297,7 +303,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     send_mail(
         # title:
-        "Password Reset for {title}".format(title="Some website title"),
+        "Password Reset for {title}".format(title="Garden Store"),
         # message:
         email_plaintext_message,
         # from:

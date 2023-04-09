@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProductsRoutingModule } from './products-routing.module';
-import { ListProductsComponent } from './list-products/list-products.component';
-import { ProductComponent } from './product/product.component';
+import { ListProductsComponent } from './components/list-products/list-products.component';
+import { ProductComponent } from './components/product/product.component';
 
 import { ProductService } from './services/product.service';
 import { FilterPipe } from './pipes/filter.pipe';

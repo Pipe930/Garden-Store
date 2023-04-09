@@ -8,6 +8,7 @@ import { ProductComponent } from './components/product/product.component';
 
 import { ProductService } from './services/product.service';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CartService } from '../cart/services/cart.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     HttpClientModule
   ],
   providers:[
-    ProductService
+    ProductService,
+    CartService
   ]
 })
 export class ProductsModule { }

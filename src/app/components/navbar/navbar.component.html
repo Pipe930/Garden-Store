@@ -42,10 +42,10 @@
         <button type="button" class="btn-sesion" (click)="linkMenu()" [routerLink]="['/auth/login']">Iniciar Sesion</button>
       </li>
       <li class="buttons" *ngIf="!obtenerToken()">
-        <button type="button" class="btn-register" (click)="linkMenu()" [routerLink]="['/auth/register']">Registrarse</button>
+        <button type="button" class="btn-sesion" (click)="linkMenu()" [routerLink]="['/auth/register']">Registrarse</button>
       </li>
       <li class="buttons" *ngIf="obtenerToken()">
-        <button type="button" class="btn-perfil" (click)="linkMenu()" [routerLink]="['/profile', username]">Perfil</button>
+        <button type="button" class="btn-perfil" (click)="linkMenu()" [routerLink]="['/auth/profile', username]">Perfil</button>
       </li>
     </div>
   </div>

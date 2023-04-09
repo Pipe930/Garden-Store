@@ -1,0 +1,58 @@
+<div class="continaer-search">
+  <input
+  type="search"
+  placeholder="buscar..."
+  id="searchproduct"
+  (keyup)="search($event)"
+  >
+  <input type="checkbox" >
+  <select name="" id="" class="select-form">
+    <option *ngFor="let category of servicio.listCategories" [value]="category.id">{{category.name_category}}</option>
+  </select>
+</div>
+<div class="title">
+  <h1>
+    Productos
+  </h1>
+</div>
+
+<div class="container-products">
+  <article class="product" *ngFor="let product of listProducs | filter:name">
+    <div class="header-product">
+      <img [src]="product.image" alt="image product">
+    </div>
+    <div class="body-product">
+      <h2>
+        {{product.name_product}}
+      </h2>
+      <ul>
+        <li>
+          Precio: ${{product.price}}
+        </li>
+        <li>
+          Stock: {{product.stock}}
+        </li>
+        <li>
+          Categoria: {{product.idCategory}}
+        </li>
+        <li>
+          <p>
+            Descripcion: {{product.description}}
+          </p>
+        </li>
+      </ul>
+      <button type="button" [routerLink]="['product/', product.slug]">Ver</button>
+    </div>
+  </article>
+</div>
+
+<footer class="pie-products" *ngIf="servicio.activeFooter">
+  <div class="container-pie">
+    <p>
+      Productos
+    </p>
+    <p class="logo">
+      Garden Store ©
+    </p>
+  </div>
+</footer>

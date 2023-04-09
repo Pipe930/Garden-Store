@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 
+import { SesionRequiredGuard } from './guards/sesion-required.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +22,11 @@ const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./products/products.module').then(modulo => modulo.ProductsModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then(module => module.CartModule),
+    canActivate: [SesionRequiredGuard]
   }
 ];
 

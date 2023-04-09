@@ -1,0 +1,160 @@
+$menuBreakpoint: 1020px;
+$menuHeight: 60px;
+
+#navbar{
+  background-color: #9bc0ff;
+  height: $menuHeight;
+  padding: 0 20px;
+  // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  width: 100%;
+
+  .contanier-navbar{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    .contianer-logo{
+      a{
+        text-decoration: none;
+        span{
+          font-size: 24px;
+          font-weight: 900;
+          color: rgb(45, 173, 113);
+        }
+      }
+    }
+
+    .container-btn-menu{
+      display: none;
+      cursor: pointer;
+
+      .btn{
+        padding: 5px;
+        margin: 0 8px;
+      }
+
+      i{
+        color: #FFFFFF;
+      }
+
+      @media (max-width: $menuBreakpoint){
+        display: block;
+      }
+    }
+
+    .menu{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      @media (max-width: $menuBreakpoint){
+        display: none;
+
+        &.is-open{
+          display: block;
+          position: absolute;
+          top: $menuHeight;
+          background-color: #F4F4F4;
+          left: 0;
+          width: 100%;
+
+          .menu-item::after{
+            height: 0;
+          }
+
+          .menu-item:hover{
+            color: #9bc0ff;
+          }
+
+          .menu-item{
+            border-bottom: 1px solid #A2A2A2;
+            color: #000000;
+            line-height: $menuHeight;
+            padding: 0;
+          }
+        }
+      }
+      .buttons{
+        margin-left: 15px;
+        height: $menuHeight;
+        line-height: $menuHeight;
+        display: block;
+        color: #FFFFFF;
+
+        .btn-sesion{
+          padding: 7px 10px;
+          font-size: 15px;
+          background-color: rgba(34, 203, 44, 0.8);
+          border: none;
+          color: #F0F0F0;
+          cursor: pointer;
+          font-weight: 900;
+        }
+
+        .btn-sesion:hover{
+          background-color: #4BB54A;
+        }
+
+        .btn-register{
+          padding: 7px 10px;
+          font-size: 15px;
+          background-color: rgba(34, 203, 44, 0.8);
+          border: none;
+          color: #F0F0F0;
+          cursor: pointer;
+          font-weight: 900;
+        }
+
+        .btn-register:hover{
+          background-color: #4BB54A;
+        }
+
+        .btn-perfil{
+          background-color: rgba(88, 106, 240, 0.9);
+          padding: 7px 10px;
+          font-size: 15px;
+          border: none;
+          color: #F0F0F0;
+          font-weight: 900;
+          cursor: pointer;
+        }
+      }
+
+      .menu-item{
+        margin: 0 10px;
+        cursor: pointer;
+        height: $menuHeight;
+        padding: 20px 0;
+        display: block;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 600;
+        --clippy: polygon(0 0, 0 0, 0 100%, 0% 100%);
+
+        @media (max-width: $menuBreakpoint){
+          height: 50px;
+          line-height: 50px;
+        }
+      }
+
+      .menu-item::after{
+        content: '';
+        display: block;
+        background-color: rgb(45, 173, 113);
+        width: 100%;
+        margin-top: 3px;
+        height: 3px;
+        clip-path: var(--clippy);
+        transition: clip-path .3s;
+      }
+
+      .menu-item:hover{
+        --clippy: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+  }
+}

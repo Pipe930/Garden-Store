@@ -1,0 +1,52 @@
+<nav id="navbar">
+  <div class="contanier-navbar">
+    <div class="contianer-logo">
+      <a href="" [routerLink]="['home']" id="logo">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+          </svg>
+          Garden Store
+        </span>
+      </a>
+    </div>
+    <div class="container-btn-menu" (click)="toggleMenu()">
+      <i class="icon-menu" *ngIf="!isMenuOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </i>
+      <i class="icon-menu" *ngIf="isMenuOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+        </svg>
+      </i>
+    </div>
+    <div class="menu" [class.is-open]="isMenuOpen">
+      <li class="menu-item" (click)="linkMenu()" [routerLink]="['/products']">
+        Productos
+      </li>
+      <li class="menu-item" (click)="linkMenu()" [routerLink]="['/products/offers']">
+        Ofertas
+      </li>
+      <li class="menu-item" (click)="linkMenu()" [routerLink]="['/cart']">
+        Carrito
+      </li>
+      <li class="menu-item">
+        Historial
+      </li>
+      <li class="menu-item">
+        Subscripciones
+      </li>
+      <li class="buttons" *ngIf="!obtenerToken()">
+        <button type="button" class="btn-sesion" (click)="linkMenu()" [routerLink]="['/auth/login']">Iniciar Sesion</button>
+      </li>
+      <li class="buttons" *ngIf="!obtenerToken()">
+        <button type="button" class="btn-register" (click)="linkMenu()" [routerLink]="['/auth/register']">Registrarse</button>
+      </li>
+      <li class="buttons" *ngIf="obtenerToken()">
+        <button type="button" class="btn-perfil" (click)="linkMenu()" [routerLink]="['/profile', username]">Perfil</button>
+      </li>
+    </div>
+  </div>
+</nav>

@@ -119,6 +119,12 @@
   .container-product{
     .product{
       flex-direction: column;
+
+      .container-img{
+        max-width: 100%;
+
+      }
+      margin-bottom: 60px;
     }
   }
 }

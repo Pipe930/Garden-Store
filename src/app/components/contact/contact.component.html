@@ -1,0 +1,19 @@
+<div class="contacto">
+  <h2>Contactanos</h2>
+  <form class="formulario" [formGroup]="formularioContacto" (ngSubmit)="enviarContacto()">
+    <fieldset>
+      <label for="correo">Correo</label>
+      <input type="email" id="correo" formControlName="correo" required class="input-contacto">
+      <div class="container-messages-errors" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+        <span class="mensaje-error" *ngIf="correo.errors.required">Este campo es requerido</span>
+        <span class="mensaje-error" *ngIf="correo.errors.email">Tiene que ingresar un correo valido</span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" cols="30" rows="3" class="text-contacto" formControlName="mensaje"></textarea>
+      <span class="mensaje-error"></span>
+    </fieldset>
+    <button type="submit" class="btn-enviar">Enviar</button>
+  </form>
+</div>

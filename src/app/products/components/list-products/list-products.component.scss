@@ -10,6 +10,51 @@
   align-items: center;
   display: flex;
 
+  .container-check{
+    text-align: center;
+    .text-check{
+      font-size: 16px;
+    }
+
+    .check-box{
+      margin: 5px 10px;
+
+      .label-switch{
+        display: inline-block;
+        width: 55px;
+        height: 30px;
+        background-color: #AAA;
+        border-radius: 100px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .label-switch:after{
+        position: absolute;
+        content: '';
+        width: 22px;
+        height: 22px;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        top: 4px;
+        left: 5px;
+        transition: 0.3s;
+      }
+
+      #btn-switch:checked~ .label-switch{
+        background-color: #61A0FF;
+      }
+
+      #btn-switch:checked~ .label-switch:after{
+        left: 28px;
+      }
+
+      #btn-switch{
+        display: none;
+      }
+  }
+  }
+
 
   #searchproduct{
     padding: 10px;
@@ -20,7 +65,7 @@
   }
 
   .select-form{
-    margin-left: 25px;
+    margin-left: 5px;
     padding: 10px;
     border-radius: 10px;
     border: none;

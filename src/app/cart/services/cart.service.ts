@@ -18,7 +18,7 @@ export class CartService {
   ) { }
 
   public cartAdd(product: AddCart):void{
-    this.http.post<any>(`${this.urlCart}item/add`, product, {
+    this.http.post<Cart>(`${this.urlCart}item/add`, product, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

@@ -5,8 +5,14 @@
   id="searchproduct"
   (keyup)="search($event)"
   >
-  <input type="checkbox" >
-  <select name="" id="" class="select-form">
+  <div class="container-check">
+    <label for="" class="text-check">Filter</label>
+    <div class="check-box">
+      <input type="checkbox" name="" id="btn-switch" (click)="activateFilter()">
+      <label for="btn-switch" class="label-switch"></label>
+    </div>
+  </div>
+  <select name="" id="" class="select-form" *ngIf="filterActivate">
     <option *ngFor="let category of servicio.listCategories" [value]="category.id">{{category.name_category}}</option>
   </select>
 </div>
@@ -17,7 +23,7 @@
 </div>
 
 <div class="container-products">
-  <article class="product" *ngFor="let product of listProducs | filter:name">
+  <article class="product" *ngFor="let product of listProducts | search:name">
     <div class="header-product">
       <img [src]="product.image" alt="image product">
     </div>
@@ -44,6 +50,9 @@
       <button type="button" [routerLink]="['product/', product.slug]">Ver</button>
     </div>
   </article>
+  <div class="container-message-alert" *ngIf="!listProducts">
+    <p class="message-alert">No hay productos con ese nombre</p>
+  </div>
 </div>
 
 <footer class="pie-products" *ngIf="servicio.activeFooter">

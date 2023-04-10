@@ -10,8 +10,9 @@ import { Product } from '../../modules/product';
 export class ListProductsComponent implements OnInit {
 
   public listFilter: Array<Product> = [];
-  public listProducs: Array<Product> = [];
+  public listProducts: Array<Product> = [];
   public name: string = "";
+  public filterActivate: boolean = false;
 
   constructor(
     private service: ProductService
@@ -22,7 +23,7 @@ export class ListProductsComponent implements OnInit {
     this.service.getProducts();
 
     this.service.listProducts$.subscribe(restult => {
-        this.listProducs = restult;
+        this.listProducts = restult;
       })
   }
 
@@ -48,5 +49,9 @@ export class ListProductsComponent implements OnInit {
     }, error => {
       console.log(error);
     })
+  }
+
+  public activateFilter():void {
+    this.filterActivate = !this.filterActivate;
   }
 }

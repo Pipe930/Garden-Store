@@ -7,14 +7,14 @@ import { ListProductsComponent } from './components/list-products/list-products.
 import { ProductComponent } from './components/product/product.component';
 
 import { ProductService } from './services/product.service';
-import { FilterPipe } from './pipes/filter.pipe';
 import { CartService } from '../cart/services/cart.service';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
     ListProductsComponent,
     ProductComponent,
-    FilterPipe
+    SearchPipe
   ],
   imports: [
     CommonModule,

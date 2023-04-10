@@ -38,6 +38,9 @@
       <li class="menu-item">
         Subscripciones
       </li>
+      <li class="menu-item" (click)="linkMenu()" [routerLink]="['/contact']">
+        Contacto
+      </li>
       <li class="buttons" *ngIf="!obtenerToken()">
         <button type="button" class="btn-sesion" (click)="linkMenu()" [routerLink]="['/auth/login']">Iniciar Sesion</button>
       </li>

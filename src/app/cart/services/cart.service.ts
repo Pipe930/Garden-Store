@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Cart } from '../modules/cart';
 import { AddCart } from '../modules/add-cart';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   public urlCart: string = 'http://127.0.0.1:8000/carts/';
-  public cart: Cart | any;
 
   constructor(
     private http: HttpClient,
@@ -39,17 +39,35 @@ export class CartService {
     });
   }
 
-  public getCart(id: number):void{
-    this.http.get<Cart>(`${this.urlCart}cart/user/${id}`, {
+  public getCart(id: number):Observable<Cart>{
+    return this.http.get<Cart>(`${this.urlCart}cart/user/${id}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    })
+  }
+
+  public cartSubstract(product: any):void{
+    this.http.post<any>(`${this.urlCart}item/substract`, product, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).subscribe(result => {
+      console.log(result);
+    })
+  }
+
+  public cartSum(product: AddCart):void{
+    this.http.post<Cart>(`${this.urlCart}item/add`, product, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }).subscribe(result => {
       if(result){
-        this.cart = result;
+        console.log(result);
       }
     }, error => {
       console.log(error);
-    })
+    });
   }
 }

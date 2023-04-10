@@ -1,1 +1,45 @@
 <p>component-cart works!</p>
+
+<div class="container-cart">
+  <h2>Carrito</h2>
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>
+          Producto
+        </th>
+        <th>
+          Cantidad
+        </th>
+        <th>
+          Precio
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>
+          {{item.product.name_product}}
+        </td>
+        <td>
+          <button type="button" (click)="substractProduct(item.product.id)">-</button>
+          {{item.quantity}}
+          <button type="button" (click)="sumProduct(item.product.id)">+</button>
+        </td>
+        <td>
+          ${{item.price}}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          Total: ${{cart.total}}
+        </td>
+        <td>
+          <button type="button"> Limpiar</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

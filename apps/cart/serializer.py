@@ -109,6 +109,25 @@ class SubtractCartItemSerializer(serializers.ModelSerializer):
         cartTotal(cartitem.idCart)
 
         return self.instance
+    
+class ClearCartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CartItems
+        fields = ("idCart",)
+    
+    def save(self, **kwargs):
+        try:
+            idCart = self.validated_data["idCart"]
+        except KeyError:
+            raise Http404
+        
+        items = CartItems.objects.filter(idCart=idCart)
+
+        for item in items:
+            item.delete()
+
+        return self.instance
 
 def cartTotal(idCart):
     cart = Cart.objects.get(id=int(idCart.id))

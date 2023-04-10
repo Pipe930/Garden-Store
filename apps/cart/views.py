@@ -3,7 +3,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from .models import Cart
 from django.http import Http404
-from .serializer import CartSerializer, AddCartItemSerializer, SubtractCartItemSerializer
+from .serializer import CartSerializer, AddCartItemSerializer, SubtractCartItemSerializer, ClearCartSerializer
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
 from apps.users.authentication import Authentication
@@ -116,5 +116,21 @@ class SubtractCartItemView(generics.CreateAPIView, Authentication):
 
             return Response({'message': 'Se resto el producto'}, status=status.HTTP_200_OK)
 
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ClearCartItemsView(generics.CreateAPIView, Authentication):
+
+    serializer_class = ClearCartSerializer
+
+    def create(self, request, *args, **kwargs):
+
+        serializer = ClearCartSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response({"message": "Se limpio el carrito de compras"}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

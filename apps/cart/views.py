@@ -102,7 +102,7 @@ class AddCartItemView(generics.CreateAPIView, Authentication):
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DeleteCartItemView(generics.CreateAPIView, Authentication):
+class SubtractCartItemView(generics.CreateAPIView, Authentication):
 
     serializer_class = SubtractCartItemSerializer
 

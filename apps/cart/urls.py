@@ -8,7 +8,7 @@ urlsCart = [
     path('cart/user/<int:idUser>', views.CartUserView.as_view(), name='cartuser'),
     path('cart/create', views.CreateCartView.as_view(), name='createcart'),
     path('item/add', views.AddCartItemView.as_view(), name='additem'),
-    path('item/delete', views.DeleteCartItemView.as_view(), name='deleteitem')
+    path('item/substract', views.SubtractCartItemView.as_view(), name='substractitem')
 ]
 
 urlsCart = format_suffix_patterns(urlsCart)

@@ -52,7 +52,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 
         try:
             cartitem = CartItems.objects.get(product=product, idCart=idCart)
-            if cartitem.product.stock >= quantity:
+            if cartitem.product.stock > cartitem.quantity:
                 cartitem.quantity += quantity
                 cartitem.price = cartitem.quantity * cartitem.product.price
 

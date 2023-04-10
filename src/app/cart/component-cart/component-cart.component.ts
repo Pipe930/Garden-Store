@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../modules/cart';
 
@@ -7,7 +7,7 @@ import { Cart } from '../modules/cart';
   templateUrl: './component-cart.component.html',
   styleUrls: ['./component-cart.component.scss']
 })
-export class ComponentCartComponent implements OnInit {
+export class ComponentCartComponent implements OnInit, OnDestroy {
 
   public items: Array<any> = [];
   public cart: Cart =  {
@@ -24,6 +24,14 @@ export class ComponentCartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCart();
+  }
+
+  ngOnDestroy(): void {
+    window.location.reload();
+  }
+
+  public getCart():void{
     this.service.getCart(
       this.user.user_id
       ).pipe(result => result).subscribe(result => {
@@ -33,6 +41,7 @@ export class ComponentCartComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+
   }
 
   public substractProduct(productid: number):void{
@@ -60,6 +69,16 @@ export class ComponentCartComponent implements OnInit {
 
     window.location.reload();
 
+  }
+
+  public clearCart(idCart: number):void{
+    const json = {
+      idCart
+    }
+
+    this.service.cartClear(json);
+
+    window.location.reload();
   }
 
 }

@@ -70,4 +70,18 @@ export class CartService {
       console.log(error);
     });
   }
+
+  public cartClear(json: any):void{
+    this.http.post<any>(`${this.urlCart}items/clear`, json, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).subscribe(result => {
+      if(result){
+        console.log(result);
+      }
+    }, error => {
+      console.log(error);
+    })
+  }
 }

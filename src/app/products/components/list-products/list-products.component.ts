@@ -9,10 +9,11 @@ import { Product } from '../../modules/product';
 })
 export class ListProductsComponent implements OnInit {
 
-  public listFilter: Array<Product> = [];
+  public listFilter: any;
   public listProducts: Array<Product> = [];
   public name: string = "";
   public filterActivate: boolean = false;
+  public activeList: boolean = true;
 
   constructor(
     private service: ProductService
@@ -45,7 +46,9 @@ export class ListProductsComponent implements OnInit {
     this.service.filterProduct(
       element.value
       ).subscribe(result => {
-      this.listFilter = result.results;
+        if(result){
+          this.listFilter = result;
+        }
     }, error => {
       console.log(error);
     })
@@ -53,5 +56,6 @@ export class ListProductsComponent implements OnInit {
 
   public activateFilter():void {
     this.filterActivate = !this.filterActivate;
+    this.activeList = !this.activeList;
   }
 }

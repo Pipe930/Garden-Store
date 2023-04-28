@@ -3,9 +3,6 @@ from uuid import uuid4
 from apps.users.models import User
 from apps.cart.models import Cart
 
-class PaymentType(models.Model):
-    name_payment = models.CharField(max_length=60)
-
 # Model Voucher
 
 class Voucher(models.Model):
@@ -14,7 +11,6 @@ class Voucher(models.Model):
     total_price = models.PositiveIntegerField(default=0) # Total Price
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    idPayment = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'voucher'

@@ -1,12 +1,7 @@
 from django.contrib import admin
-from .models import Voucher, Order, PaymentType, Province, Commune, Region
+from .models import Voucher, Order, Province, Commune, Region
 
 # Register your models here.
-
-@admin.register(PaymentType)
-class PaymentTypeAdmin(admin.ModelAdmin):
-    list_display = ['name_payment']
-    ordering = ('name_payment',)
 
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
@@ -26,7 +21,7 @@ class CommuneAdmin(admin.ModelAdmin):
 @admin.register(Voucher)
 class VoucherAdmin(admin.ModelAdmin):
 
-    list_display = ['code', 'created', 'total_price', 'idUser', 'idCart','idPayment']
+    list_display = ['code', 'created', 'total_price', 'idUser', 'idCart']
     list_filter = ['created', 'total_price']
     ordering = ('created',)
 

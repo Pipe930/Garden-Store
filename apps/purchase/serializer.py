@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, Voucher, Region, Province, Commune, PaymentType
+from .models import Order, Voucher, Region, Province, Commune
 
 # Serializer Voucher
 
@@ -22,18 +22,6 @@ class OrderSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         order = Order.objects.create(**validated_data)
         return order
-
-# Payment Type Serializer
-
-class PaymentTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = PaymentType
-        fields = '__all__'
-
-    def create(self, validated_data):
-        payment = PaymentType.objects.create(**validated_data)
-        return payment
 
 # Region Serializer
 

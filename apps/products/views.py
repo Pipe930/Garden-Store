@@ -7,11 +7,16 @@ from .models import Category, Product, Offer
 from .serializers import CategorySerializer, ProductSerializer, OfferSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
+from rest_framework.parsers import JSONParser
 
-class CategoryListView(APIView):
+class CategoryListView(generics.ListCreateAPIView):
+
+    serializer_class = CategorySerializer
+    parser_classes = [JSONParser]
+    queryset = Category.objects.all().order_by('name_category')
 
     def get(self, request, format=None):
-        queryset = Category.objects.all().order_by('name_category')
+        queryset = self.get_queryset()
 
         if len(queryset):
             serializer = CategorySerializer(queryset, many=True)
@@ -29,7 +34,10 @@ class CategoryListView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CategoryDetailView(APIView):
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = CategorySerializer
+    parser_classes = [JSONParser]
 
     def get_object(self, id:int):
         try:
@@ -64,10 +72,14 @@ class CategoryDetailView(APIView):
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class OfferListView(APIView):
+class OfferListView(generics.ListCreateAPIView):
+
+    queryset = Offer.objects.all()
+    serializer_class = OfferSerializer
+    parser_classes = [JSONParser]
     
     def get(self, request, format=None):
-        queryset = Offer.objects.all()
+        queryset = self.get_queryset()
 
         if len(queryset):
             serializer = OfferSerializer(queryset, many=True)
@@ -86,7 +98,10 @@ class OfferListView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OfferDetailView(APIView):
+class OfferDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = OfferSerializer
+    parser_classes = [JSONParser]
 
     def get_object(self, id:int):
         try:
@@ -146,7 +161,9 @@ class ProductsGenericView(generics.ListCreateAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProductView(APIView):
+class ProductView(generics.RetrieveAPIView):
+
+    serializer_class = ProductSerializer
 
     def get_object(self, slug:str):
         try:
@@ -162,7 +179,10 @@ class ProductView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class ProductDetailView(APIView):
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = ProductSerializer
+    parser_classes = [JSONParser]
 
     def get_object(self, id:int):
 
@@ -211,7 +231,7 @@ class ProductOfferView(generics.ListAPIView):
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
 
-    def listProducts(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
 
         product = self.get_queryset()
         serializer = ProductSerializer(product, many=True)

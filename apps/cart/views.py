@@ -7,6 +7,7 @@ from .serializer import CartSerializer, AddCartItemSerializer, SubtractCartItemS
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
 from apps.users.authentication import Authentication
+from rest_framework.parsers import JSONParser
 
 class CartsListView(APIView):
     permission_classes = [IsAdminUser, IsAuthenticated]
@@ -56,7 +57,10 @@ class CartDetailView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class CartUserView(Authentication, APIView):
+class CartUserView(Authentication, generics.RetrieveAPIView):
+
+    serializer_class = CartSerializer
+    parser_classes = [JSONParser]
 
     def get_object(self, idUser:int):
 
@@ -78,6 +82,7 @@ class CartUserView(Authentication, APIView):
 class CreateCartView(generics.CreateAPIView):
 
     serializer_class = CartSerializer
+    parser_classes = [JSONParser]
 
     def create(self, request, *args, **kwargs):
         serializer = CartSerializer(data=request.data)

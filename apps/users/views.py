@@ -1,10 +1,9 @@
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import status, generics
 from django.http import Http404
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Subscription
@@ -16,16 +15,19 @@ from apps.cart.models import Cart
 from django.dispatch import receiver
 from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
-from django.core.mail import send_mail  
+from django.core.mail import send_mail 
+from rest_framework.parsers import JSONParser
 
 # Vista que lista los usuarios registrados
-class UsersListView(APIView):
+class UsersListView(generics.ListAPIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
 
     def get(self, request, format=None):
 
-        queryset = User.objects.all()
+        queryset = self.get_queryset()
         serializer = UserSerializer(queryset, many=True)
 
         if len(queryset):
@@ -34,9 +36,11 @@ class UsersListView(APIView):
             contenido = {'message': 'Usuarios Not Found'}
             return Response(contenido, status=status.HTTP_204_NO_CONTENT)
 
-class UserView(APIView):
+class UserView(generics.RetrieveAPIView):
+
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    serializer_class = UserSerializer
 
     def get_object(self, id:int):
         try:
@@ -52,7 +56,11 @@ class UserView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 # Vista que registra el usuario en el sistema
-class RegisterUserView(APIView):
+class RegisterUserView(generics.CreateAPIView):
+
+    serializer_class = UserSerializer
+    parser_classes = [JSONParser]
+    permission_classes = [AllowAny]
     
     def post(self, request, *args, **kwargs):
 
@@ -70,6 +78,9 @@ class RegisterUserView(APIView):
 
 # Vista que autentifica el usuario 
 class LoginView(ObtainAuthToken):
+
+    permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
 
     def post(self, request, *args, **kwargs):
 
@@ -146,7 +157,7 @@ class LoginView(ObtainAuthToken):
             return Response(message, status=status.HTTP_401_UNAUTHORIZED)
         
 # Vista para cerrar la sesion del usuario
-class LogoutView(APIView):
+class LogoutView(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         try:
@@ -187,16 +198,20 @@ class LogoutView(APIView):
         except:
             return Response({"errors": "No se a encontrado el token en la peticion"}, status=status.HTTP_409_CONFLICT)
 
-# Clase de lista de subscripciones
-class SubscripcionListView(APIView):
+# Clase que crea y lista subscripciones
+class SubscripcionListView(generics.ListCreateAPIView):
+
+    parser_classes = [JSONParser]
+    serializer_class = SubscripcionSerializer
+    queryset = Subscription.objects.all()
 
     # Peticion GET
     def get(self, request, format=None):
 
-        queryset = Subscription.objects.all() # Queryset
+        queryset = self.get_queryset() # Queryset
 
         serializer = SubscripcionSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK) 
+        return Response(serializer.data, status=status.HTTP_200_OK) # Response
 
     # Peticion POST
     def post(self, request, format=None):
@@ -210,7 +225,9 @@ class SubscripcionListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Clase que optiene una subscripcion por id
-class SubscriptionDetailView(APIView):
+class SubscriptionDetailView(generics.RetrieveDestroyAPIView):
+
+    serializer_class = SubscripcionSerializer
 
     # Se obtiene el objeto por la id
     def get_object(self, id:int):
@@ -239,7 +256,10 @@ class SubscriptionDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # Clase para el envio de correos
-class SendEmailView(APIView):
+class SendEmailView(generics.CreateAPIView):
+
+    serializer_class = MessageSerializer
+    parser_classes = [JSONParser]
 
     def post(self, request, format=None):
 
@@ -260,7 +280,7 @@ class ChangePasswordView(generics.UpdateAPIView):
     """
     serializer_class = ChangePasswordSerializer
     model = User
-    permission_classes = (IsAuthenticated,)
+    parser_classes = [JSONParser]
 
     # Se optiene el objeto usuario
     def get_object(self, queryset=None):

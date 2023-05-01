@@ -1,16 +1,19 @@
-from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from .serializer import VoucherSerializer, OrderSerializer
 from .models import Order, Voucher
+from rest_framework.parsers import JSONParser
 
 # Create your views here.
-class OrderView(APIView):
+class OrderView(generics.ListCreateAPIView):
+
+    serializer_class = VoucherSerializer
+    queryset = Voucher.objects.all()
 
     def get(self, request, format=None):
-        query = Voucher.objects.all()
+        query = self.get_queryset()
         if len(query):
 
             serializer = VoucherSerializer(query, many=True)
@@ -28,7 +31,10 @@ class OrderView(APIView):
         
         return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OrderUserDetailView(APIView):
+class OrderUserDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = VoucherSerializer
+    parser_classes = [JSONParser]
 
     def get_object(self, idUser:int):
         try:
@@ -50,10 +56,13 @@ class OrderUserDetailView(APIView):
         vourcher.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class TicketView(APIView):
+class TicketView(generics.ListCreateAPIView):
+    
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
 
     def get(self, request, format=None):
-        query = Order.objects.all()
+        query = self.get_queryset()
         serializer = OrderSerializer(query, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -67,7 +76,9 @@ class TicketView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class TicketUserView(APIView):
+class TicketUserView(generics.RetrieveAPIView):
+
+    serializer_class = OrderSerializer
 
     def get_object(self, idUser:int):
 

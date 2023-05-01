@@ -18,44 +18,49 @@ from django_rest_passwordreset.signals import reset_password_token_created
 from django.core.mail import send_mail 
 from rest_framework.parsers import JSONParser
 
-# Vista que lista los usuarios registrados
+# View that lists registered users
 class UsersListView(generics.ListAPIView):
+    
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
+    # Petition GET
     def get(self, request, format=None):
 
         queryset = self.get_queryset()
-        serializer = UserSerializer(queryset, many=True)
+        serializer = UserSerializer(queryset, many=True) # Serializer data
 
         if len(queryset):
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK) # Response
         else:
             contenido = {'message': 'Usuarios Not Found'}
-            return Response(contenido, status=status.HTTP_204_NO_CONTENT)
+            return Response(contenido, status=status.HTTP_204_NO_CONTENT) # Response
 
+# 
 class UserView(generics.RetrieveAPIView):
 
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = UserSerializer
 
+    # Get a user object by its id
     def get_object(self, id:int):
         try:
-            user = User.objects.get(id=id)
-        except User.DoesNotExist:
+            user = User.objects.get(id=id) # Looking for a pos user object si id
+        except User.DoesNotExist: # If it does not exist, a 404 is returned
             raise Http404
         
         return user
-
+    
+    # Petition GET
     def get(self, request, id:int, format=None):
-        user = self.get_object(id)
-        serializer = UserSerializer(user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        user = self.get_object(id) # User is obtained
+        serializer = UserSerializer(user) #The user object is serialized
+        return Response(serializer.data, status=status.HTTP_200_OK) # Response
 
-# Vista que registra el usuario en el sistema
+# View that the user registers in the system
 class RegisterUserView(generics.CreateAPIView):
 
     serializer_class = UserSerializer
@@ -64,19 +69,19 @@ class RegisterUserView(generics.CreateAPIView):
     
     def post(self, request, *args, **kwargs):
 
-        # Serializa la data
+        # Serializer data
         serializer = UserSerializer(data = request.data)
 
-        # ¿Es valida la data?
+        # Is the data valid?
         if serializer.is_valid():
 
-            serializer.save() # Guarda los datos
+            serializer.save() # Save the data
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED) # Response
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # Response
 
-# Vista que autentifica el usuario 
+# View that authenticates the user
 class LoginView(ObtainAuthToken):
 
     permission_classes = [AllowAny]
@@ -84,39 +89,43 @@ class LoginView(ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
 
-        # Se serialisa la peticion
+        # The request is serialized
         serializer = self.serializer_class(
             data = request.data, 
             context = {'request': request})
         
-        # Se comprueba si el usuario y contraseña enviados existe
+        # It checks if the username and password sent exist
         try:
             usuarioEncontrado = authenticate(
                 username = request.data['username'], 
                 password = request.data['password'])
         except KeyError:
             message = {
-                'message': 'No se proporcionaron las credenciales'
+                'message': 'No credentials provided'
             }
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
         
+        # user found?
         if usuarioEncontrado is not None:
 
             serializer.is_valid(raise_exception=True)
-            user = serializer.validated_data['user'] # Se obtiene el usuario
-            if user.is_active:
-                token, created = Token.objects.get_or_create(user=user) # Se crea un token
+            user = serializer.validated_data['user'] # User is obtained
 
-                # Informacion en un diccionario de python
+            if user.is_active: # Is the user active?
+                token, created = Token.objects.get_or_create(user=user) # A token is created for the user
 
-                if created: # Si no existe un token
-                    newCart = Cart.objects.get_or_create(idUser=user)
-                    login(request=request, user=user)
+                if created: # If a token exists
+
+                    newCart = Cart.objects.get_or_create(idUser=user) # A cart is created for the user
+                    login(request=request, user=user) # The user is authenticated
+
                     try:
+                        # It checks if the user has a cart created
                         cart = Cart.objects.get(idUser = user.id)
                     except Cart.DoesNotExist:
                         pass
 
+                    # User information
                     userJson = {
                         'token': token.key,
                         'username': user.username,
@@ -126,18 +135,19 @@ class LoginView(ObtainAuthToken):
                         'idCart': cart.id
                     }
 
-                    return Response(userJson, status=status.HTTP_200_OK)
+                    return Response(userJson, status=status.HTTP_200_OK) # Response
 
                 else:
-                    # Si existe un token
-                    token.delete()
-                    token = Token.objects.create(user=user)
+                    # If there is not token
+                    token.delete() # Remove Token
+                    token = Token.objects.create(user=user) # A new token is created
 
                     try:
                         cart = Cart.objects.get(idUser = user.id)
                     except Cart.DoesNotExist:
                         pass
 
+                    # User information
                     userJson = {
                         'token': token.key,
                         'username': user.username,
@@ -146,116 +156,122 @@ class LoginView(ObtainAuthToken):
                         'staff': user.is_staff,
                         'idCart': cart.id
                     }
-                    return Response(userJson, status=status.HTTP_200_OK)
+                    return Response(userJson, status=status.HTTP_200_OK) # Response
             else:
-                return Response({'message': 'El usuario no esta activo'}, status= status.HTTP_403_FORBIDDEN)
+                return Response({'message': 'The user is not active'}, status= status.HTTP_403_FORBIDDEN) # Response
         
         else:
             message = {
-                'message': 'Credenciales no validas'
+                'message': 'Invalid credentials'
             }
-            return Response(message, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(message, status=status.HTTP_401_UNAUTHORIZED) # Response
         
 # Vista para cerrar la sesion del usuario
 class LogoutView(generics.RetrieveAPIView):
 
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    # Petition GET
     def get(self, request, *args, **kwargs):
         try:
-            # Se obtiene el token en los parametros de la url
-            token = request.GET.get('token')
+            # The token is obtained in the parameters of the url
+            token = request.GET.get('token') # The token is obtained from the url parameter "token"
             token = Token.objects.filter(key=token).first()
 
-            # ¿Existe un token?
+            # Is there a token?
             if token:
                 user = token.user
-                # Obtener todas las sessiones
+                # You get all sessions
                 all_session = Session.objects.filter(expire_date__gte = datetime.now())
-                # Si existe una sesion activa
-                if all_session.exists():
-                    for session in all_session:
-                        session_data = session.get_decoded() # Decodifica la sesion
-                        if user.id == int(session_data.get('_auth_user_id')): # ¿Existe una sesion activa con este usuario?
-                            session.delete() # Elimina la session
 
-                token.delete() # Elimina el token
+                if all_session.exists(): # Is there an active session?
+                    for session in all_session:
+                        session_data = session.get_decoded() # Decode the session
+                        if user.id == int(session_data.get('_auth_user_id')): # Is there an active session with this user?
+                            session.delete() # delete session
+
+                token.delete() # delete token
                 logout(request=request)
 
-                # Mensajes
-                session_message = 'Sesion del usuario terminada'
-                token_message = 'Token eliminado'
+                # Messages
+                session_message = 'User session terminated'
+                token_message = 'Removed Token'
 
-                # Mensaje en formato json
+                # Message in json format
                 message = {
                     'sesion_message': session_message,
                     'token_message': token_message
                 }
 
-                return Response(message, status=status.HTTP_200_OK)
+                return Response(message, status=status.HTTP_200_OK) # Response
         
-            return Response({'error': 'No se a encontrado un usuario con esas credenciales'},
-            status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No user found with those credentials'},
+            status=status.HTTP_400_BAD_REQUEST) # Response
         
         except:
-            return Response({"errors": "No se a encontrado el token en la peticion"}, status=status.HTTP_409_CONFLICT)
+            return Response({"errors": "The token was not found in the request"}, status=status.HTTP_409_CONFLICT) # Response
 
-# Clase que crea y lista subscripciones
+# View that creates and lists subscriptions
 class SubscripcionListView(generics.ListCreateAPIView):
 
     parser_classes = [JSONParser]
     serializer_class = SubscripcionSerializer
     queryset = Subscription.objects.all()
 
-    # Peticion GET
+    # Petition GET
     def get(self, request, format=None):
 
         queryset = self.get_queryset() # Queryset
 
-        serializer = SubscripcionSerializer(queryset, many=True)
+        serializer = SubscripcionSerializer(queryset, many=True) # Serializer
         return Response(serializer.data, status=status.HTTP_200_OK) # Response
 
-    # Peticion POST
+    # Petition POST
     def post(self, request, format=None):
 
-        serializer = SubscripcionSerializer(data=request.data) 
+        serializer = SubscripcionSerializer(data=request.data) # The data is serialized
 
-        if serializer.is_valid(): # Validacion de los datos recibidos
-            serializer.save() 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid(): # Validation of received data
+            serializer.save() # The data is save
+            return Response(serializer.data, status=status.HTTP_201_CREATED) # Response
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # Response
 
-# Clase que optiene una subscripcion por id
+# View that gets a subscription by id
 class SubscriptionDetailView(generics.RetrieveDestroyAPIView):
 
     serializer_class = SubscripcionSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
-    # Se obtiene el objeto por la id
+    # Get the object by id
     def get_object(self, id:int):
         try:
             subscription = Subscription.objects.get(id=id) # Queryset
         except Subscription.DoesNotExist:
-            # Si no existe retorna un mensaje 404
+            # If it does not exist, it returns a 404 message
             raise Http404
         
         return subscription
     
-    # Peticion GET
+    # Petition GET
     def get(self, request, id:int, format=None):
 
-        subcription = self.get_object(id)
-        serializer = SubscripcionSerializer(subcription)
+        subcription = self.get_object(id) # Object
+        serializer = SubscripcionSerializer(subcription) # Serializer data
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK) # Response
     
-    # Peticion DELETE
+    # Petition DELETE
     def delete(self, request, id:int, format=None):
 
-        subscription = self.get_object(id)
-        subscription.delete()
+        subscription = self.get_object(id) # Object
+        subscription.delete() # Delete a Object subscription
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT) # Response
 
-# Clase para el envio de correos
+# View for mailing
 class SendEmailView(generics.CreateAPIView):
 
     serializer_class = MessageSerializer
@@ -263,48 +279,49 @@ class SendEmailView(generics.CreateAPIView):
 
     def post(self, request, format=None):
 
-        information = MessageSerializer(data=request.data) 
+        information = MessageSerializer(data=request.data) # The data is serialized
 
-        if information.is_valid():
+        if information.is_valid(): # The information is validated
 
             print(information.data)
-            Util.send_email(data=information.data)
+            Util.send_email(data=information.data) # The method of the util send email class is used
 
-            return Response(information.data, status=status.HTTP_200_OK)
+            return Response(information.data, status=status.HTTP_200_OK) # Response
         
-        return Response(information.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(information.errors, status=status.HTTP_400_BAD_REQUEST) # Response
 
+# View that changes the user's password
 class ChangePasswordView(generics.UpdateAPIView):
     """
-    Un punto final para cambiar la contraseña.
+    One end point to change the password
     """
     serializer_class = ChangePasswordSerializer
     model = User
     parser_classes = [JSONParser]
 
-    # Se optiene el objeto usuario
+    # Get the user object
     def get_object(self, queryset=None):
 
         object = self.request.user
         return object
     
-    # Peticion PUT
+    # Petition PUT
     def update(self, request, *args, **kwargs):
 
-        self.object = self.get_object()
-        serializer = self.get_serializer(data=request.data)
+        self.object = self.get_object() # Is obtained a user
+        serializer = self.get_serializer(data=request.data) # The data is serialized
 
-        if serializer.is_valid():
+        if serializer.is_valid(): # The date is validated
 
-            # Se comrueba si la constraseña es la correcta
+            # Check if the password is correct
             if not self.object.check_password(serializer.data.get("old_password")):
                 return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
             
-            # set_password se codifica la contraseña que obtendra el usuario
+            # The password that the user will get is encrypted
             self.object.set_password(serializer.data.get("new_password"))
-            self.object.save()
+            self.object.save() # The new password is saved
 
-            # Respuesta
+            # Response
             response = {
                 'status': 'success',
                 'code': status.HTTP_200_OK,
@@ -319,6 +336,7 @@ class ChangePasswordView(generics.UpdateAPIView):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
+    # Email Message
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
     send_mail(

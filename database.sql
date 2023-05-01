@@ -155,25 +155,15 @@ CREATE TABLE ORDER(
     num_department INT(10) NULL,
     id_commune INT(10) NOT NULL,
     id_voucher INT(10) NOT NULL,
+    id_user INT(10) NOT NULL,
     
     CONSTRAINT pk_id_order PRIMARY KEY (id_order),
     CONSTRAINT fk_id_commune FOREIGN KEY (id_commune) REFERENCES COMMUNE(id_commune),
-    CONSTRAINT fk_id_voucher FOREIGN KEY (id_voucher) REFERENCES VOUVHER(id_voucher)
-);
-
-ALTER TABLE ORDER MODIFY id_order INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
-CREATE TABLE DETAIL_ORDER(
-    id_detail_order INT(10) NOT NULL,
-    id_order INT(10) NOT NULL,
-    id_user INT(10) NOT NULL,
-    
-    CONSTRAINT pk_id_detail_order PRIMARY KEY (id_detail_order),
-    CONSTRAINT fk_id_order FOREIGN KEY (id_order) REFERENCES ORDER(id_order),
+    CONSTRAINT fk_id_voucher FOREIGN KEY (id_voucher) REFERENCES VOUVHER(id_voucher),
     CONSTRAINT fk_id_user FOREIGN KEY (id_user) REFERENCES USER(id_user)
 );
 
-ALTER TABLE DETAIL_ORDER MODIFY id_detail_order INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+ALTER TABLE ORDER MODIFY id_order INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 -- Regiones de Chile
 
@@ -671,3 +661,10 @@ INSERT INTO purchase_commune VALUES(344, "Timaukel", 55);
 
 INSERT INTO purchase_commune VALUES(345, "Natales", 53);
 INSERT INTO purchase_commune VALUES(346, "Torres del Paine", 53);
+
+-- Categorias
+
+INSERT INTO products_category VALUES(1, "Flores", "plantas de pequeño tamaño con una gran variedad de colores");
+INSERT INTO products_category VALUES(2, "Arboles", "plantas de gran tamaño y altura con una gra copa en su parte superior");
+INSERT INTO products_category VALUES(3, "Arbustos", "plantas de mediano tamaño con una gran variedad de formas");
+INSERT INTO products_category VALUES(4, "Herramientas", "utencilios para la jardineria");

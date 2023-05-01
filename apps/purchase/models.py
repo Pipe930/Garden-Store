@@ -9,6 +9,7 @@ class Voucher(models.Model):
     code = models.UUIDField(default=uuid4, unique=True) # Code
     created = models.DateTimeField(auto_now_add=True) # Create
     total_price = models.PositiveIntegerField(default=0) # Total Price
+    state = models.BooleanField(default=True)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
@@ -67,6 +68,7 @@ class Order(models.Model):
     num_department = models.PositiveSmallIntegerField(blank=True, null=True)
     idCommune = models.ForeignKey(Commune, on_delete=models.CASCADE)
     idVoucher = models.ForeignKey(Voucher, on_delete=models.CASCADE)
+    iduser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'order'
@@ -74,7 +76,3 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return self.code
-    
-class DetailOrder(models.Model):
-    idUser = models.ForeignKey(User, on_delete=models.CASCADE)
-    idOrder = models.ForeignKey(Order, on_delete=models.CASCADE)

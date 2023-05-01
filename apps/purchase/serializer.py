@@ -1,16 +1,28 @@
 from rest_framework import serializers
 from .models import Order, Voucher, Region, Province, Commune
+from apps.products.models import Product
 
 # Serializer Voucher
 
 class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
-        fields = ('total_price', 'created', 'idUser', 'idCart', 'idPayment')
+        fields = ('total_price', 'created', 'idUser', 'idCart')
     
     def create(self, **validated_data):
+        
         voucher = Voucher.objects.create(**validated_data)
         return voucher
+
+class SubstractStockProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Product
+        fields = ('id', 'stock')
+    
+    def save(self, **kwargs):
+        return super().save(**kwargs)
 
 # Serializer Order
 

@@ -1,5 +1,47 @@
 from rest_framework import serializers
 from .models import Category, Product, Offer
+import base64
+import uuid
+import six
+import imghdr
+from django.core.files.base import ContentFile
+
+class Base64Image(serializers.ImageField):
+    """
+    A Django REST framework field for handling image-uploads through raw pos data.
+    It uses base64 for encoding and decoding the contents of the file.
+
+    Heavily based on
+
+    Updated for Django REST framework 3.
+    """
+
+    def to_internal_value(self, data):
+
+        if isinstance(data, six.string_types):
+            if "data:" in data and ";base64;" in data:
+                header, data = data.split(";base64,")
+            
+            try:
+                decoded_file = base64.b64decode(data)
+            except TypeError:
+                self.fail("Invaldid image")
+            
+            file_name = str(uuid.uuid4())[:12]
+            file_extension = self.get_file_extension(file_name, decoded_file)
+
+            complete_file_name = "%s.%s" % (file_name, file_extension,)
+
+            data = ContentFile(decoded_file, name=complete_file_name)
+
+        return super(Base64Image, self).to_internal_value(data=data)
+    
+    def get_file_extension(self, file_name, decoded_file):
+
+        extension = imghdr.what(file_name, decoded_file)
+        extension = "jpg" if extension == "jpeg" else extension
+
+        return extension
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,6 +50,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     idCategory = serializers.StringRelatedField()
     idOffer = serializers.StringRelatedField()
+    # image = serializers.ImageField(max_length=None, use_url=True,)
     price = serializers.SerializerMethodField(method_name='discount')
     
     def create(self, validated_data):

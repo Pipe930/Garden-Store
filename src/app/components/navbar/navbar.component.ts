@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   public isMenuOpen: boolean = false;
   public username: string = '';
+  public icon: boolean = false;
 
   constructor(){
     if(sessionStorage.getItem('user')){
@@ -36,5 +37,13 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
+    setInterval(() => {
+      let screenWidth = window.innerWidth;
+      if(screenWidth >= 920){
+        this.icon = true;
+      } else{
+        this.icon = false;
+      }
+    }, 10);
   }
 }

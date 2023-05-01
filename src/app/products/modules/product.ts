@@ -1,3 +1,9 @@
+type offer = {
+  id: number,
+  name_offer: string,
+  discount: number
+}
+
 export interface Product {
   id: number;
   name_product: string;
@@ -9,7 +15,7 @@ export interface Product {
   condition: boolean;
   create: string;
   idCategory: number;
-  idOffer: number;
+  idOffer: offer;
 }
 
 export interface ResponseProducts {

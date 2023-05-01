@@ -1,0 +1,32 @@
+<div class="container-products">
+  <article class="product" *ngFor="let productoffer of servicio.listProductsOffer$ | async">
+    <div class="header-product">
+      <img [src]="productoffer.image" alt="image product">
+    </div>
+    <div class="body-product">
+      <h2>
+        {{productoffer.name_product}}
+      </h2>
+      <ul>
+        <li>
+          Precio: ${{productoffer.price}}
+        </li>
+        <li>
+          Stock: {{productoffer.stock}}
+        </li>
+        <li>
+          Categoria: {{productoffer.idCategory}}
+        </li>
+        <li>
+          Descuento: {{productoffer.idOffer.discount}}%
+        </li>
+        <li>
+          <p>
+            Descripcion: {{productoffer.description}}
+          </p>
+        </li>
+      </ul>
+      <button type="button" [routerLink]="['/products/product/', productoffer.slug]">Ver</button>
+    </div>
+  </article>
+</div>

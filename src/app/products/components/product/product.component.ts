@@ -14,7 +14,6 @@ export class ProductComponent implements OnInit {
 
   public productSlug: string = '';
   public product: Product | any;
-  public dominio: string = 'http://127.0.0.1:8000';
   public quality: number = 1;
   public stockPorduct: number = 0;
   public idProduct: number = 0;
@@ -35,6 +34,8 @@ export class ProductComponent implements OnInit {
       this.product = resultado;
       this.stockPorduct = resultado.stock;
       this.idProduct = resultado.id;
+
+      console.log(resultado.price);
     }, error => {
       console.log(error);
     });

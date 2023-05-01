@@ -1,4 +1,4 @@
-$menuBreakpoint: 1020px;
+$menuBreakpoint: 970px;
 $menuHeight: 60px;
 
 #navbar{
@@ -100,13 +100,29 @@ $menuHeight: 60px;
         }
 
         .btn-perfil{
-          background-color: rgba(88, 106, 240, 0.9);
-          padding: 7px 10px;
-          font-size: 15px;
+          margin-top: 16px;
+
+          background-color: #9bc0ff;
           border: none;
+          border-radius: 50%;
           color: #F0F0F0;
           font-weight: 900;
           cursor: pointer;
+        }
+
+        @media screen and (max-width: $menuBreakpoint){
+
+          .btn-perfil{
+            margin-top: 1px;
+            padding: 7px;
+            border-radius: 0;
+            background-color: #3498DB;
+
+            label::before{
+              content: 'Perfil';
+              font-size: 17px;
+            }
+          }
         }
       }
 

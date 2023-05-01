@@ -20,7 +20,8 @@ export class CartService {
   public cartAdd(product: AddCart):void{
     this.http.post<Cart>(`${this.urlCart}item/add`, product, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": 'Token ' + sessionStorage.getItem('token')!
       })
     }).subscribe(result => {
       if(result){

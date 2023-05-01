@@ -79,7 +79,8 @@ export class AuthenticationService {
   public logout(token: string):void{
     this.http.get<any>(`${this.urlApi}auth/logout?token=${token}`, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": 'Token ' + sessionStorage.getItem('token')!
       })
     }).subscribe(result => {
       if(result){
@@ -93,9 +94,11 @@ export class AuthenticationService {
 
   public resetPassword(formulario: ResetPassword): void{
     this.http.post<any>(`${this.urlApi}password-reset/`, formulario, {
-            headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+
+      }),
+      withCredentials:true
     }).subscribe(result => {
       if(result){
         Swal.fire({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product, ResponseProducts } from '../modules/product';
 import { Category } from '../modules/category';
-import { BehaviorSubject, map, delay, Observable } from 'rxjs';
+import { BehaviorSubject, delay, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,9 @@ export class ProductService {
 
   public listCategories: Array<Category> = [];
   public activeFooter: boolean = false;
+
+  public listProductsOffer = new BehaviorSubject<Array<Product>>([]);
+  public listProductsOffer$ = this.listProductsOffer.asObservable();
 
   constructor(
     private http: HttpClient
@@ -97,5 +100,24 @@ export class ProductService {
     }, error => {
       console.log(error);
     })
+  }
+
+  public getProductsOffer():void{
+    this.http.get<ResponseProducts>(`${this.url}offer/`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(
+      delay(1000)
+    ).subscribe(result => {
+      this.page = this.page + 1;
+      this.listProductsOffer.next(result.results);
+      console.log(result.results);
+      if(result.results.length){
+        this.activeFooter = true;
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 }

@@ -2,7 +2,7 @@
 <div class="container-product" *ngIf="product">
   <article class="product">
     <div class="container-img">
-      <img [src]="dominio + product.image" alt="image product">
+      <img [src]="product.image" alt="image product">
     </div>
     <div class="container-content">
       <h1>{{product.name_product}}</h1>
@@ -15,6 +15,9 @@
         </li>
         <li>
           Categoria: {{product.idCategory}}
+        </li>
+        <li *ngIf="product.idOffer">
+          Descuento: 20%
         </li>
         <p>
           Descripcion <br>

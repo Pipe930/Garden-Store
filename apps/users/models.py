@@ -47,6 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     class Meta:
+
+        db_table = "users"
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
 
@@ -70,6 +72,7 @@ class Subscription(models.Model):
 
     class Meta:
 
+        db_table = "subscriptions"
         verbose_name = 'subscription'
         verbose_name_plural = 'subscriptions'
     

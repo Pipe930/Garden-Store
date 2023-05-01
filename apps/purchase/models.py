@@ -14,6 +14,8 @@ class Voucher(models.Model):
     idCart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
     class Meta:
+
+        db_table = "vouchers"
         verbose_name = 'voucher'
         verbose_name_plural = 'vourchers'
     
@@ -25,6 +27,8 @@ class Region(models.Model):
     initials = models.CharField(max_length=10) # Siglas
 
     class Meta:
+
+        db_table = 'regions'
         verbose_name = 'region'
         verbose_name_plural = 'regions'
     
@@ -38,6 +42,8 @@ class Province(models.Model):
     idRegion = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     class Meta:
+
+        db_table = 'provinces'
         verbose_name = 'province'
         verbose_name_plural = 'provinces'
     
@@ -51,6 +57,8 @@ class Commune(models.Model):
     idProvince = models.ForeignKey(Province, on_delete=models.CASCADE)
 
     class Meta:
+
+        db_table = 'communes'
         verbose_name = 'commune'
         verbose_name_plural = 'communes'
     
@@ -71,6 +79,8 @@ class Order(models.Model):
     iduser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
+
+        db_table = 'orders'
         verbose_name = 'order'
         verbose_name_plural = 'orders'
 

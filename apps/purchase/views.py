@@ -83,7 +83,7 @@ class TicketView(generics.ListCreateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class TicketUserView(generics.RetrieveAPIView):
+class TicketUserView(generics.RetrieveDestroyAPIView):
 
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
@@ -102,3 +102,10 @@ class TicketUserView(generics.RetrieveAPIView):
         order = self.get_object(id)
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, id:int):
+
+        order = self.get_object(id)
+        order.delete()
+
+        return Response({"message": "Order delete successfully"}, status=status.HTTP_204_NO_CONTENT)

@@ -10,6 +10,8 @@ class Category(models.Model):
     description_category = models.TextField(max_length=255)
 
     class Meta:
+
+        db_table = 'categories'
         verbose_name = 'category'
         verbose_name_plural = 'categories'
         ordering = ['name_category',]
@@ -25,6 +27,8 @@ class Offer(models.Model):
     discount = models.PositiveSmallIntegerField()
 
     class Meta:
+
+        db_table = 'offers'
         verbose_name = 'offer'
         verbose_name_plural = 'offers'
         ordering = ['start_date',]
@@ -51,6 +55,8 @@ class Product(models.Model):
     idOffer = models.ForeignKey(Offer, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
+
+        db_table = 'products'
         verbose_name = 'product'
         verbose_name_plural = 'products'
         ordering = ['name_product', 'create', 'price', 'stock']

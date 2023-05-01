@@ -8,6 +8,8 @@ class Cart(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
+
+        db_table = 'carts'
         verbose_name = 'cart'
         verbose_name_plural = 'carts'
     
@@ -22,5 +24,6 @@ class CartItems(models.Model):
 
     class Meta:
 
+        db_table = 'cartsItems'
         verbose_name = 'cartItems'
         verbose_name_plural = 'cartsItems'

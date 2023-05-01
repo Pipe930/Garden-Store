@@ -6,6 +6,11 @@ import six
 import imghdr
 from django.core.files.base import ContentFile
 
+class SerializerOffer(serializers.ModelSerializer):
+    class Meta:
+        model = Offer
+        fields = ['id', 'name_offer', 'discount']
+
 class Base64Image(serializers.ImageField):
     """
     A Django REST framework field for handling image-uploads through raw pos data.
@@ -49,7 +54,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     idCategory = serializers.StringRelatedField()
-    idOffer = serializers.StringRelatedField()
+    idOffer = SerializerOffer(many=False)
     # image = serializers.ImageField(max_length=None, use_url=True,)
     price = serializers.SerializerMethodField(method_name='discount')
     

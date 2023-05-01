@@ -1,16 +1,19 @@
 from rest_framework import status, generics
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from .serializer import VoucherSerializer, OrderSerializer
 from .models import Order, Voucher
 from rest_framework.parsers import JSONParser
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 class OrderView(generics.ListCreateAPIView):
 
     serializer_class = VoucherSerializer
     queryset = Voucher.objects.all()
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get(self, request, format=None):
         query = self.get_queryset()
@@ -35,6 +38,8 @@ class OrderUserDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = VoucherSerializer
     parser_classes = [JSONParser]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_object(self, idUser:int):
         try:
@@ -57,7 +62,9 @@ class OrderUserDetailView(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TicketView(generics.ListCreateAPIView):
-    
+
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -79,6 +86,8 @@ class TicketView(generics.ListCreateAPIView):
 class TicketUserView(generics.RetrieveAPIView):
 
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_object(self, idUser:int):
 

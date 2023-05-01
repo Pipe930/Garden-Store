@@ -4,9 +4,8 @@ from rest_framework.response import Response
 from .models import Cart
 from django.http import Http404
 from .serializer import CartSerializer, AddCartItemSerializer, SubtractCartItemSerializer, ClearCartSerializer
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
-from apps.users.authentication import Authentication
 from rest_framework.parsers import JSONParser
 
 class CartsListView(APIView):
@@ -57,10 +56,12 @@ class CartDetailView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class CartUserView(Authentication, generics.RetrieveAPIView):
+class CartUserView(generics.RetrieveAPIView):
 
     serializer_class = CartSerializer
     parser_classes = [JSONParser]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_object(self, idUser:int):
 
@@ -83,6 +84,7 @@ class CreateCartView(generics.CreateAPIView):
 
     serializer_class = CartSerializer
     parser_classes = [JSONParser]
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = CartSerializer(data=request.data)
@@ -94,9 +96,11 @@ class CreateCartView(generics.CreateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AddCartItemView(generics.CreateAPIView, Authentication):
+class AddCartItemView(generics.CreateAPIView):
 
     serializer_class = AddCartItemSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
         serializer = AddCartItemSerializer(data=request.data)
@@ -107,9 +111,11 @@ class AddCartItemView(generics.CreateAPIView, Authentication):
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class SubtractCartItemView(generics.CreateAPIView, Authentication):
+class SubtractCartItemView(generics.CreateAPIView):
 
     serializer_class = SubtractCartItemSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
 
@@ -124,9 +130,11 @@ class SubtractCartItemView(generics.CreateAPIView, Authentication):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ClearCartItemsView(generics.CreateAPIView, Authentication):
+class ClearCartItemsView(generics.CreateAPIView):
 
     serializer_class = ClearCartSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
 

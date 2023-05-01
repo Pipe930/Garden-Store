@@ -19,7 +19,19 @@ class CartItemsSerializer(serializers.ModelSerializer):
         fields = ('id', 'idCart', 'product', 'quantity', 'price')
 
     def total(self, cartItem: CartItems):
-        result = cartItem.quantity * cartItem.product.price
+        if cartItem.product.idOffer is not None:
+            
+            discount = cartItem.product.idOffer.discount
+            priceProduct = cartItem.product.price
+
+            discountDecimal = discount / 100
+            priceDiscount = priceProduct * discountDecimal
+
+            price = priceProduct - priceDiscount
+        else:
+            price = cartItem.product.price
+
+        result = cartItem.quantity * price
         return result
 
 class CartSerializer(serializers.ModelSerializer):
@@ -32,7 +44,7 @@ class CartSerializer(serializers.ModelSerializer):
     
     def main_total(self, cart: Cart):
         items = cart.items.all()
-        total = sum([item.quantity * item.product.price for item in items])
+        total = calculate_total_price(items=items)
         return total
     
     def create(self, validated_data):
@@ -53,6 +65,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
         try:
             cartitem = CartItems.objects.get(product=product, idCart=idCart)
             if cartitem.product.stock > cartitem.quantity:
+
                 cartitem.quantity += quantity
                 cartitem.price = cartitem.quantity * cartitem.product.price
 
@@ -137,3 +150,20 @@ def cartTotal(idCart):
 
     cart.total = total
     cart.save()
+
+def calculate_total_price(items):
+    total_price = 0
+    for item in items:
+        if item.product.idOffer is not None:
+            
+            discount = item.product.idOffer.discount
+            priceProduct = item.product.price
+
+            discountDecimal = discount / 100
+            priceDiscount = priceProduct * discountDecimal
+
+            price = priceProduct - priceDiscount
+        else:
+            price = item.product.price
+        total_price += item.quantity * price
+    return total_price

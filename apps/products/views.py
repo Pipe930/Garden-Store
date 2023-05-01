@@ -9,6 +9,7 @@ from rest_framework.parsers import JSONParser, FileUploadParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
+# View to create a new category
 class CreateCategoryView(generics.CreateAPIView):
 
     serializer_class = CategorySerializer
@@ -16,15 +17,17 @@ class CreateCategoryView(generics.CreateAPIView):
     permission_classes = [IsAdminUser, IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
+    # Petition POST
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data = request.data)
+        serializer = self.get_serializer(data = request.data) # The data is serialized
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid(): # The data is validated
+            serializer.save() # The data is save
+            return Response(serializer.data, status=status.HTTP_201_CREATED) # Response
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # Response
 
+# View that lists all categories
 class ListCategoriesView(generics.ListAPIView):
 
     serializer_class = CategorySerializer
@@ -32,13 +35,13 @@ class ListCategoriesView(generics.ListAPIView):
     permission_classes = [AllowAny]
     
     def get(self, request, format=None):
-        queryset = self.get_queryset()
+        queryset = self.get_queryset() # Get the queryset
 
         if len(queryset):
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = self.get_serializer(queryset, many=True) # The data is serialized
+            return Response(serializer.data, status=status.HTTP_200_OK) # Response
         else:
-            return Response({'message': 'Not Data Found'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'message': 'Not Data Found'}, status=status.HTTP_204_NO_CONTENT) # Response
 
 class CategoryDetailView(generics.RetrieveAPIView):
 

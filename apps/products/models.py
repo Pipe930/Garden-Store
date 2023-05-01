@@ -58,7 +58,6 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.name_product
 
-
 def set_slug(sender, instance, *args, **kwargs):
     if instance.slug:
         return

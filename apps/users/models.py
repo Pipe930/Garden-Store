@@ -2,8 +2,12 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from simple_history.models import HistoricalRecords
 
+# Class to create users
 class UserManager(BaseUserManager):
+
+    # Method of creating a new user
     def _create_user(self, username, email, first_name, last_name, password, is_staff, is_superuser, **extra_fields):
+        # The user model is instantiated
         user = self.model(
             username = username,
             email = self.normalize_email(email),
@@ -14,19 +18,23 @@ class UserManager(BaseUserManager):
             **extra_fields
         )
 
-        user.set_password(password)
-        user.save(using = self.db)
+        user.set_password(password) # Password is encrypted
+        user.save(using = self.db) # The new user is saved in the database.
 
         return user
-
+    
+    # Method of creating a user
     def create_user(self, username, email, first_name, last_name, password=None, **extra_fields):
         return self._create_user(username, email, first_name, last_name, password, False, False, **extra_fields)
-
+    
+    # Method of creating a superuser
     def create_superuser(self, username, email, first_name, last_name, password=None, **extra_fields):
         return self._create_user(username, email, first_name, last_name, password, True, True, **extra_fields)
 
-# Modelo Usuario
+# User Model
 class User(AbstractBaseUser, PermissionsMixin):
+
+    # Attributes
     username = models.CharField(max_length=60, unique=True)
     email = models.EmailField('Correo Electronico', max_length=255, unique=True)
     first_name = models.CharField('Nombre', max_length=40, blank=True, null=True)
@@ -51,7 +59,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
 
+# Subscription Model
 class Subscription(models.Model):
+
+    # Attributes
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(unique=True)
     amount = models.PositiveSmallIntegerField()

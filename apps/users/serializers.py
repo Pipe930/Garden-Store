@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User, Subscription
 
-# Modelo Usuario serializado
+# Serialized User Model
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,12 +17,13 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
     
-    # Funcion de crear un nuevo usuario
+    # Method of creating a new user
     def create(self, validated_data):
 
-        user = User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data) # Queryset
         return user
 
+# Serialized Subscripcion Model
 class SubscripcionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -34,7 +35,10 @@ class SubscripcionSerializer(serializers.ModelSerializer):
         subscription = Subscription.objects.create(**validated_data)
         return subscription
 
+# Send mail serializer
 class MessageSerializer(serializers.Serializer):
+
+    # Required attributes
     full_name = serializers.CharField(max_length=60)
     email = serializers.EmailField()
     message = serializers.CharField(max_length=255)

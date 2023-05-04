@@ -213,10 +213,11 @@ class LogoutView(generics.RetrieveAPIView):
             return Response({"errors": "The token was not found in the request"}, status=status.HTTP_409_CONFLICT) # Response
 
 # View that creates and lists subscriptions
-class SubscripcionListView(generics.ListCreateAPIView):
+class ListSubscripcionView(generics.ListAPIView):
 
-    parser_classes = [JSONParser]
     serializer_class = SubscripcionSerializer
+    permission_classes = [IsAdminUser, IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
     queryset = Subscription.objects.all()
 
     # Petition GET
@@ -226,6 +227,13 @@ class SubscripcionListView(generics.ListCreateAPIView):
 
         serializer = SubscripcionSerializer(queryset, many=True) # Serializer
         return Response(serializer.data, status=status.HTTP_200_OK) # Response
+
+class CreateSubscriptionView(generics.CreateAPIView):
+
+    parser_classes = [JSONParser]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    serializer_class = SubscripcionSerializer
 
     # Petition POST
     def post(self, request, format=None):

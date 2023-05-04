@@ -37,8 +37,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Attributes
     username = models.CharField(max_length=60, unique=True)
     email = models.EmailField('Correo Electronico', max_length=255, unique=True)
-    first_name = models.CharField('Nombre', max_length=40, blank=True, null=True)
-    last_name = models.CharField('Apellido', max_length=40, blank=True, null=True)
+    first_name = models.CharField('Nombre', max_length=40, blank=True, null=True, default="(Sin Nombre)")
+    last_name = models.CharField('Apellido', max_length=40, blank=True, null=True, default="(Sin Apellido)")
     date_joined = models.DateTimeField(blank=True,null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

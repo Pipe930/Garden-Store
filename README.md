@@ -14,7 +14,7 @@ To install the project dependencies, there is a file named requirements.txt atta
 
 After running the command, a folder with the virtual environment will be created. To activate the virtual environment, run the activate.bat file located in env\Scripts\activate.bat. With the virtual environment activated, install the project dependencies using the command:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Afterwards, the dependencies for running the project will be installed.
 
@@ -36,3 +36,10 @@ To run the project, activate the virtual environment with the installed dependen
     
 The port number is optional. If you do not provide a port number, the server will run on port 8000 at localhost.
 
+# Testing
+To run the project tests there is a folder called test where all the tests of each application and view of the rest api are located. To be able to run the tests of the rest api is with the following command:
+
+    python manage.py test
+
+
+All the api tests will be executed showing if they are successful or one failed showing what failed.

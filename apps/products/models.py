@@ -7,7 +7,7 @@ from django.utils.text import slugify
 
 class Category(models.Model):
     name_category = models.CharField(max_length=60, unique=True)
-    description_category = models.TextField(max_length=255)
+    description = models.TextField()
 
     class Meta:
 
@@ -47,7 +47,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField()
     stock = models.PositiveSmallIntegerField()
     image = models.ImageField(upload_to=nameImage)
-    description = models.TextField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
     slug = models.SlugField(unique=True)
     condition = models.BooleanField(default=True)
     create = models.DateTimeField(auto_now_add=True)

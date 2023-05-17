@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { VoucherModule } from './voucher/voucher.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ContactComponent } from './components/contact/contact.component';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    VoucherModule
   ],
   providers: [],
   bootstrap: [AppComponent]

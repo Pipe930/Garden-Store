@@ -14,6 +14,7 @@ export class ListProductsComponent implements OnInit {
   public name: string = "";
   public filterActivate: boolean = false;
   public activeList: boolean = true;
+  public isNavOpen: boolean = false;
 
   constructor(
     private service: ProductService
@@ -26,6 +27,10 @@ export class ListProductsComponent implements OnInit {
     this.service.listProducts$.subscribe(restult => {
         this.listProducts = restult;
       })
+  }
+
+  public toggleNav():void {
+    this.isNavOpen = !this.isNavOpen;
   }
 
   public loadMoreProducts():void{

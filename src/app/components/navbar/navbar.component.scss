@@ -1,4 +1,4 @@
-$menuBreakpoint: 970px;
+$menuBreakpoint: 1000px;
 $menuHeight: 60px;
 
 #navbar{
@@ -56,6 +56,7 @@ $menuHeight: 60px;
         &.is-open{
           display: block;
           position: absolute;
+          z-index: 2;
           top: $menuHeight;
           background-color: #F4F4F4;
           left: 0;

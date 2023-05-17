@@ -44,7 +44,7 @@ export class AuthenticationService {
       Swal.fire({
         icon: "error",
         title: "Error de Inicio Sesion",
-        text: "Las credenciales que ingresastes no son correctas"
+        text: "La conexion del servidor no a sido exitosa"
       });
     }
     );
@@ -69,7 +69,7 @@ export class AuthenticationService {
         Swal.fire({
           icon: "error",
           title: "Error al Registrarse",
-          text: "Ocurrio un error, debes ingresar bien los datos"
+          text: "La conexion del servidor no a sido exitosa"
         });
       }
 

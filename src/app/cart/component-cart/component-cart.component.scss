@@ -55,6 +55,7 @@
           font-size: 16px;
 
           .btn-sub, .btn-sum{
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.2);
             padding: 4px 10px;
             margin: 0 10px;
             border: none;
@@ -81,7 +82,22 @@
           padding: 15px 0;
           font-size: 16px;
 
+          .btn-voucher{
+            padding: 8px 25px;
+            background-color: #58D68D;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.2);
+          }
+
+          .btn-voucher:hover{
+            background-color: #28B463;
+            transition: 0.3s all;
+          }
+
           .btn-clear{
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.2);
             padding: 6px 10px;
             margin: 0 10px;
             border: none;

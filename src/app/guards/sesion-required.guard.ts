@@ -13,15 +13,16 @@ export class SesionRequiredGuard implements CanActivate {
   canActivate() {
     if(sessionStorage.getItem('token')!=null){
       return true;
-    } else {
-      Swal.fire({
-        title: "Debes Iniciar Sesion",
-        text: "Para poder Acceder esta ruta debes iniciar sesion",
-        icon: "info"
-      })
-      this.ruta.navigate(['auth/login']);
-      return false;
     }
+
+    Swal.fire({
+      title: "Debes Iniciar Sesion",
+      text: "Para poder Acceder esta ruta debes iniciar sesion",
+      icon: "info"
+    })
+    this.ruta.navigate(['auth/login']);
+    return false;
+
   }
 
 }

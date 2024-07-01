@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: gardenstoreweb
+    command: sh -c "./start_server.sh"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+  
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql
+    container_name: mysqldatabase
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=gardenstore
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=12345678
+      - MYSQL_ROOT_PASSWORD=rootpassword
+
+volumes:
+  mysql_data:

@@ -153,7 +153,7 @@ MEDIA_ROOT = join(BASE_DIR, 'img/')
 
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

@@ -5,6 +5,7 @@ Este es un proyecto de una página web de ventas y compras de productos de jardi
 ## Tecnologías
 
 - Python 3.10.4
+- Django 4.0.5
 - HTML5
 - CSS3
 - Bootstrap 5.2.0
@@ -61,7 +62,7 @@ EMAIL_HOST_PASSWORD = 'password12324'
 ```
 
 > [!NOTE]
-> Para la variable de entorno `SECRET_KEY` tienes que ingresar una clave secreta válida para que el proyecto pueda ejecutarse. Puedes conseguir una clave en la siguiente página:**[Djecrety](https://djecrety.ir/)**.
+> Para la variable de entorno `SECRET_KEY` tienes que ingresar una clave secreta válida para que el proyecto pueda ejecutarse. Puedes conseguir una clave en la siguiente página **[Djecrety](https://djecrety.ir/)**.
 
 ### Migraciones
 
@@ -121,7 +122,7 @@ EMAIL_HOST_PASSWORD = 'password12324'
 ```
 
 > [!NOTE]
-> Para la variable de entorno `SECRET_KEY` tienes que ingresar una clave secreta válida para que el proyecto pueda ejecutarse. Puedes conseguir una clave en la siguiente página:**[Djecrety](https://djecrety.ir/)**.
+> Para la variable de entorno `SECRET_KEY` tienes que ingresar una clave secreta válida para que el proyecto pueda ejecutarse. Puedes conseguir una clave en la siguiente página **[Djecrety](https://djecrety.ir/)**.
 
 ### Creación de la Imagen
 
